@@ -1746,3 +1746,1620 @@ print(elements['helium']['is_noble_gas'])
 
 
 # LESSON 03
+
+# Introduction
+
+# Control Flow
+
+# Welcome to this lesson on Control Flow! Control flow is the sequence in which
+# your code is run. Here, we'll learn about several tools in Python we can use to
+# affect our code's control flow:
+
+# Conditional Statements
+
+# 1. Boolean Expressions
+# 2. For and While Loops
+# 3. Break and Continue
+# 4. Zip and Enumerate
+# 5. List Comprehensions
+
+
+# Conditional Statements
+
+# If Statement
+
+# An if statement is a conditional statement that runs or skips code based on
+# whether a condition is true or false. Here's a simple example.
+
+if phone_balance < 5:
+    phone_balance += 10
+    bank_balance -= 10
+
+# Let's break this down.
+
+# An if statement starts with the if keyword, followed by the condition to be
+# checked, in this case phone_balance < 5, and then a colon. The condition is
+# specified in a boolean expression that evaluates to either True or False.
+
+# After this line is an indented block of code to be executed if that condition
+# is true. Here, the lines that increment phone_balance and decrement bank_balance
+# only execute if it is true that phone_balance is less than 5. If not, the code
+# in this if block is simply skipped.
+
+phone_balance = 8
+bank_balance = 100
+
+print(phone_balance, bank_balance)
+
+if phone_balance < 5:
+    phone_balance += 10
+    bank_balance -= 10
+
+print(phone_balance, bank_balance)
+
+#Use Comparison Operators in Conditional Statements
+
+# You have learned about Python's comparison operators (e.g. == and !=) and
+# how they are different from assignment operators (e.g. =). In conditional
+# statements, you want to use comparison operators. For example, you'd want to
+# use if x == 5 rather than if x = 5. If your conditional statement is causing
+# a syntax error or doing something unexpected, check whether you have
+# written == or =!
+
+n = 5
+
+if n % 2 == 0:
+    print("Number " + str(n) + " is even.")
+else:
+    print("Number " + str(n) + " is odd.")
+
+# If, Elif, Else
+
+# In addition to the if clause, there are two other optional clauses often
+# used with an if statement. For example:
+
+season = 'spring'
+
+if season == 'spring':
+    print('plant the garden!')
+elif season == 'summer':
+    print('water the garden!')
+elif season == 'fall':
+    print('harvest the garden!')
+elif season == 'winter':
+    print('stay indoors!')
+else:
+    print('unrecognized season')
+
+# if: An if statement must always start with an if clause, which contains the
+# first condition that is checked. If this evaluates to True, Python runs the
+# code indented in this if block and then skips to the rest of the code after
+# the if statement.
+
+# elif: elif is short for "else if." An elif clause is used to check for an
+# additional condition if the conditions in the previous clauses in the if
+# statement evaluate to False. As you can see in the example, you can have
+# multiple elif blocks to handle different situations.
+
+# else: Last is the else clause, which must come at the end of an if statement
+# if used. This clause doesn't require a condition. The code in an else block
+# is run if all conditions above that in the if statement evaluate to False.
+
+# remember
+# = is an assignment operator that assigns value on the left to the name on the right
+# == is a comparison operator that evaluates whether objects on both sides are equal
+
+# Indentation
+
+# Some other languages use braces to show where blocks of code begin and end.
+# In Python we use indentation to enclose blocks of code. For example, if
+# statements use indentation to tell Python what code is inside and outside of
+# different clauses.
+
+# In Python, indents conventionally come in multiples of four spaces. Be strict
+# about following this convention, because changing the indentation can completely
+# change the meaning of the code. If you are working on a team of Python
+# programmers, it's important that everyone follows the same indentation convention!
+
+# Spaces or Tabs?
+
+# The Python Style Guide recommends using 4 spaces to indent, rather than using
+# a tab. Whichever you use, be aware that "Python 3 disallows mixing the use of
+# tabs and spaces for indentation."
+
+#First Example - try changing the value of phone_balance
+phone_balance = 10
+bank_balance = 50
+
+if phone_balance < 10:
+    phone_balance += 10
+    bank_balance -= 10
+
+print(phone_balance)
+print(bank_balance)
+
+#Second Example - try changing the value of number
+
+number = 145
+if number % 2 == 0:
+    print("Number " + str(number) + " is even.")
+else:
+    print("Number " + str(number) + " is odd.")
+
+#Third Example - try to change the value of age
+age = 35
+
+# Here are the age limits for bus fares
+free_up_to_age = 4
+child_up_to_age = 18
+senior_from_age = 65
+
+# These lines determine the bus fare prices
+concession_ticket = 1.25
+adult_ticket = 2.50
+
+# Here is the logic for bus fare prices
+if age <= free_up_to_age:
+    ticket_price = 0
+elif age <= child_up_to_age:
+    ticket_price = concession_ticket
+elif age >= senior_from_age:
+    ticket_price = concession_ticket
+else:
+    ticket_price = adult_ticket
+
+message = "Somebody who is {} years old will pay ${} to ride the bus.".format(age, ticket_price)
+print(message)
+
+
+# Practice: Which Prize
+
+# Write an if statement that lets a competitor know which of these prizes
+# they won based on the number of points they scored, which is stored in the
+# integer variable points.
+
+# Points    |  Prize
+# 1 - 50	|  wooden rabbit
+# 51 - 150	|  no prize
+# 151 - 180	|  wafer-thin mint
+# 181 - 200	|  penguin
+
+# All of the lower and upper bounds here are inclusive, and points can only
+# take on positive integer values up to 200.
+
+# In your if statement, assign the result variable to a string holding the appropriate
+# message based on the value of points. If they've won a prize, the message should
+# state "Congratulations! You won a [prize name]!" with the prize name. If there's no prize,
+# the message should state "Oh dear, no prize this time."
+
+# Note: Feel free to test run your code with other inputs, but when you submit your answer,
+# only use the original input of points = 174. You can hide your other inputs by
+# commenting them out.
+
+
+points = 174  # use this input to make your submission
+
+
+# write your if statement here
+
+points = 174
+
+if points <= 50:
+	result = "Congratulations! You won a wooden rabbit!"
+elif points <= 150:
+	result = "Oh dear, no prize this time."
+elif points <= 180:
+	result = "Congratulations! You won a wafer-thin mint!"
+else:
+	result = "Congratulations! You won a penguin!"
+
+print(result)
+
+# Output:
+# Congratulations! You won a wafer-thin mint!
+
+# We use <= instead of the < operator, since it was stated that the upper bound
+# is inclusive. Notice that in each condition, we check if points is in a prize
+# bracket by checking if points is less than or equal to the upper bound; we
+# didn't have to check if it was greater than the lower bound. Let's see why this
+# is the case.
+
+# When points = 174, it first checks if points <= 50, which evaluates to False.
+# We don't have to check if it is also greater than 0, since it is stated in
+# the problem that points will always be a positive integer up to 200.
+
+# Since the first condition evaluates to False, it moves on to check the next
+# condition, points <= 150. We don't need to check if it is also greater than
+# 50 here! We already know this is the case because the first condition has to
+# have evaluated to False in order to get to this point. If we know points <= 50
+# is False, then points > 50 must be True!
+
+# Finally, we check if points <= 180, which evaluates to True. We now know that
+# points is in the 151 - 180 bracket.
+
+# The last prize bracket, 181-200, is caught in the else clause, since there is
+# no other possible value of the prize after checking the previous conditions.
+
+# '''
+# You decide you want to play a game where you are hiding
+# a number from someone.  Store this number in a variable
+# called 'answer'.  Another user provides a number called
+# 'guess'.  By comparing guess to answer, you inform the user
+# if their guess is too high or too low.
+
+# Fill in the conditionals below to inform the user about how
+# their guess compares to the answer.
+# '''
+answer = 35
+guess = 30   # this is just a sample answer and guess
+
+if guess < answer:
+	result = "Oops!  Your guess was too low."
+elif guess > answer:
+	result = "Oops!  Your guess was too high."
+elif guess==answer:
+	result = "Nice!  Your guess matched the answer!"
+print(result)
+
+# '''
+# Depending on where an individual is from we need to tax them
+# appropriately.  The states of CA, MN, and
+# NY have taxes of 7.5%, 9.5%, and 8.9% respectively.
+# Use this information to take the amount of a purchase and
+# the corresponding state to assure that they are taxed by the right
+# amount.
+# '''
+state = 'CA'
+purchase_amount = 20.00    # a sample state and purchase amount
+
+if state == 'CA':
+    tax_amount = .075
+    total_cost = purchase_amount*(1+tax_amount)
+    result = "Since you're from {}, your total cost is {}.".format(state, total_cost)
+
+elif state == 'MN':
+    tax_amount = .095
+    total_cost = purchase_amount*(1+tax_amount)
+    result = "Since you're from {}, your total cost is {}.".format(state, total_cost)
+
+elif state == 'NY':
+    tax_amount = .089
+    total_cost = purchase_amount*(1+tax_amount)
+    result = "Since you're from {}, your total cost is {}.".format(state, total_cost)
+
+print(result)
+
+
+# Boolean Expressions for Conditions
+
+# Complex Boolean Expressions
+
+# If statements sometimes use more complicated boolean expressions for their
+# conditions. They may contain multiple comparisons operators, logical operators,
+# and even calculations. Examples:
+
+if 18.5 <= weight / height**2 < 25:
+    print("BMI is considered 'normal'")
+
+if is_raining and is_sunny:
+    print("Is there a rainbow?")
+
+if (not unsubscribed) and (location == "USA" or location == "CAN"):
+    print("send email")
+
+# For really complicated conditions you might need to combine some ands, ors and
+# nots together. Use parentheses if you need to make the combinations clear.
+
+# However simple or complex, the condition in an if statement must be a boolean
+# expression that evaluates to either True or False and it is this value that
+# decides whether the indented block in an if statement executes or not.
+
+
+# Good and Bad Examples
+
+# Here are some things to keep in mind while writing boolean expressions for
+# your if statements.
+
+# 1. Don't use True or False as conditions
+# Bad example
+if True:
+    print("This indented code will always get run.")
+
+# While "True" is a valid boolean expression, it's not useful as a condition
+# since it always evaluates to True, so the indented code will always get run.
+# Similarly, if False is not a condition you should use either - the statement
+# following this if statement would never be executed.
+
+# Another bad example
+if is_cold or not is_cold:
+    print("This indented code will always get run.")
+
+# Another bad example
+is_cold = True
+
+if is_cold or not is_cold:
+    print("The weather is cold or not cold.")
+
+# Similarly, it's useless to use any condition that you know will always evaluate
+# to True, like this example above. A boolean variable can only be True or False,
+# so either is_cold or not is_cold is always True, and the indented code will
+# always be run.
+
+# 2. Be careful writing expressions that use logical operators
+
+# Logical operators and, or and not have specific meanings that aren't quite the
+# same as their meanings in plain English. Make sure your boolean expressions are
+# being evaluated the way you expect them to.
+
+# Bad example
+if weather == "snow" or "rain":
+    print("Wear boots!")
+
+# This code is valid in Python, but it is not a boolean expression, although it
+# reads like one. The reason is that the expression to the right of the or
+# operator, "rain", is not a boolean expression - it's a string! Later we'll
+# discuss what happens when you use non-boolean-type objects in place of booleans.
+
+# Good example
+if weather == "snow" or weather == "rain":
+    print("Wear boots!")
+
+# 3. Don't compare a boolean variable with == True or == False
+# This comparison isn’t necessary, since the boolean variable itself is a
+# boolean expression.
+
+# Bad example
+if is_cold == True:
+    print("The weather is cold!")
+
+# This is a valid condition, but we can make the code more readable by using
+# the variable itself as the condition instead, as below.
+
+# Good example
+if is_cold:
+    print("The weather is cold!")
+
+# If you want to check whether a boolean is False, you can use the not operator.
+
+# Summary Lessons learned
+# 1. Don't use if: True or if: False
+# 2. Be carefule writing expressions that use logical operators: and, or, not
+# 3. Do not evaluate the truth of a boolean variable with ==.  The variable itself
+# is a boolean expression
+
+# Truth Value Testing
+
+# If we use a non-boolean object as a condition in an if statement in place of
+# the boolean expression, Python will check for its truth value and use that to
+# decide whether or not to run the indented code. By default, the truth value of
+# an object in Python is considered True unless specified as False in the
+# documentation.
+
+# Here are most of the built-in objects that are considered False in Python:
+
+# constants defined to be false: None and False
+# zero of any numeric type: 0, 0.0, 0j, Decimal(0), Fraction(0, 1)
+# empty sequences and collections: '"", (), [], {}, set(), range(0)
+
+# Example:
+
+errors = 3
+if errors:
+    print("You have {} errors to fix!".format(errors))
+else:
+    print("No errors to fix!")
+
+# In this code, errors has the truth value True because it's a non-zero number,
+# so the error message is printed. This is a nice, succinct way of writing an
+# if statement.
+
+# Python documentation on Truth Value Testing
+# https://docs.python.org/3/library/stdtypes.html
+
+# question
+
+altitude = 10000
+speed = 250
+propulsion = "Propeller"
+
+# Match
+# Expression                      |  True or False
+#                                 |
+# altitude < 1000 and speed > 100 |  False
+#                                 |
+# (propulsion == "Jet" or         |  False
+# propulsion == "Turboprop") and  |
+# speed < 300 and                 |
+# altitude > 20000                |
+#                                 |
+# not (speed > 400 and            |  True
+# propulsion == "Propeller")      |
+#                                 |
+# (altitude > 500 and             |  True
+# speed > 100) or                 |
+# not propulsion == "Propeller"   |
+
+
+# Quiz: Using Truth Values of Objects
+# The code below is the solution to the Which Prize quiz you've seen previously.
+# You're going to rewrite this based on what you've learned about truth values.
+
+points = 174
+
+if points <= 50:
+    result = "Congratulations! You won a wooden rabbit!"
+elif points <= 150:
+    result = "Oh dear, no prize this time."
+elif points <= 180:
+    result = "Congratulations! You won a wafer-thin mint!"
+else:
+    result = "Congratulations! You won a penguin!"
+
+print(result)
+
+# You will use a new variable prize to store a prize name if one was won, and
+# then use the truth value of this variable to compose the result message. This
+# will involve two if statements.
+
+# 1st conditional statement: update prize to the correct prize name based on points.
+# 2nd conditional statement: set result to the correct phrase based on whether
+# prize is evaluated as True or False.
+
+# If prize is None, result should be set to "Oh dear, no prize this time."
+# If prize contains a prize name, result should be set to "Congratulations!
+# You won a {}!".format(prize). This will avoid having the multiple result
+# assignments for different prizes.
+# At the beginning of your code, set prize to None, as the default value.
+
+points = 174  # use this as input for your submission
+
+# establish the default prize value to None
+
+
+# use the points value to assign prizes to the correct prize names
+
+
+# use the truth value of prize to assign result to the correct prize
+
+points = 174  # use this input when submitting your answer
+
+# set prize to default value of None
+prize = None
+
+# use the value of points to assign prize to the correct prize name
+if points <= 50:
+    prize = "wooden rabbit"
+elif 151 <= points <= 180:
+    prize = "wafer-thin mint"
+elif points >= 181:
+    prize = "penguin"
+
+# use the truth value of prize to assign result to the correct message
+if prize:
+    result = "Congratulations! You won a {}!".format(prize)
+else:
+    result = "Oh dear, no prize this time."
+
+
+# For Loops
+
+# Python has two kinds of loops - for loops and while loops. A for loop is
+# used to "iterate", or do something repeatedly, over an iterable.
+
+# An iterable is an object that can return one of its elements at a time.
+# This can include sequence types, such as strings, lists, and tuples, as
+# well as non-sequence types, such as dictionaries and files.
+
+# You can define objects within an iter method to allow them to be used as iterable.
+# https://www.programiz.com/python-programming/methods/built-in/iter
+
+# Example
+
+cities = ['new york city', 'mountain view', 'chicago', 'los angeles']
+for city in cities:
+    print(city.title())
+
+
+# Example
+
+# Let's break down the components of a for loop, using this example with
+# the list cities:
+
+cities = ['new york city', 'mountain view', 'chicago', 'los angeles']
+for city in cities:
+    print(city)
+print("Done!")
+
+# Components of a for Loop
+
+# 1. The first line of the loop starts with the for keyword, which signals that
+# this is a for loop
+
+# 2.  Following that is city in cities, indicating city is the iteration variable,
+# and cities is the iterable being looped over (the variable that represents the
+# element in the iterable that the loop is currently processing). In the first
+# iteration of the loop, city gets the value of the first element in cities,
+# which is “new york city”.
+
+# 3. The for loop heading line always ends with a colon :
+
+# 4. Following the for loop heading is an indented block of code, the body of the
+# loop, to be executed in each iteration of this loop. There is only one line in
+# the body of this loop - print(city).  Here this indented body is executed once
+# for each element in cities.
+
+# 5. After the body of the loop has executed, we don't move on to the next line
+# yet; we go back to the for heading line, where the iteration variable takes
+# the value of the next element of the iterable. In the second iteration of the
+# loop above, city takes the value of the next element in cities, which is
+# "mountain view".
+
+# 6. This process repeats until the loop has iterated through all the elements
+# of the iterable. Then, we move on to the line that follows the body of the
+# loop - in this case, print("Done!"). We can tell what the next line after the
+# body of the loop is because it is unindented. Here is another reason why
+# paying attention to your indentation is very important in Python!
+
+# Executing the code in the example above produces this output:
+
+# new york city
+# mountain view
+# chicago
+# los angeles
+# Done!
+
+# You can name iteration variables however you like. A common pattern is to give
+# the iteration variable and iterable the same names, except the singular and
+# plural versions respectively (e.g., 'city' and 'cities').
+
+# The loop above extracts information from a list.  You can also use For Loops
+# to create lists and to modify lists.  Start with an empty list and use the
+# append method to add new items.
+
+cities = ['new york city', 'mountain view', 'chicago', 'los angeles']
+capitalized_cities = []
+
+for city in cities:
+    capitalized_cities.append(city.title())
+
+print(capitalized_cities)
+
+# Modifying a list is a bit more involved and requires a use of a new function:
+
+range(start, stop, step)
+
+# Range is a butit in function used to create immutable sequences of numbers.
+# Has three arguments which must all be integers: start, stop, step
+
+    # start is first number of sequence
+        # if unspecified defaults to zero
+    # stop is one above the last mumber of the sequence
+        # if unspecified defaults to one
+    # step is the difference between start and stop
+
+# 1. Calling range with one integer will make that the stop arfument and
+# return a sequence of
+
+# so range four returns zero through three
+
+print(list(range(4)))
+# returns [0, 1, 2, 3]
+
+# 2. Caliing range with two integers will make those start and stop and
+# return a sequence of numbers from the first number to second number minus one
+
+# so range 2, 6 returns a sequence from 2 to 5
+
+print(list(range(2, 6)))
+# returns [2, 3, 4, 5]
+
+# 3. Calling range with three integers will return a sequence of numbers from
+# the first to the second minus one seperated by the third
+
+# so range 1, 10, 2 returns a sequence from 1 to 9, incremented by 2
+
+print(list(range(1, 10, 2)))
+# returns [1, 3, 5, 7, 9]
+
+# Using the range() Function with for Loops
+# range() is a built-in function used to create an iterable sequence of numbers.
+# You will frequently use range() with a for loop to repeat an action a certain
+# number of times, as in this example:
+
+# Note printing just the output of range only shows you a range object
+
+print(range(4))
+# returns range(0, 4)
+
+# You can view the values in a range object by converting it to a ist or iterating
+# through it in a for loop
+
+for i in range(3):
+    print("Hello!")
+
+# Output:
+
+# Hello!
+# Hello!
+# Hello!
+
+for number in range (4)
+    print(number)
+
+# Output:
+
+# 0
+# 1
+# 2
+# 3
+
+
+cities = ['new york city', 'mountain view', 'chicago', 'los angeles']
+capitalized_cities = []
+
+for index in range(len(cities)): # len cities equals 4
+    cities[index] = cities[index].title()
+    print(index)
+
+print(cities)
+# Output:
+
+# 0
+# 1
+# 2
+# 3
+
+range(start=0, stop, step=1)
+
+# The range() function takes three integer arguments, the first and third of
+#which are optional:
+
+# 1. The 'start' argument is the first number of the sequence. If unspecified,
+# 'start' defaults to 0.
+# 2. The 'stop' argument is 1 more than the last number of the sequence. This
+# argument must be specified.
+# 3. The 'step' argument is the difference between each number in the sequence.
+# If unspecified, 'step' defaults to 1.
+
+# Notes on using range():
+
+# 1. If you specify one integer inside the parentheses withrange(), it's used as
+# the value for 'stop,' and the defaults are used for the other two.
+# e.g. - range(4) returns 0, 1, 2, 3
+# 2. If you specify two integers inside the parentheses withrange(), they're
+# used for 'start' and 'stop,' and the default is used for 'step.'
+# e.g. - range(2, 6) returns 2, 3, 4, 5
+# 3. Or you can specify all three integers for 'start', 'stop', and 'step.'
+# e.g. - range(1, 10, 2) returns 1, 3, 5, 7, 9
+
+# Creating and Modifying Lists
+
+# In addition to extracting information from lists, as we did in the first
+# example above, you can also create and modify lists with for loops. You can
+# create a list by appending to a new list at each iteration of the for loop
+# like this:
+
+# Creating a new list
+cities = ['new york city', 'mountain view', 'chicago', 'los angeles']
+capitalized_cities = []
+
+for city in cities:
+    capitalized_cities.append(city.title())
+
+# Modifying a list is a bit more involved, and requires the use of the range()
+# function.
+
+# We can use the range() function to generate the indices for each value in the
+# cities list. This lets us access the elements of the list with cities[index]
+# so that we can modify the values in the cities list in place.
+
+cities = ['new york city', 'mountain view', 'chicago', 'los angeles']
+
+for index in range(len(cities)):
+    cities[index] = cities[index].title()
+
+
+# for loop practice
+
+sentence = ["the", "quick", "brown", "fox", "jumped", "over", "the", "lazy", "dog"]
+
+# Write a for loop to print out each word in the sentence list, one word per line
+
+sentence = ["the", "quick", "brown", "fox", "jumped", "over", "the", "lazy", "dog"]
+
+for word in sentence:
+    print(word)
+
+
+# Write a for loop using range() to print out multiples of 5 up to 30 inclusive
+
+for i in range(5, 35, 5):
+    print(i)
+
+
+# Quiz: Create Usernames
+# Write a for loop that iterates over the names list to create a usernames list.
+# https://stackoverflow.com/questions/12723751/replacing-instances-of-a-character-in-a-string/12723785#12723785
+# To create a username for each name, make everything lowercase and replace spaces
+# with underscores. Running your for loop over the list:
+
+names = ["Joey Tribbiani", "Monica Geller", "Chandler Bing", "Phoebe Buffay"]
+usernames = []
+
+# write your for loop here
+
+for name in names:
+    usernames.append(name.lower().replace(" ", "_"))
+
+print(usernames)
+
+
+# question
+
+# Let's say instead of creating a new list, we want to modify the names list
+# itself with the changes and write the following code. What would this do?
+
+names = ["Joey Tribbiani", "Monica Geller", "Chandler Bing", "Phoebe Buffay"]
+
+for name in names:
+    name = name.lower().replace(" ", "_")
+
+print(names)
+
+# printed output for nanes list will look exactly like it did in the first line
+
+# Quiz: Modify Usernames with Range
+# Write a for loop that uses range() to iterate over the positions in usernames to
+# modify the list. Like you did in the previous quiz, change each name to be lowercase
+# and replace spaces with underscores. After running your loop, this list
+
+usernames = ["Joey Tribbiani", "Monica Geller", "Chandler Bing", "Phoebe Buffay"]
+
+# write your for loop here
+
+for i in range(len(usernames)):
+    usernames[i] = usernames[i].lower().replace(" ", "_")
+
+print(usernames)
+
+
+# Quiz: Tag Counter
+# Write a for loop that iterates over a list of strings, tokens, and counts
+# how many of them are XML tags. XML is a data language similar to HTML. You
+# can tell if a string is an XML tag if it begins with a left angle bracket "<"
+# and ends with a right angle bracket ">". Keep track of the number of tags using
+# the variable count.
+
+# You can assume that the list of strings will not contain empty strings.
+
+
+tokens = ['<greeting>', 'Hello World!', '</greeting>']
+count = 0
+
+# write your for loop here
+
+for token in tokens:
+    if token[0] == '<' and token[-1] == '>':
+        count += 1
+
+print(count)
+
+
+# Quiz: Create an HTML List
+# Write some code, including a for loop, that iterates over a list of strings
+# and creates a single string, html_str, which is an HTML list. For example, if
+# the list is items = ['first string', 'second string'], printing html_str
+# should output:
+
+items = ['first string', 'second string']
+html_str = "<ul>\n"  # "\ n" is the character that marks the end of the line, it does
+                     # the characters that are after it in html_str are on the next line
+
+# write your code here
+
+for item in items:
+    html_str += "<li>{}</li>\n".format(item)
+html_str += "</ul>"
+
+print(html_str)
+
+print(html_str)
+
+
+# QUESTION
+# Practice with range
+# For each below, match the input code to the appropriate output.
+
+print(list(range(4)))
+# outputs [0,1,2,3]
+
+print(list(range(4,8)))
+# outputs [4,5,6,7]
+
+print(list(range(4,10,2)))
+# outputs [4,6,8]
+
+print(list(range(0,-5)))
+# outputs [ ]
+
+
+# Use the code below to complete the next question.
+
+colors = ['Red', 'Blue', 'Green', 'Purple']
+lower_colors = [ ]
+
+for color in colors:
+    #finish this part
+    lower_colors.append(color.lower())
+
+
+# QUESTION
+# If you want to create a new list called lower_colors, where each color in
+# colors is lower cased, which code line should be inserted into the code
+# block above?
+
+lower_colors.append(color.lower())
+
+
+# Building Dictionaries
+
+# By now you are familiar with two important concepts: 1) counting with for
+# loops and 2) the dictionary get method. These two can actually be combined
+# to create a useful counter dictionary, something you will likely come across
+# again. For example, we can create a dictionary, word_counter, that keeps track
+# of the total count of each word in a string.
+
+# The following are a couple of ways to do it:
+
+# Method 1: Using a for loop to create a set of counters
+# Let's start with a list containing the words in a series of book titles:
+
+book_title =  [
+'great',
+'expectations',
+'the',
+'adventures',
+'of',
+'sherlock',
+'holmes',
+'the',
+'great',
+'gasby',
+'hamlet',
+'adventures',
+'of',
+'huckleberry',
+'fin']
+
+# Step 1: Create an empty dictionary.
+
+word_counter = {}
+
+# Step 2. Iterate through each element in the list. If an element is already
+# included in the dictionary, add 1 to its value. If not, add the element to
+# the dictionary and set its value to 2.
+
+for word in book_title:
+    if word not in word_counter:
+        word_counter[word] = 1
+    else:
+        word_counter[word] += 1
+
+print(word_counter)
+
+# What's happening here?
+# The for loop iterates through each element in the list. For the first
+# iteration, word takes the value 'great'.
+# Next, the if statement checks if word is in the word_counter dictionary.
+# Since it doesn't yet, the statement word_counter[word] = 1 adds great as a
+# key to the dictionary with a value of 1.
+# Then, it leaves the if else statement and moves on to the next iteration of
+# the for loop. word now takes the value expectations and repeats the process.
+# When the if condition is not met, it is because that word already exists in
+# the word_counter dictionary, and the statement word_counter[word] =
+# word_counter[word] + 1 increases the count of that word by 1.
+# Once the for loop finishes iterating through the list, the for loop is complete.
+# We can see the output by printing out the dictionary. Printing word_counter
+# results in the following output:
+
+{
+'great': 2,
+'expectations': 1,
+'the': 2,
+'adventures': 2,
+'of': 2,
+'sherlock': 1,
+'holmes': 1,
+'gasby': 1,
+'hamlet': 1,
+'huckleberry': 1,
+'fin': 1
+}
+
+# Method 2: Using the get method
+# We will use the same list for this example:
+
+book_title =  [
+'great',
+'expectations',
+'the',
+'adventures',
+'of',
+'sherlock',
+'holmes',
+'the',
+'great',
+'gasby',
+'hamlet',
+'adventures',
+'of',
+'huckleberry',
+'fin'
+]
+
+# Step 1: Create an empty dictionary.
+word_counter = {}
+
+# Step 2. Iterate through each element, get() its value in the dictionary,
+# and add 1.
+# Recall that the dictionary get method is another way to retrieve the value of
+# a key in a dictionary. Except unlike indexing, this will return a default value
+# if the key is not found. If unspecified, this default value is set to None.
+# We can use get with a default value of 0 to simplify the code from the first
+# method above.
+
+for word in book_title:
+    word_counter[word] = word_counter.get(word, 0) + 1
+    print(word_counter)
+
+print(word_counter)
+
+# What's happening here?
+# The for loop iterates through the list as we saw earlier. The for loop feeds
+# 'great' to the next statement in the body of the for loop.
+# In this line: word_counter[word] = word_counter.get(word,0) + 1, since the
+# key 'great' doesn't yet exist in the dictionary, get() will return the value
+# 0 and word_counter[word] will be set to 1.
+# Once it encounters a word that already exists in word_counter (e.g. the
+# second appearance of 'the'), the value for that key is incremented by 1. On
+# the second appearance of 'the', the key's value would add 1 again, resulting in 2.
+# Once the for loop finishes iterating through the list, the for loop is complete.
+# Printing word_counter shows us we get the same result as we did in method 1.
+
+{
+'great': 2,
+'expectations': 1,
+'the': 2,
+'adventures': 2,
+'of': 2,
+'sherlock': 1,
+'holmes': 1,
+'gasby': 1,
+'hamlet': 1,
+'huckleberry': 1,
+'fin': 1
+}
+
+# Iterating Through Dictionaries with For Loops
+
+# When you iterate through a dictionary using a for loop, doing it the normal
+# way (for n in some_dict) will only give you access to the keys in the
+# dictionary - which is what you'd want in some situations. In other cases,
+# you'd want to iterate through both the keys and values in the dictionary.
+# Let's see how this is done in an example. Consider this dictionary that uses
+# names of actors as keys and their characters as values.
+
+cast = {
+           "Jerry Seinfeld": "Jerry Seinfeld",
+           "Julia Louis-Dreyfus": "Elaine Benes",
+           "Jason Alexander": "George Costanza",
+           "Michael Richards": "Cosmo Kramer"
+       }
+
+# Iterating through it in the usual way with a for loop would give you just
+# the keys, as shown below:
+
+for key in cast:
+    print(key)
+
+# This outputs:
+
+# Jerry Seinfeld
+# Julia Louis-Dreyfus
+# Jason Alexander
+# Michael Richards
+
+# If you wish to iterate through both keys and values, you can use the
+# built-in method items like this:
+
+for key, value in cast.items():
+    print("Actor: {}    Role: {}".format(key, value))
+
+# This outputs:
+
+# Actor: Jerry Seinfeld    Role: Jerry Seinfeld
+# Actor: Julia Louis-Dreyfus    Role: Elaine Benes
+# Actor: Jason Alexander    Role: George Costanza
+# Actor: Michael Richards    Role: Cosmo Kramer
+
+# items is an awesome method that returns tuples of key, value pairs, which
+# you can use to iterate over dictionaries in for loops.
+
+# Quiz: Fruit Basket - Task 1
+# You would like to count the number of fruits in your basket. In order to do this,
+# you have the following dictionary and list of fruits. Use the dictionary and list
+#to count the total number of fruits, but you do not want to count the other items
+# in your basket.
+
+
+#Example 1
+
+result = 0
+basket_items = {'pears': 5, 'grapes': 19, 'kites': 3, 'sandwiches': 8, 'bananas': 4}
+fruits = ['apples', 'oranges', 'pears', 'peaches', 'grapes', 'bananas']
+
+# Your previous solution here
+
+for fruit, count in basket_items.items():
+   if fruit in fruits:
+       result += count
+
+print("There are {} fruits in the basket.".format(result))
+
+print(result)
+
+# Quiz: Fruit Basket - Task 2
+# If your solution is robust, you should be able to use it with any dictionary of
+# items to count the number of fruits in the basket. Try the loop for each of the
+# dictionaries below to make sure it always works.
+
+#Example 2
+
+result = 0
+basket_items = {'peaches': 5, 'lettuce': 2, 'kites': 3, 'sandwiches': 8, 'pears': 4}
+fruits = ['apples', 'oranges', 'pears', 'peaches', 'grapes', 'bananas']
+
+# Your previous solution here
+
+for fruit, count in basket_items.items():
+   if fruit in fruits:
+       result += count
+
+print("There are {} fruits in the basket.".format(result))
+
+
+# Quiz: Fruit Basket - Task 3
+# So, a couple of things about the above examples:
+
+# 1. It is a bit annoying having to copy and paste all the code to each spot - wouldn't
+# it be nice to have a way to repeat the process without copying all the code? Don't worry!
+# You will learn how to do this in the next lesson!
+
+
+# 2. It would be nice to keep track of both the number of fruits and other items in the basket.
+
+#Example 3
+
+result = 0
+basket_items = {'lettuce': 2, 'kites': 3, 'sandwiches': 8, 'pears': 4, 'bears': 10}
+fruits = ['apples', 'oranges', 'pears', 'peaches', 'grapes', 'bananas']
+
+# Your previous solution here
+
+#Iterate through the dictionary
+for fruit, count in basket_items.items():
+    if fruit in fruits:
+       fruit_count += count
+    else:
+        not_fruit_count += count
+
+print("The number of fruits is {}.  There are {} items that are not fruits.".format(fruit_count, not_fruit_count))
+
+
+# While Loops
+
+# For loops are an example of "definite iteration" meaning that the loop's body
+# is run a predefined number of times.
+# A for loop
+# This differs from "indefinite iteration"
+# which is when a loop repeats an unknown number of times and ends when some condition
+# is met, which is what happens in a while loop. Here's an example of a while loop.
+
+card_deck = [4, 11, 8, 5, 13, 2, 8, 10]
+hand = []
+
+# adds the last element of the card_deck list to the hand list
+# until the values in hand add up to 17 or more
+while sum(hand)  < 17:
+    hand.append(card_deck.pop())
+
+print(hand)
+
+# This example features two new functions. sum returns the sum of the elements in
+# a list, and pop is a list method that removes the last element from a list and returns it.
+
+# Components of a While Loop
+
+# 1. The first line starts with the while keyword, indicating this is a while loop.
+
+# 2. Following that is a condition to be checked. In this example, that's sum(hand) <= 17.
+
+# 3. The while loop heading always ends with a colon :.
+
+# 4. Indented after this heading is the body of the while loop. If the condition
+# for the while loop is true, the code lines in the loop's body will be executed.
+
+# 5. We then go back to the while heading line, and the condition is evaluated again.
+# This process of checking the condition and then executing the loop repeats until
+# the condition becomes false.
+
+
+# 6. When the condition becomes false, we move on to the line following the body of
+# the loop, which will be unindented.
+
+# The indented body of the loop should modify at least one variable in the test
+# condition. If the value of the test condition never changes, the result is an
+# infinite loop!
+
+
+
+# Practice: Factorials with While Loops
+# Find the factorial of a number using a while loop.
+
+# A factorial of a whole number is that number multiplied by every whole number
+# between itself and 1. For example, 6 factorial (written "6!") equals
+# 6 x 5 x 4 x 3 x 2 x 1 = 720. So 6! = 720.
+
+# We can write a while loop to take any given number and figure out what its
+# factorial is.
+
+# Example: If number is 6, your code should compute and print the product, 720.
+
+# number to find the factorial of
+number = 6
+# start with our product equal to one
+product = 1
+# track the current number being multiplied
+current = 1
+
+while  current <= number:
+    # multiply the product so far by the current number
+    product *= current
+    # increment current with each iteration until it reaches number
+    current += 1
+
+# print the factorial of number
+print(product)
+
+
+# Practice: Factorials with For Loops
+# Now use a for loop to find the factorial!
+
+# It will now be great practice for you to try to revise the code you wrote
+# above to find the factorial of a number, but this time, using a for loop.
+# Try it in the code editor below!
+
+# number we'll find the factorial of
+number = 6
+# start with our product equal to one
+product = 1
+
+# calculate factorial of number with a for loop
+for num in range(2, number + 1):
+    product *= num
+
+# print the factorial of number
+print(product)
+
+
+
+# write Fibonacci series up to n
+
+def fib(n):
+#Print a Fibonacci series up to n.
+    n=2000
+    a, b = 0, 1
+    while a < n:
+        print a,
+        a, b = b, a+b
+# Now call the function we just defined
+fib(2000)
+
+
+# Quiz: Count By
+# Suppose you want to count from some number start_num by another number
+# count_by until you hit a final number end_num. Use break_num as the variable
+# that you'll change each time through the loop. For simplicity, assume that
+# end_num is always larger than start_num and count_by is always positive.
+
+# Before the loop, what do you want to set break_num equal to? How do you want
+# to change break_num each time through the loop? What condition will you use
+# to see when it's time to stop looping?
+
+# After the loop is done, print out break_num, showing the value that indicated
+# it was time to stop looping. It is the case that break_num should be a number
+# that is the first number larger than end_num.
+
+start_num = 5
+end_num = 100
+count_by = 2
+
+break_num = start_num
+while break_num < end_num:
+    break_num += count_by
+
+print(break_num)
+
+
+# Quiz: Count By Check
+# Suppose you want to count from some number start_num by another number count_by
+# until you hit a final number end_num, and calculate break_num the way you did in
+# the last quiz.
+
+# Now in addition, address what would happen if someone gives a start_num that
+# is greater than end_num. If this is the case, set result to "Oops! Looks like
+# your start value is greater than the end value. Please try again." Otherwise,
+# set result to the value of break_num.
+
+start_num = 5
+end_num = 100
+count_by = 2
+
+if start_num > end_num:
+    result = "Oops! Looks like your start value is greater than the end value. Please try again."
+
+else:
+    break_num = start_num
+    while break_num < end_num:
+        break_num += count_by
+
+    result = break_num
+
+print(result)
+
+
+# Quiz: Nearest Square
+# Write a while loop that finds the largest square number less than an integerlimit
+# and stores it in a variable nearest_square. A square number is the product of an
+# integer multiplied by itself, for example 36 is a square number because it equals 6*6.
+
+# For example, if limit is 40, your code should set the nearest_square to 36.
+
+limit = 40
+
+num = 0
+while (num+1)**2 < limit:
+    num += 1
+nearest_square = num**2
+
+print(nearest_square)
+
+
+
+# Break, Continue
+# Sometimes we need more control over when a loop should end, or skip an iteration.
+# In these cases, we use the break and continue keywords, which can be used in both
+# for and while loops.
+
+# break terminates a for loop or while loop
+# continue skips one iteration of a for loop or while loop
+
+# debugging with break
+
+manifest = [("bananas", 15),
+("mattresses", 34),
+("dog kennels", 42),
+("machine", 120),
+("cheeses", 5)]
+
+weight = 0
+items = []
+
+for cargo in manifest:
+    print("current weight: {}".format(weight))
+    if weight >= 100:
+        print("breaking loop now")
+        break
+    else:
+        print(" adding {} ({})".format(cargo[0], cargo[1]))
+        items.append(cargo[0])
+        weight += cargo[1]
+
+print(weight)
+print(items)
+
+# continue
+
+fruit = ["orange", "strawberry", "apple"]
+foods = ["apple", "apple", "humus", "toast"]
+
+fruit_count = 0
+for food in foods:
+    if food not in fruit:
+        print("Not a fruit")
+        continue
+    fruit_count += 1
+    print("Found a fruit")
+
+print("total fruit ", fruit_count)
+
+
+# Quiz: Break the String
+# Write a loop with a break statement to create a string, news_ticker, that is
+# exactly 140 characters long. You should create the news ticker by adding
+# headlines from the headlines list, inserting a space in between each headline.
+# If necessary, truncate the last headline in the middle so that news_ticker is
+# exactly 140 characters long.
+
+# Remember that break works in both for and while loops. Use whichever loop seems
+# most appropriate. Consider adding print statements to your code to help you
+# resolve bugs.
+
+# HINT: modify the headlines list to verify your loop works with different inputs
+headlines = ["Local Bear Eaten by Man",
+             "Legislature Announces New Laws",
+             "Peasant Discovers Violence Inherent in System",
+             "Cat Rescues Fireman Stuck in Tree",
+             "Brave Knight Runs Away",
+             "Papperbok Review: Totally Triffic"]
+
+news_ticker = ""
+# write your loop here
+
+news_ticker = ""
+for headline in headlines:
+    news_ticker += headline + " "
+    if len(news_ticker) >= 140:
+        news_ticker = news_ticker[:140]
+        break
+
+print(news_ticker)
+
+
+# Zip and Enumerate
+
+# zip and enumerate are useful built-in functions that can come in handy when
+# dealing with loops.
+
+# Zip
+
+# zip returns an iterator that combines multiple iterables into one sequence of
+# tuples. Each tuple contains the elements in that position from all the iterables.
+
+manifest = [("bananas", 15),
+("mattresses", 34),
+("dog kennels", 42),
+("machine", 120),
+("cheeses", 5)]
+
+items, weights = zip(*manifest)
+
+print(items)
+print(weights)
+
+
+# For example, printing
+
+list(zip(['a', 'b', 'c'], [1, 2, 3]))
+# would output [('a', 1), ('b', 2), ('c', 3)].
+
+# Like we did for range() we need to convert it to a list or iterate through it
+# with a loop to see the elements.
+
+# You could unpack each tuple in a for loop like this.
+
+letters = ['a', 'b', 'c']
+nums = [1, 2, 3]
+
+for letter, num in zip(letters, nums):
+    print("{}: {}".format(letter, num))
+
+# In addition to zipping two lists together, you can also unzip a list into
+# tuples using an asterisk.
+
+some_list = [('a', 1), ('b', 2), ('c', 3)]
+letters, nums = zip(*some_list)
+# This would create the same letters and nums tuples we saw earlier.
+
+# Enumerate
+
+# items zip
+
+item = ["bananas",
+"mattresses",
+"dog kennels",
+"machine",
+"cheeses"
+]
+
+for i, item in zip(range(len(items)), items):
+    print(i, item)
+
+# items enumerate
+
+items = ["bananas",
+"mattresses",
+"dog kennels",
+"machine",
+"cheeses"
+]
+
+for i, item in enumerate(items):
+    print(i, item)
+
+
+# enumerate is a built in function that returns an iterator of tuples containing
+# indices and values of a list. You'll often use this when you want the index along
+# with each element of an iterable in a loop.
+
+letters = ['a', 'b', 'c', 'd', 'e']
+for i, letter in enumerate(letters):
+    print(i, letter)
+# This code would output:
+
+# 0 a
+# 1 b
+# 2 c
+# 3 d
+# 4 e
+
+
+
+# Quiz: Zip Coordinates
+# Use zip to write a for loop that creates a string specifying the label and
+# coordinates of each point and appends it to the list points. Each string
+# should be formatted as label: x, y, z. For example, the string for the first
+# coordinate should be F: 23, 677, 4.
+
+x_coord = [23, 53, 2, -12, 95, 103, 14, -5]
+y_coord = [677, 233, 405, 433, 905, 376, 432, 445]
+z_coord = [4, 16, -6, -42, 3, -6, 23, -1]
+labels = ["F", "J", "A", "Q", "Y", "B", "W", "X"]
+
+points = []
+# write your for loop here
+
+points = []
+for point in zip(labels, x_coord, y_coord, z_coord):
+    points.append("{}: {}, {}, {}".format(*point))
+
+for point in points:
+    print(point)
+
+# Quiz: Zip Lists to a Dictionary
+# Use zip to create a dictionary cast that uses names as keys and heights as values
+
+cast_names = ["Barney", "Robin", "Ted", "Lily", "Marshall"]
+cast_heights = [72, 68, 72, 66, 76]
+
+cast = dict(zip(cast_names, cast_heights))
+print(cast)
+
+# Quiz: Unzip Tuples
+# Unzip the cast tuple into two names and heights tuples.
+
+cast = (("Barney", 72), ("Robin", 68), ("Ted", 72), ("Lily", 66), ("Marshall", 76))
+
+names, heights = zip(*cast)
+print(names)
+print(heights)
+
+# Quiz: Transpose with Zip
+# Use zip to transpose data from a 4-by-3 matrix to a 3-by-4 matrix. There's
+# actually a cool trick for this! Feel free to look at the solutions if you
+# can't figure it out.
+
+data = ((0, 1, 2), (3, 4, 5), (6, 7, 8), (9, 10, 11))
+
+data_transpose = tuple(zip(*data))
+print(data_transpose)
+
+# Quiz: Enumerate
+# Use enumerate to modify the cast list so that each element contains the name
+# followed by the character's corresponding height. For example, the first element
+# of cast should change from "Barney Stinson" to "Barney Stinson 72".
+
+cast = ["Barney Stinson", "Robin Scherbatsky", "Ted Mosby", "Lily Aldrin", "Marshall Eriksen"]
+heights = [72, 68, 72, 66, 76]
+
+for i, character in enumerate(cast):
+    cast[i] = character + " " + str(heights[i])
+
+print(cast)
+
+
+# List Comprehensions
+
+cities = [
+"new york city",
+"mountain view",
+"chicago",
+"los angeles"
+]
+
+capitalized_cities = []
+for city in cities:
+    capitalized_cities.append(city.title())
+
+print(capitalized_cities)
+
+# In Python, you can create lists really quickly and concisely with list
+# comprehensions. This example from earlier:
+
+capitalized_cities = []
+for city in cities:
+    capitalized_cities.append(city.title())
+
+# can be reduced to:
+
+capitalized_cities = [city.title() for city in cities]
+
+# list of squares
+
+squares = []
+
+for x in range(9)
+    squares.append(x*2)
+print(squares)
+
+# reduces to
+
+squares = [x**2 for x in range(9)]
+print(squares)
+
+# List comprehensions allow us to create a list using a for loop in one step.
+
+# You create a list comprehension with brackets [], including an expression to
+# evaluate for each element in an iterable. This list comprehension above calls
+# city.title() for each element city in cities, to create each element in the
+# new list, capitalized_cities.
+
+# Conditionals in List Comprehensions
+
+# You can also add conditionals to list comprehensions (listcomps). After the
+# iterable, you can use the if keyword to check a condition in each iteration.
+
+squares = [x**2 for x in range(9) if x % 2 == 0]
+# The code above sets squares equal to the list [0, 4, 16, 36, 64], as x to the
+# power of 2 is only evaluated if x is even. If you want to add an else, you will
+# get a syntax error doing this.
+
+squares = [x**2 for x in range(9) if x % 2 == 0 else x + 3]
+# If you would like to add else, you have to move the conditionals to the
+# beginning of the listcomp, right after the expression, like this.
+
+squares = [x**2 if x % 2 == 0 else x + 3 for x in range(9)]
+# List comprehensions are not found in other languages, but are very common in
+# Python.
+
+
+# Quiz: Extract First Names
+# Use a list comprehension to create a new list first_names containing just the
+# first names in names in lowercase.
+
+names = ["Rick Sanchez", "Morty Smith", "Summer Smith", "Jerry Smith", "Beth Smith"]
+
+first_names = [name.split()[0].lower() for name in names]
+print(first_names)
+
+# Quiz: Multiples of Three
+# Use a list comprehension to create a list multiples_3 containing the first 20
+# multiples of 3.
+
+multiples_3 = [x * 3 for x in range(1, 21)]
+print(multiples_3)
+
+# Quiz: Filter Names by Scores
+# Use a list comprehension to create a list of names passed that only include
+# those that scored at least 65.
+
+scores = {
+             "Rick Sanchez": 70,
+             "Morty Smith": 35,
+             "Summer Smith": 82,
+             "Jerry Smith": 23,
+             "Beth Smith": 98
+          }
+
+passed = [name for name, score in scores.items() if score >= 65]
+print(passed)
