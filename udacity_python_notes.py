@@ -3363,3 +3363,689 @@ scores = {
 
 passed = [name for name, score in scores.items() if score >= 65]
 print(passed)
+
+
+# LESSON 04
+# Functions
+
+# Welcome to this lesson on Functions! You'll learn about:
+
+# 1. Defining Functions
+# 2. Variable Scope
+# 3. Documentation
+# 4. Lambda Expressions
+# 5. Iterators and Generators
+
+# You can think about functions as a way to take what you have already learned
+# how to do, and put it in a holder that allows you to use it over and over again
+# in an easy to use container.
+
+
+
+# Defining Functions
+# Example of a function definition:
+
+def cylinder_volume(height, radius):
+    pi = 3.14159
+    return height * pi * radius ** 2
+# After defining the cylinder_volume function, we can call the function like this.
+
+cylinder_volume(10, 3)
+# This is called a function call statement.
+
+# A function definition includes several important parts.
+
+# Function Header
+
+# 1. Let's start with the function header, which is the first line of a function definition.
+# The function header always starts with the def keyword, which indicates that
+# this is a function definition
+
+# 2. Then comes the function name (here, cylinder_volume), which follows the same
+# naming conventions as variables.
+# Needs to be one word with no gaps.
+# You can revisit the naming conventions below.
+
+# 3. Immediately after the name are parentheses that may include arguments separated
+# by commas (here, height and radius). Arguments, or parameters, are values that
+# are passed in as inputs when the function is called, and are used in the function
+# body. If a function doesn't take arguments, these parentheses are left empty.
+
+# 4. The header always end with a colon :.
+
+# example fucntion with no arguments
+
+def print_greeting():
+    print("Hello World")
+
+
+
+# Function Body
+
+# The rest of the function is contained in the body, which is where the function
+# does its work.
+
+# 1. The body of a function is the code indented after the header line. Here, it's
+# the two lines that define pi and return the volume.
+
+# 2. Within this body, we can refer to the argument variables, and define new
+# variables, which can only be used within these indented lines.
+
+# 3. The pi variable in the cylinder_volume functions is a local variable. It can
+# only be used within the body of this function.
+# The body will often include a return statement, which is used to send back an
+# output value from the function to the statement that called the function. A
+# return statement consists of the return keyword followed by an expression that
+# is evaluated to get the output value for the function. If there is no return
+# statement, the function simply returns None.
+
+# Naming Conventions for Functions
+
+# Function names follow the same naming conventions as variables.
+
+# 1. Only use ordinary letters, numbers and underscores in your function names.
+# They can’t have spaces, and need to start with a letter or underscore.
+
+# 2. You can’t use reserved words or built-in identifiers that have important purposes
+# in Python, which you’ll learn about throughout this course. A list of Python reserved words is described here.
+
+# 3. Try to use descriptive names that can help readers understand what the function does.
+
+# QUESTION 1 OF 2
+# Which of the below are acceptable ways to begin a function in Python?
+
+# def my_function(arg1, arg2):
+# def my_function(arg2, arg1, arg4):
+
+# Print vs. Return in Functions
+
+# Here are two valid functions. One returns a value and one simply prints a value,
+# without returning anything. Test run this code and experiment to understand
+# the difference.
+
+# this prints something, but does not return anything
+# Some funcrions like print don not return anything at all.
+# Print displays text on the output window, but the value it returns is none
+# None is what a function will return by default if it does not explicitly return
+# anything else.
+# The difference between print and return is often confused.
+# Print provides output to the console
+# Return provides the value that can be stored and worled woth in the code later
+def show_plus_ten(num):
+    print(num + 10)
+
+# this returns something
+def add_ten(num):
+    return(num + 10)
+
+print('Calling show_plus_ten...')
+return_value_1 = show_plus_ten(5)
+print('Done calling')
+print('This function returned: {}'.format(return_value_1))
+
+print('\nCalling add_ten...')
+return_value_2 = add_ten(5)
+print('Done calling')
+print('This function returned: {}'.format(return_value_2))
+
+# Default Arguments
+
+# We can add default arguments in a function to have default values for parameters
+# that are unspecified in a function call.
+
+def cylinder_volume(height, radius=5):
+    pi = 3.14159
+    return height * pi * radius ** 2
+
+# In the example above, radius is set to 5 if that parameter is omitted in a
+# function call. If we call cylinder_volume(10), the function will use 10 as the
+# height and 5 as the radius. However, if we call cylinder_volume(10, 7) the 7
+# will simply overwrite the default value of 5.
+
+# Also notice here we are passing values to our arguments by position. It is
+# possible to pass values in two ways - by position and by name. Each of these
+# function calls are evaluated the same way.
+
+cylinder_volume(10, 7)  # pass in arguments by position
+cylinder_volume(height=10, radius=7)  # pass in arguments by name
+
+
+# Quiz: Defining Functions
+
+# Lots of Practice
+
+# An excellent resource for putting your skills to use is to join communities
+# like the one at HackerRank.
+# https://www.hackerrank.com/
+# Here you can work through tons of problems at your
+# own pace! Once you master writing functions, you will be ready to build full
+# applications using Python.
+
+# write your function here
+
+
+def population_density(population, land_area):
+    return population/land_area
+
+# test cases for your function
+test1 = population_density(10, 1)
+expected_result1 = 10
+print("expected result: {}, actual result: {}".format(expected_result1, test1))
+
+test2 = population_density(864816, 121.4)
+expected_result2 = 7123.6902801
+print("expected result: {}, actual result: {}".format(expected_result2, test2))
+
+
+# Quiz: Population Density Function
+
+# Write a function named population_density that takes two arguments, population
+# and land_area, and returns a population density calculated from those values.
+# I've included two test cases that you can use to verify that your function works
+# correctly.
+
+
+# Quiz: readable_timedelta
+# Write a function named readable_timedelta. The function should take one
+# argument, an integer days, and return a string that says how many weeks and
+# days that is. For example, calling the function and printing the result like this:
+
+print(readable_timedelta(10))
+
+# should output the following:
+# 1 week(s) and 3 day(s).
+
+# write your function here
+
+def readable_timedelta(days):
+    # use integer division to get the number of weeks
+    weeks = days // 7
+    # use % to get the number of days that remain
+    remainder = days % 7
+    return "{} week(s) and {} day(s).".format(weeks, remainder)
+
+# test your function
+print(readable_timedelta(10))
+
+
+
+# Variable Scope
+
+# Variable scope refers to which parts of a program a variable can be referenced,
+# or used, from.
+
+# It's important to consider scope when using variables in functions.
+
+# If a variable
+# is created inside a function, it can only be used within that function. Accessing
+# it outside that function is not possible.
+
+def word_count(dicument, search_term):
+    words = oducment.splits
+    answer = 0
+    for word in words:
+        if word == search_term:
+            answer += 1
+    return answer
+
+
+def nearest_square(limit):
+    answer = 0
+    while (answer +1) ** 2 < limit:
+        answer += 1
+    return answer ** 2
+print(answer)
+
+# both functions above include an answer variable, but they are distinct variables
+# that can only be referenced within their respective functions.
+
+ans = 10
+def show_ans():
+    print(ans)
+
+show_ans()
+print(ans)
+
+# Alternatively we migh have a variable defined outside of fucntions, like above.
+# It can be accessed anywhere outside or within these functions.
+
+# This will result in an error
+def some_function():
+    word = "hello"
+
+print(word)
+
+# In the example above and the example below, word is said to have scope that is
+# only local to each function. This means you can use the same name for different
+# variables that are used in different functions.
+
+# This works fine
+def some_function():
+    word = "hello"
+
+def another_function():
+    word = "goodbye"
+
+# Variables defined outside functions, as in the example below, can still be
+# accessed within a function. Here, word is said to have a global scope.
+
+# This works fine
+word = "hello"
+
+def some_function():
+    print(word)
+
+some_function()
+
+# Notice that we can still access the value of the global variable word within
+# this function. However, the value of a global variable can not be modified
+# inside the function. If you want to modify that variable's value inside this
+# function, it should be passed in as an argument. You'll see more on this in
+# the next quiz.
+
+# Scope is essential to understanding how information is passed throughout
+# programs in Python and really any programming language.
+
+# More on Variable Scope
+
+# When you program, you'll often find that similar ideas come up again and again.
+# You'll use variables for things like counting, iterating and accumulating values
+# to return. In order to write readable code, you'll find yourself wanting to use
+# similar names for similar ideas. As soon as you put multiple piece of code
+# together (for instance, multiple functions or function calls in a single script)
+# you might find that you want to use the same name for two separate concepts.
+
+# Fortunately, you don't need to come up with new names endlessly. Reusing names
+# for objects is OK as long as you keep them in separate scope.
+
+# Good practice: It is best to define variables in the smallest scope they will
+# be needed in. While functions can refer to variables defined in a larger scope,
+# this is very rarely a good idea since you may not know what variables you have
+# defined if your program has a lot of variables.
+
+# QUIZ QUESTION
+
+# Read through this code snippet:
+
+egg_count = 0
+
+def buy_eggs():
+    egg_count += 12 # purchase a dozen eggs
+
+buy_eggs()
+
+# What is the result of running this code? If you aren't sure, try running it
+# on your own computer!
+
+# An error occurs
+
+# This code causes an UnboundLocalError, because the variable egg_count in the
+# first line has global scope. Note that it is not passed as an argument into
+# the function, so the function assumes the egg_count being referred to is the
+# global variable.
+
+# In the last video, you saw that within a function, we can print a global
+# variable's value successfully without an error. This worked because we were
+# simply accessing the value of the variable. If we try to change or reassign
+# this global variable, however, as we do in this code, we get an error. Python
+# doesn't allow functions to modify variables that aren't in the function's scope.
+
+# A better way to write this would be:
+
+egg_count = 0
+
+def buy_eggs(count):
+    return count + 12  # purchase a dozen eggs
+
+egg_count = buy_eggs(egg_count)
+
+
+# Documentation
+
+# One of the key advantages of functions is that they can help break a program
+# down into smaller chunks. This makes code easier to write and also easier to
+# read because the pieces of your code, the functions, are resuable.
+
+def cylinder_volume(height, radius):
+    pi = 3.14159
+    return height * pi * radius ** 2
+
+# using a function three times
+cylinder_volume(10, 3)
+
+cylinder_volume(11, 4)
+
+cylinder_volume(12, 5)
+
+# writing the cylinder volume formula three timestamp
+pi = 3.14159
+10 * pi * 3 ** 2
+11 * pi * 4 ** 2
+12 * pi * 5 ** 2
+
+# If a program needs to calculate volumes of multiple cylinders, it can call the
+# cylinder vlume fucntion multiple times, which is much cleaner than writing out
+# the formula over and over again.
+
+# Functions make code easier to read because they give human readable names to
+# processes.
+
+# Documentation is used to make your code easier to understand and use. Functions
+# are especially readable because they often use documentation strings, or docstrings.
+
+# Docstrings are a type of comment used to explain the purpose of a function, and
+# how it should be used. Here's a function for population density with a docstring.
+
+def population_density(population, land_area):
+    """Calculate the population density of an area. """
+    return population / land_area
+
+# Docstrings are surrounded by triple quotes. The first line of the docstring is
+# a brief explanation of the function's purpose. If you feel that this is sufficient
+# documentation you can end the docstring at this point; single line docstrings are
+# perfectly acceptable, as in the example above.
+
+def population_density(population, land_area):
+    """Calculate the population density of an area.
+
+    INPUT:
+    population: int. The population of that area
+    land_area: int or float. This function is unit-agnostic, if you pass in values in terms
+    of square km or square miles the function will return a density in those units.
+
+    OUTPUT:
+    population_density: population / land_area. The population density of a particular area.
+    """
+    return population / land_area
+
+# If you think that a longer description would be appropriate for the function,
+# you can add more information after the one-line summary. In the example above,
+# you can see that we wrote an explanation of the function's arguments, stating
+# the purpose and types of each one. It's also common to provide some description
+# of the function's output.
+
+# Every piece of the docstring is optional, however, docstrings are a part of good
+# coding practice. You can read more about docstring conventions here.
+# https://www.python.org/dev/peps/pep-0257/
+
+
+# Quiz: Documentation
+# Quiz: Write a Docstring
+
+# Write a docstring for the readable_timedelta function you defined earlier!
+# Remember the way you write your docstrings is pretty flexible! Look through
+# Python's docstring conventions here and check out this Stack Overflow page
+# for some inspiration!
+
+def readable_timedelta_01(days):
+    """Return a string of the number of weeks and days included in days."""
+    weeks = days // 7
+    remainder = days % 7
+    return "{} week(s) and {} day(s)".format(weeks, remainder)
+
+def readable_timedelta_02(days):
+    """Return a string of the number of weeks and days included in days.
+
+    Args:
+        days (int): number of days to convert
+    """
+    weeks = days // 7
+    remainder = days % 7
+    return "{} week(s) and {} day(s)".format(weeks, remainder)
+
+
+# Lambda Expressions
+
+# You can use lambda expressions to create anonymous functions. That is,
+# functions that don’t have a name. They are helpful for creating quick
+# functions that aren’t needed later in your code. This can be especially
+# useful for higher order functions, or functions that take in other functions
+# as arguments.
+
+# With a lambda expression, this function:
+
+def double(x)
+    return x * 2
+
+# can be reduced to:
+
+double = lambda x: x + 2
+
+# With a lambda expression, this function:
+
+def multiply(x, y):
+    return x * y
+
+# can be reduced to:
+
+multiply = lambda x, y: x * y
+
+# Both of these functions are used in the same way. In either case, we can
+# call multiply like this:
+
+multiply(4, 7)
+
+# This returns 28.
+
+# Components of a Lambda Function
+
+# The lambda keyword is used to indicate that this is a lambda expression.
+
+# Following lambda are one or more arguments for the anonymous function separated
+# by commas, followed by a colon :. Similar to functions, the way the arguments are
+# named in a lambda expression is arbitrary.
+
+# Last is an expression that is evaluated and returned in this function. This is
+# a lot like an expression you might see as a return statement in a function.
+
+# With this structure, lambda expressions aren’t ideal for complex functions,
+# but can be very useful for short, simple functions.
+
+
+# Quiz: Lambda Expressions
+
+# Quiz: Lambda with Map
+# map() is a higher-order built-in function that takes a function and iterable
+# as inputs, and returns an iterator that applies the function to each element
+# of the iterable. The code below uses map() to find the mean of each list in
+# numbers to create the list averages. Give it a test run to see what happens.
+
+# Rewrite this code to be more concise by replacing the mean function with a
+# lambda expression defined within the call to map().
+
+numbers = [
+              [34, 63, 88, 71, 29],
+              [90, 78, 51, 27, 45],
+              [63, 37, 85, 46, 22],
+              [51, 22, 34, 11, 18]
+           ]
+
+averages = list(map(lambda x: sum(x) / len(x), numbers))
+print(averages)
+
+# Quiz: Lambda with Filter
+# filter() is a higher-order built-in function that takes a function and iterable
+# as inputs and returns an iterator with the elements from the iterable for which
+# the function returns True. The code below uses filter() to get the names in
+# cities that are fewer than 10 characters long to create the list short_cities.
+# Give it a test run to see what happens.
+
+# Rewrite this code to be more concise by replacing the is_short function with
+# a lambda expression defined within the call to filter().
+
+cities = ["New York City", "Los Angeles", "Chicago", "Mountain View", "Denver", "Boston"]
+
+short_cities = list(filter(lambda x: len(x) < 10, cities))
+print(short_cities)
+
+# [Optional] Iterators and Generators
+
+# Iterators And Generators
+# Iterables are objects that can return one of their elements at a time, such
+# as a list. Many of the built-in functions we’ve used so far, like 'enumerate,'
+# return an iterator.
+
+# An iterator is an object that represents a stream of data. This is different
+# from a list, which is also an iterable, but not an iterator because it is not
+# a stream of data.
+
+# Iterators are favored in different situations.
+
+# Generators are a simple way to create iterators using functionsself.
+# Generator is a function that creates an iterator.
+# You can also
+# define iterators using classes, which you can read more about here.
+# https://docs.python.org/3/tutorial/classes.html#iterators
+
+# The term generator is often used to refer to the generator function.\; but
+# it's also used to refer to the iterator object produced by hte function
+
+# We can differentiate between the two by referring to the function as a
+# generator function, and what it produces as the iterator.
+
+# Here is an example of a generator function called my_range, which produces an
+# iterator that is a stream of numbers from 0 to (x - 1).
+
+def my_range(x):
+    i = 0
+    while i < x:
+        yield i
+        i += 1
+
+# Notice that instead of using the return keyword, it uses yield. This allows
+# the function to return values one at a time, and start where it left off each
+# time it’s called. This yield keyword is what differentiates a generator from
+# a typical function.
+
+# Remember, since this returns an iterator, we can convert it to a list or
+# iterate through it in a loop to view its contents. For example, this code:
+
+for x in my_range(5):
+    print(x)
+
+# outputs:
+
+# 0
+# 1
+# 2
+# 3
+# 4
+
+print(my_range(4))
+
+# Also, calling my range four returns an iterator that we can then iterate
+# through. Using a for loop we can print values from this stream of data
+
+for n in my_range(4):
+    print(n)
+
+# outputs:
+
+# 0
+# 1
+# 2
+# 3
+
+# Why Generators?
+# You may be wondering why we'd use generators over lists. Here’s an excerpt
+# from a stack overflow page that addresses this:
+
+# https://softwareengineering.stackexchange.com/questions/290231/when-should-i-use-a-generator-and-when-a-list-in-python/290235
+
+# Generators are a lazy way to build iterables. They are useful when the fully
+# realized list would not fit in memory, or when the cost to calculate each list
+# element is high and you want to do it as late as possible. But they can only be
+# iterated over once.
+
+
+# [Optional] Quiz: Iterators and Generators
+
+# Quiz: Implement my_enumerate
+# Write your own generator function that works like the built-in function enumerate.
+
+# Calling the function like this:
+
+lessons = [
+"Why Python Programming",
+"Data Types and Operators",
+"Control Flow",
+"Functions",
+"Scripting"
+]
+
+for i, lesson in my_enumerate(lessons, 1):
+    print("Lesson {}: {}".format(i, lesson))
+
+# should output:
+
+# Lesson 1: Why Python Programming
+# Lesson 2: Data Types and Operators
+# Lesson 3: Control Flow
+# Lesson 4: Functions
+# Lesson 5: Scripting
+
+lessons = ["Why Python Programming", "Data Types and Operators", "Control Flow", "Functions", "Scripting"]
+
+def my_enumerate(iterable, start=0):
+    count = start
+    for element in iterable:
+        yield count, element
+        count += 1
+
+for i, lesson in my_enumerate(lessons, 1):
+    print("Lesson {}: {}".format(i, lesson))
+
+# Quiz: Chunker
+# If you have an iterable that is too large to fit in memory in full (e.g.,
+# when dealing with large files), being able to take and use chunks of it at a
+# time can be very valuable.
+
+# Implement a generator function, chunker, that takes in an iterable and yields
+# a chunk of a specified size at a time.
+
+# Calling the function like this:
+
+for chunk in chunker(range(25), 4):
+    print(list(chunk))
+
+# should output:
+
+# [0, 1, 2, 3]
+# [4, 5, 6, 7]
+# [8, 9, 10, 11]
+# [12, 13, 14, 15]
+# [16, 17, 18, 19]
+# [20, 21, 22, 23]
+# [24]
+
+def chunker(iterable, size):
+    """Yield successive chunks from iterable of length size."""
+    for i in range(0, len(iterable), size):
+        yield iterable[i:i + size]
+
+for chunk in chunker(range(25), 4):
+    print(list(chunk))
+
+
+
+# Generator Expressions
+
+# Here's a cool concept that combines generators and list comprehensions! You
+# can actually create a generator in the same way you'd normally write a list
+# comprehension, except with parentheses instead of square brackets. For example:
+
+sq_list = [x**2 for x in range(10)]  # this produces a list of squares
+
+sq_iterator = (x**2 for x in range(10))  # this produces an iterator of squares
+
+# This can help you save time and create efficient code!
+
+# Additional Resources
+
+# If you want to learn more about writing functions, check out this talk from
+# PyCon by Jack Diederich. Diederich covers best practices for writing functions
+# in Python that also apply to all code in Python.
+https://www.youtube.com/watch?v=rrBJVMyD-Gs&feature=youtu.be
+
+# Here's a great blog post about yield and generators from Jeff Knupp.
+https://jeffknupp.com/blog/2013/04/07/improve-your-python-yield-and-generators-explained/
