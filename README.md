@@ -29,6 +29,6 @@ To run the file on your local machine
 2. Extract the .zip file.
 3. Open udacity_python_notes.py file in your Text Editor or favorite Python IDE.
 5. I don't recommend you try to run every bit of code in this file at once.  
-I found it best to read thru the lessons, and copy/paste code into the terminal
-while running Python.
+I found it best to read thru the lessons, and copy/paste code into the python shell or
+a new file while running Python.
 6. I also included the downloaded individual quiz files.
