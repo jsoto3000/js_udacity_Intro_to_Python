@@ -4045,7 +4045,4775 @@ sq_iterator = (x**2 for x in range(10))  # this produces an iterator of squares
 # If you want to learn more about writing functions, check out this talk from
 # PyCon by Jack Diederich. Diederich covers best practices for writing functions
 # in Python that also apply to all code in Python.
-https://www.youtube.com/watch?v=rrBJVMyD-Gs&feature=youtu.be
+# https://www.youtube.com/watch?v=rrBJVMyD-Gs&feature=youtu.be
 
 # Here's a great blog post about yield and generators from Jeff Knupp.
-https://jeffknupp.com/blog/2013/04/07/improve-your-python-yield-and-generators-explained/
+# https://jeffknupp.com/blog/2013/04/07/improve-your-python-yield-and-generators-explained/
+
+
+how_many_snakes = 1
+snake_string = """
+Welcome to Python3!
+
+             ____
+            / . .\\
+            \  ---<
+             \  /
+   __________/ /
+-=:___________/
+
+<3, Juno
+"""
+
+
+print(snake_string * how_many_snakes)
+
+
+
+
+# Quiz Solution: Generate Messages
+# Here's one way you can implement this program!
+
+names = input("Enter names separated by commas: ").title().split(",")
+assignments = input("Enter assignment counts separated by commas: ").split(",")
+grades = input("Enter grades separated by commas: ").split(",")
+
+message = "Hi {},\n\nThis is a reminder that you have {} assignments left to \
+submit before you can graduate. You're current grade is {} and can increase \
+to {} if you submit all assignments before the due date.\n\n"
+
+for name, assignment, grade in zip(names, assignments, grades):
+    print(message.format(name, assignment, grade, int(grade) + int(assignment)*2))
+
+# Errors And Exceptions
+
+# Syntax errors occur when Python can’t interpret our code, since we didn’t
+# follow the correct syntax for Python. These are errors you’re likely to get
+# when you make a typo, or you’re first starting to learn Python.
+
+# Exceptions occur when unexpected things happen during execution of a program,
+# even if the code is syntactically correct. There are different types of
+# built-in exceptions in Python, and you can see which exception is thrown in
+# the error message.
+
+# QUESTION 1 OF 2
+# The following statements are true
+
+# (1) Any syntax error can be detected before running your program.
+# (2) An exception occurs during run time.
+# (3) There are many types of exceptions.
+
+# QUESTION 2 OF 2
+# Here are some of the common exceptions programmers run into in Python. Do
+# some research online to match the appropriate description for each.
+
+# BUILT-IN EXCEPTION    |    DESCRIPTION
+#                       |
+# ValueError            | An object of the correct type but inappropriate value
+#                       | is passed as input to a built-in operation or function
+#                       |
+# AssertionError        | An assert statement fails
+#                       |
+# IndexError            | A sequence subscript is out of range
+#                       |
+# KeyError              | A key can't be found in a dictionary
+#                       |
+# TypeError             | An object of an unsupported type is passed as input
+#                       | to an operation or function
+
+
+# Handling Errors
+
+# Try Statement
+# We can use try statements to handle exceptions. There are four clauses you
+# can use (one more in addition to those shown in the video).
+
+# (1) try: This is the only mandatory clause in a try statement. The code in this
+# block is the first thing that Python runs in a try statement.
+
+# (2) except: If Python runs into an exception while running the try block, it
+# will jump to the except block that handles that exception.
+
+# (3) else: If Python runs into no exceptions while running the try block, it
+# will run the code in this block after running the try block.
+
+# (4) finally: Before Python leaves this try statement, it will run the code
+# in this finally block under any conditions, even if it's ending the program. e.g.,
+# if Python ran into an error while running code in the except or else block, this
+# finally block will still be executed before stopping the program.
+
+# Why do we need the finally clause in Python?
+
+# why python needs finally clause
+
+# code below will continue to run even when press ctrl-c
+
+# why python needs finally clause
+
+# code below will continue to run even when press ctrl-c
+
+while True:
+    try:
+        x = int(input('Enter a number: '))
+        break
+    except :
+        print('That\'s not a valid number!')
+    finally:
+        print('\nAttempted Input\n')
+
+# code below will interrupt when press ctrl-c
+# specifies which error to handle
+# with tuple
+
+while True:
+    try:
+        x = int(input('Enter a number: '))
+        break
+    except (ValueError, KeyboardInterrupt):
+        print('That\'s not a valid number!')
+    finally:
+        print('\nAttempted Input\n')
+
+# code below will interrupt when press ctrl-c
+# specifies which error to handle
+# with multiple except blocks
+
+while True:
+    try:
+        x = int(input('Enter a number: '))
+        break
+    except ValueError:
+        print('That\'s not a valid number!')
+    except  KeyboardInterrupt:
+        print('\nNo input taken!')
+        break
+    finally:
+        print('\nAttempted Input\n')
+
+
+
+
+
+
+# Specifying Exceptions
+# We can actually specify which error we want to handle in an except block like this:
+
+try:
+    # some code
+except ValueError:
+    # some code
+
+# Now, it catches the ValueError exception, but not other exceptions. If we
+# want this handler to address more than one type of exception, we can include a
+# parenthesized tuple after the except with the exceptions.
+
+try:
+    # some code
+except (ValueError, KeyboardInterrupt):
+    # some code
+
+# or, if we want to execute different blocks of code depending on the exception,
+# you can have multiple except blocks.
+
+try:
+    # some code
+except ValueError:
+    # some code
+except KeyboardInterrupt:
+    # some code
+
+
+
+# Handling Input Errors
+
+# The party_planner function below takes as input a number of party people and
+# cookies and figures out how many cookies each person gets at the party, assuming
+# equitable distribution of cookies. Then, it returns that number along with how
+# many cookies will be left over.
+
+# Right now, calling the function with an input of 0 people will cause an error,
+# because it creates a ZeroDivisionError exception. Edit the party_planner function
+# to handle this invalid input. If it runs into this exception, it should print a
+# warning message to the user and request they input a different number of people.
+
+# After you've edited the function, try running the file again and make sure it
+# does what you intended. Try it with several different input values, including 0
+# and other values for the number of people.
+
+def party_planner(cookies, people):
+    leftovers = None
+    num_each = None
+
+    try:
+        num_each = cookies // people
+        leftovers = cookies % people
+    except ZeroDivisionError:
+        print("Oops, you entered 0 people will be attending.")
+        print("Please enter a good number of people for a party.")
+
+    return(num_each, leftovers)
+
+# The main code block is below; do not edit this
+lets_party = 'y'
+while lets_party == 'y':
+
+    cookies = int(input("How many cookies are you baking? "))
+    people = int(input("How many people are attending? "))
+
+    cookies_each, leftovers = party_planner(cookies, people)
+
+    if cookies_each:  # if cookies_each is not None
+        message = "\nLet's party! We'll have {} people attending, they'll each get to eat {} cookies, and we'll have {} left over."
+        print(message.format(people, cookies, leftovers))
+
+    lets_party = input("\nWould you like to party more? (y or n) ")
+
+
+
+# Accessing Error Messages
+# When you handle an exception, you can still access its error message like this:
+
+try:
+    # some code
+except ZeroDivisionError as e:
+   # some code
+   print("ZeroDivisionError occurred: {}".format(e))
+
+# This would print something like this:
+
+# ZeroDivisionError occurred: integer division or modulo by zero
+
+# So you can still access error messages, even if you handle them to keep your
+# program from crashing!
+
+# If you don't have a specific error you're handling, you can still access the
+# message like this:
+
+try:
+    # some code
+except Exception as e:
+   # some code
+   print("Exception occurred: {}".format(e))
+
+# Exception is just the base class for all built-in exceptions. You can learn
+# more about Python's exceptions here.
+# https://docs.python.org/3/library/exceptions.html#bltin-exceptions
+
+
+
+# Reading and Writing Files
+
+# Using Files
+
+# Create a new file in Atom, copy the following text into it, and save it
+# as some_file.txt!
+
+# Hello!!
+
+# You've read the contents of this file!
+# Here's how we read and write files in Python.
+
+# Reading a File
+f = open('my_path/my_file.txt', 'r')
+file_data = f.read()
+f.close()
+
+# First open the file using the built-in function, open. This requires a string
+# that shows the path to the file. The open function returns a file object, which
+# is a Python object through which Python interacts with the file itself. Here,
+#we assign this object to the variable f.
+
+# There are optional parameters you can specify in the open function. One is
+# the mode in which we open the file. Here, we use r or read only. This is
+# actually the default value for the mode argument.
+
+# Use the read method to access the contents from the file object. This read
+# method takes the text contained in a file and puts it into a string. Here,
+# we assign the string returned from this method into the variable file_data.
+
+# When finished with the file, use the close method to free up any system
+# resources taken up by the file.
+
+# Writing to a File
+
+f = open('my_path/my_file.txt', 'w')
+f.write("Hello there!")
+f.close()
+
+# Open the file in writing ('w') mode. If the file does not exist, Python will
+# create it for you. If you open an existing file in writing mode, any content
+# that it had contained previously will be deleted. If you're interested in
+# adding to an existing file, without deleting its content, you should use the
+# append ('a') mode instead of write.
+
+# Use the write method to add text to the file.
+# Close the file when finished.
+# Too Many Open Files
+
+# Run the following script in Python to see what happens when you open too many
+# files without closing them!
+
+files = []
+for i in range(10000):
+    files.append(open('some_file.txt', 'r'))
+    print(i)
+
+# With
+
+# Python provides a special syntax that auto-closes a file for you once you're
+# finished using it.
+
+with open('my_path/my_file.txt', 'r') as f:
+    file_data = f.read()
+
+# This with keyword allows you to open a file, do operations on it, and
+# automatically close it after the indented code is executed, in this case,
+# reading from the file. Now, we don’t have to call f.close()! You can only
+# access the file object, f, within this indented block.  This is another kind of
+# scope. Once you leave this indented block the file is closed and cannot interact
+# with it. Trying to call f.read() outside this block will return an error.
+# However just because you close the file does not mean you lose the data.
+# Calling the file data outside the block works fine.
+
+
+# Quiz: Reading and Writing Files
+
+# Calling the read Method with an Integer
+
+# In the code you saw earlier, the call to f.read() had no arguments passed to
+# it. This defaults to reading all the remainder of the file from its current
+# position - the whole file. If you pass the read method an integer argument,
+# it will read up to that number of characters, output all of them, and keep
+# the 'window' at that position ready to read on.
+
+# Let's see this in an example that uses the following file, camelot.txt:
+
+# We're the knights of the round table
+# We dance whenever we're able
+
+# Here's a script that reads in the file a little at a time by passing an integer
+# argument to .read().
+
+with open("camelot.txt") as song:
+    print(song.read(2))
+    print(song.read(8))
+    print(song.read())
+
+# Outputs:
+
+# We
+# 're the
+# knights of the round table
+# We dance whenever we're able
+
+# You can try out this example by creating your own camelot.txt and example.py
+# files with the text above.
+
+# Each time we called read on the file with an integer argument, it read up to
+# that number of characters, outputted them, and kept the 'window' at that
+# position for the next call to read. This makes moving around in the open
+# file a little tricky, as there aren't many landmarks to navigate by.
+
+# Reading Line by Line
+
+# \ns in blocks of text are newline characters. The newline character marks the
+# end of a line, and tells a program (such as a text editor) to go down to the
+# next line. However, looking at the stream of characters in the file, \n is just
+# another character.
+
+# Fortunately, Python knows that these are special characters and you can ask
+# it to read one line at a time. Let's try it!
+
+# Conveniently, Python will loop over the lines of a file using the syntax for
+# line in file. I can use this to create a list of lines in the file. Because
+# each line still has its newline character attached, I remove this using .strip().
+
+camelot_lines = []
+with open("camelot.txt") as f:
+    for line in f:
+        camelot_lines.append(line.strip())
+
+print(camelot_lines)
+
+# Outputs:
+
+# ["We're the knights of the round table", "We dance whenever we're able"]
+
+# Quiz: Flying Circus Cast List
+# You're going to create a list of the actors who appeared in the television
+# programme Monty Python's Flying Circus.
+
+# Write a function called create_cast_list that takes a filename as input and
+# returns a list of actors' names. It will be run on the file flying_circus_cast.txt
+# (this information was collected from imdb.com). Each line of that file consists
+# of an actor's name, a comma, and then some (messy) information about roles they
+# played in the programme. You'll need to extract only the name and add it to a
+# list. You might use the .split() method to process each line.
+
+def create_cast_list(filename):
+    cast_list = []
+    #use with to open the file filename
+    #use the for loop syntax to process each line
+    #and add the actor name to cast_list
+
+    cast_list = []
+    with open(filename) as f:
+        for line in f:
+            name = line.split(",")[0]
+            cast_list.append(name)
+
+    return cast_list
+
+cast_list = create_cast_list('flying_circus_cast.txt')
+for actor in cast_list:
+    print(actor)
+
+
+# Importing Local Scripts
+
+# We can actually import Python code from other scripts, which is helpful if
+# you are working on a bigger project where you want to organize your code
+# into multiple files and reuse code in those files. If the Python script you
+# want to import is in the same directory as your current script, you just type
+# import followed by the name of the file, without the .py extension.
+
+import useful_functions
+
+# It's the standard convention for import statements to be written at the top
+# of a Python script, each one on a separate line. This import statement creates
+# a module object called useful_functions. Modules are just Python files that
+# contain definitions and statements. To access objects from an imported module,
+# you need to use dot notation.
+
+import useful_functions
+useful_functions.add_five([1, 2, 3, 4])
+
+# We can add an alias to an imported module to reference it with a different name.
+
+import useful_functions as uf
+uf.add_five([1, 2, 3, 4])
+
+# Using a main block
+# To avoid running executable statements in a script when it's imported as a
+# module in another script, include these lines in an if __name__ == "__main__" block.
+# Or alternatively, include them in a function called main() and call this in
+# the if main block.
+
+# Generally it is good practice to write executable statements inside an:
+# if __name__ == "__main__" block;
+# or alterantovely include them in a function called main() and call this in
+# the if main block.
+
+# Whenever we run a script like this, Python actually sets a special built-in
+# variable called __name__ for any module. When we run a script, Python recognizes
+# this module as the main program, and sets the __name__ variable for this module
+# to the string "__main__". For any modules that are imported in this script,
+# this built-in __name__ variable is just set to the name of that module.
+# Therefore, the condition if __name__ == "__main__"is just checking whether
+# this module is the main program.
+
+# Try It Out!
+
+# Here's the code I used in the video above. Create these scripts in the same
+# directory and run them in your terminal! Experiment with the if main block and
+# accessing objects from the imported module!
+
+# demo.py
+
+import useful_functions as uf
+
+scores = [88, 92, 79, 93, 85]
+
+mean = uf.mean(scores)
+curved = uf.add_five(scores)
+
+mean_c = uf.mean(curved)
+
+print("Scores:", scores)
+print("Original Mean:", mean, " New Mean:", mean_c)
+
+print(__name__)
+print(uf.__name__)
+# useful_functions.py
+
+def mean(num_list):
+    return sum(num_list) / len(num_list)
+
+def add_five(num_list):
+    return [n + 5 for n in num_list]
+
+def main():
+    print("Testing mean function")
+    n_list = [34, 44, 23, 46, 12, 24]
+    correct_mean = 30.5
+    assert(mean(n_list) == correct_mean)
+
+    print("Testing add_five function")
+    correct_list = [39, 49, 28, 51, 17, 29]
+    assert(add_five(n_list) == correct_list)
+
+    print("All tests passed!")
+
+if __name__ == '__main__':
+    main()
+
+# The Standard Library
+# You can discover new modules at the Python Module of the Week blog.
+# https://pymotw.com/3/
+
+# Quiz: The Standard Linrary
+
+# Quiz: Compute an Exponent
+
+# It's your turn to import and use the math module. Use the math module to
+# calculate e to the power of 3. print the answer.
+
+# Refer to the math module's documentation to find the function you need!
+# https://docs.python.org/3.6/library/math.html?highlight=math%20module#module-math
+
+# print e to the power of 3 using the math module
+
+import math
+
+e_3 = math.exp(3)
+
+print(e_3)
+
+# Quiz: Password Generator
+# Write a function called generate_password that selects three random words from
+# the list of words word_list and concatenates them into a single string. Your
+# function should not accept any arguments and should reference the global variable
+# word_list to build the password.
+
+# version 1
+# Use an import statement at the top
+import random
+
+word_file = "words.txt"
+word_list = []
+
+#fill up the word_list
+with open(word_file,'r') as words:
+	for line in words:
+		# remove white space and make everything lowercase
+		word = line.strip().lower()
+		# don't include words that are too long or too short
+		if 3 < len(word) < 8:
+			word_list.append(word)
+
+# Add your function generate_password here
+# It should return a string consisting of three random words
+# concatenated together without spaces
+
+def generate_password():
+    return random.choice(word_list) + random.choice(word_list) + random.choice(word_list)
+
+# test your function
+print(generate_password())
+
+# version 2
+# Use an import statement at the top
+import random
+
+word_file = "words.txt"
+word_list = []
+
+#fill up the word_list
+with open(word_file,'r') as words:
+	for line in words:
+		# remove white space and make everything lowercase
+		word = line.strip().lower()
+		# don't include words that are too long or too short
+		if 3 < len(word) < 8:
+			word_list.append(word)
+
+# Add your function generate_password here
+# It should return a string consisting of three random words
+# concatenated together without spaces
+
+def generate_password():
+    return ''.join(random.sample(word_list,3))
+
+# test your function
+print(generate_password())
+
+# Explore the Standard Library
+# Every module in the standard library is lowercased.
+# You can browse the library documentation here.
+# https://docs.python.org/3/library/
+
+# Our favourite modules
+# The Python Standard Library has a lot of modules! To help you get familiar
+# with what's available, here are a selection of our favourite Python Standard
+# Library modules and why we use them!
+
+# (1) csv: very convenient for reading and writing csv files
+# (2) collections: useful extensions of the usual data types including OrderedDict,
+# defaultdict and namedtuple
+# (3) random: generates pseudo-random numbers, shuffles sequences randomly and
+# (4) chooses random items
+# (5) string: more functions on strings. This module also contains useful
+# collections of letters like string.digits (a string containing all characters
+# which are valid digits).
+# (6) re: pattern-matching in strings via regular expressions
+# (7) math: some standard mathematical functions
+# (8) os: interacting with operating systems
+# (9) os.path: submodule of os for manipulating path names
+# (10) sys: work directly with the Python interpreter
+# (11)json: good for reading and writing json files (good for web work)
+
+
+# Techniques for Importing Modules
+# There are other variants of import statements that are useful in different
+# situations.
+
+# importing individual objects from a module means you only take
+# what you need and you don;t need to use notation to access them
+# To import an individual function or class from a module:
+from module_name import object_name
+
+from collections import defaultdict
+collections.defaultdict() # returns error
+defaultdict() # no error
+
+# To import multiple individual objects from a module separte them with commas:
+from module_name import first_object, second_object
+
+# when possible use standard abbreviations
+# To rename a module:
+import module_name as new_name
+
+from csv import reader as csvreader
+
+# To import an object from a module and rename it:
+from module_name import object_name as new_name
+
+# if you really want to use all the objects from a module use the standard
+# import instead and access each of the objects with the notation
+# To import every object individually from a module (DO NOT DO THIS):
+from module_name import *
+
+# If you really want to use all of the objects from a module, use the standard
+# import module_name statement instead and access each of the objects with the
+# dot notation.
+import module_name
+
+# Modules, Packages, and Names
+
+# In order to manage the code better, modules in the Python Standard Library
+# are split down into sub-modules that are contained within a package. A package
+# is simply a module that contains sub-modules. A sub-module is specified with
+# the usual dot notation.
+
+# Modules that are submodules are specified by the package name and then the
+# submodule name separated by a dot. You can import the submodule like this.
+
+import package_name.submodule_name
+
+import os.path
+
+os.path.isdir('my_path')
+
+# namimg can sometimes be a point of confusion when working with modules
+# for example, a module might be named after one of the important classes or
+# functions within it, and will then need to think carefully about the import
+# statements.
+
+from datetime imprt datetime # datetime will now refer to class not module
+
+# Quiz: Techniques for Importing Modules
+
+# Importing and accessing from modules
+# In this quiz, you'll be using different methods to import and use the
+# random.randint() function from the random module. Your task is to match the
+# import statement with the way you would then call the function itself.
+
+# QUIZ QUESTION
+# Match the import statement with the way that random.randint() is called.
+
+#These are the correct matches.
+
+# IMPORT STATEMENT                    |   CALLING THE FUNCTION
+# import random                       |   random.randint(0,10)
+# from random import randint          |   randint(0,10)
+# import random as rd                 |   rd.randint(0,10)
+# from random import randint as rint  |   rint(0,10)
+# from random import *                |   Don't use this import statement!
+
+
+# Third-Party Libraries
+# There are tens of thousands of third-party libraries written by independent
+# developers! You can install them using pip, a package manager that is included
+# with Python 3. pip is the standard package manager for Python, but it isn't
+# the only one. One popular alternative is Anaconda which is designed specifically
+# for data science.
+
+# To install a package using pip, just enter "pip install" followed by the
+# name of the package in your command line like this: pip install package_name.
+# This downloads and installs the package so that it's available to import in
+# your programs. Once installed, you can import third-party packages using the
+# same syntax used to import from the standard library.
+
+# Using a requirements.txt File
+
+# Larger Python programs might depend on dozens of third party packages. To make
+# it easier to share these programs, programmers often list a project's dependencies
+#in a file called requirements.txt. This is an example of a requirements.txt file.
+
+beautifulsoup4==4.5.1
+bs4==0.0.1
+pytz==2016.7
+requests==2.11.1
+
+# Each line of the file includes the name of a package and its version number.
+# The version number is optional, but it usually should be included. Libraries
+# can change subtly, or dramatically, between versions, so it's important to use
+# the same library versions that the program's author used when they wrote the program.
+
+# You can use pip to install all of a project's dependencies at once by typing
+# pip install -r requirements.txt in your command line.
+
+# Useful Third-Party Packages
+# Being able to install and import third party libraries is useful, but to be an
+# effective programmer you also need to know what libraries are available for you
+# to use. People typically learn about useful new libraries from online
+# recommendations or from colleagues. If you're a new Python programmer you may
+# not have many colleagues, so to get you started here's a list of packages that
+# are popular with engineers at Udacity.
+
+# (1) IPython - A better interactive Python interpreter
+# # https://ipython.org/
+
+# (2) requests - Provides easy to use methods to make web requests. Useful for
+# accessing web APIs.
+# http://docs.python-requests.org/en/master/
+
+# (3) Flask - a lightweight framework for making web applications and APIs.
+# http://flask.pocoo.org/
+
+# (4) Django - A more featureful framework for making web applications. Django
+# is particularly good for designing complex, content heavy, web applications.
+# https://www.djangoproject.com/
+
+# (5) Beautiful Soup - Used to parse HTML and extract information from it. Great
+# for web scraping.
+# https://www.crummy.com/software/BeautifulSoup/
+
+# (6) pytest - extends Python's builtin assertions and unittest module.
+# https://docs.pytest.org/en/latest/
+
+# (7) PyYAML - For reading and writing YAML files.
+# https://pyyaml.org/wiki/PyYAML
+
+# (8) NumPy - The fundamental package for scientific computing with Python. It
+# contains among other things a powerful N-dimensional array object and useful
+# linear algebra capabilities.
+# http://www.numpy.org/
+
+# (9) pandas - A library containing high-performance, data structures and data
+# analysis tools. In particular, pandas provides dataframes!
+#
+
+# (10) matplotlib - a 2D plotting library which produces publication quality
+# figures in a variety of hardcopy formats and interactive environments.
+# https://matplotlib.org/
+
+# (11) ggplot - Another 2D plotting library, based on R's ggplot2 library.
+# http://ggplot.yhathq.com/
+
+# (12) Pillow - The Python Imaging Library adds image processing capabilities
+# to your Python interpreter.
+# https://python-pillow.org/
+
+# (13) pyglet - A cross-platform application framework intended for game development.
+# https://bitbucket.org/pyglet/pyglet/wiki/Home
+
+# (14) Pygame - A set of Python modules designed for writing games.
+# https://www.pygame.org/news
+
+# (15) pytz - World Timezone Definitions for Python
+# http://pytz.sourceforge.net/
+
+# Experimenting with an Interpreter
+
+# Start your Python interactive interpreter by entering the command python in
+# your terminal. You can type here to interact with Python directly. This is an
+# awesome place to experiment and try bits of Python code at a time. Just enter
+# Python code, and the output will appear on the next line.
+
+>>> type(5.23)
+<class 'float'>
+
+# In the interpreter, the value of the last line in a prompt will be outputted
+# automatically. If you had multiple lines where you’d want to output values,
+# you’d still have to use print.
+
+# If you start to define a function you will see a change in the prompt, to
+# signify that this is a continuation line. You'll have to include your own
+# indentation as you define the function.
+
+>>> def cylinder_volume(height, radius):
+...         pi = 3.14159
+...         return height * pi * radius ** 2
+
+# A drawback of the interpreter is that it’s tricky to edit code. If you made
+# a mistake when typing this function, or forgot to indent the body of the
+# function, you can't use the mouse to click your cursor where you want it.
+# You have to navigate with arrow keys to move the cursor forwards and backwards
+# through the line itself for editing. It would be helpful for you to learn
+# useful shortcuts for actions like moving to the beginning or end of the line.
+
+# Notice I can reference any objects I defined earlier in the interpreter!
+
+>>> cylinder_volume(10, 3)
+282.7431
+
+# One useful trick is using the up and down arrow to cycle through your recent
+# commands at the interactive prompt. This can be useful to re-run or adapt code
+# you've already tried.
+
+# To quit the Python interactive interpreter, use the command exit() or hit
+# ctrl-D on mac or linux, and ctrl-Z then Enter for windows.
+
+# IPython
+
+# There is actually an awesome alternative to the default Python interactive
+# interpreter, IPython, which comes with many additional features.
+
+    # (1) tab completion
+    # (2) ? for details about an object
+    # (3) ! to execute system shell commands
+    # (4) syntax highlighting!
+    # (5) and a lot more you can find here!:
+        # https://ipython.org/ipython-doc/3/interactive/tutorial.html
+
+
+
+# Online Resources
+# Getting the information you need to know
+
+# It takes an enormous amount of knowledge to be a skilled programmer. There's
+# libraries to know, syntax to remember, and myriad other details. To add to
+# the difficulty, the technology landscape is constantly shifting as new techniques
+# and tools are invented.
+
+# To a novice programmer, learning all of these details and keeping abreast of
+# new developments seems like an impossible task. And it is! Expert programmers
+# who have been working for years don't actually carry an encyclopedia's worth
+# of knowledge in their heads. Instead they have mastered the task of finding
+# information quickly.
+
+# How to Search
+
+# Here are some techniques for effective web searching:
+
+# (1) Try using "Python" or the name of the library you're using as the first word
+# of your query. This tells the search engine to prioritize results that are
+# explicitly related to the tools you're using.
+
+# (2) Writing a good search query can take multiple attempts. If you don't find helpful
+# results on your first attempt, try again.
+
+# (3) Try using keywords found on the pages you found in your initial search to direct
+# the search engine to better resources in the subsequent search.
+
+# (4) Copy and paste error messages to use as search terms. This will lead you to
+# explanations of the error and potential causes. An error message might include
+# references to specific line numbers of code that you wrote. Only include the
+# part of the error message that comes before this in your search.
+
+# (5) If you can't find an answer to your question, ask it yourself! Communities
+# like StackOverflow have etiquette rules you must learn if you want to participate,
+# but don't let this stop you from using these resources.
+
+# QUIZ QUESTION
+
+# While coding I encountered this error message.
+
+# UnboundLocalError: local variable 'egg_count' referenced before assignment
+
+# Which of these search terms is mostly likely to yield helpful results?
+
+# Python UnboundLocalError: local variable
+
+# Hierarchy of Online Resources
+
+# While there are many online resources about programming, not all of the them
+# are created equal. This list of resources is in approximate order of reliability.
+
+# (1) The Python Tutorial - This section of the official documentation surveys
+# Python's syntax and standard library. It uses examples, and is written using
+# less technical language than the main documentation. Make sure you're reading
+# the Python 3 version of the docs!
+# https://docs.python.org/3/tutorial/
+
+# (2) The Python Language and Library References - The Language Reference and Library
+# Reference are more technical than the tutorial, but they are the definitive
+# sources of truth. As you become increasingly acquainted with Python you should
+# use these resources more and more.
+# https://docs.python.org/3/index.html
+
+# (3) Third-Party Library Documentation - Third-party libraries publish their
+# documentation on their own websites, and often times at https://readthedocs.org/.
+# You can judge the quality of a third-party library by the quality of its
+# documentation. If the developers haven't found time to write good docs,
+# they probably haven't found the time to polish their library either.
+# https://readthedocs.org/
+
+# (4) The websites and blogs of prominent experts - The previous resources are
+# primary sources, meaning that they are documentation from the same people who
+# wrote the code being documented. Primary sources are the most reliable. Secondary
+# sources are also extremely valuable. The difficulty with secondary sources is
+# determining the credibility of the source. The websites of authors like Doug
+# Hellmann and developers like Eli Bendersky are excellent. The blog of an
+# unknown author might be excellent, or it might be rubbish.
+# https://doughellmann.com/blog/
+# https://eli.thegreenplace.net/
+
+# (5) StackOverflow - This question and answer site has a good amount of traffic,
+# so it's likely that someone has asked (and someone has answered) a related question
+# before! However, answers are provided by volunteers and vary in quality. Always
+# understand solutions before putting them into your program. One line answers
+# without any explanation are dubious. This is a good place to find out more
+# about your question or discover alternative search terms.
+# https://stackoverflow.com/
+
+# (6) Bug Trackers - Sometimes you'll encounter a problem so rare, or so new,
+# that no one has addressed it on StackOverflow. You might find a reference to
+# your error in a bug report on GitHub for instance. These bug reports can be
+# helpful, but you'll probably have to do some original engineering work to solve the problem.
+
+# (7) Random Web Forums - Sometimes your search yields references to forums that
+# haven't been active since 2004, or some similarly ancient time. If these are
+# the only resources that address your problem, you should rethink how you're
+# approaching your solution.
+
+
+# NumPy
+
+# Python offers many libraries to work with, one of which is Numpy. Here you
+# will learn how Numpy offers support for large amounts of data, which will
+# come in handy later!
+
+# Introduction to NumPy
+# NumPy stands for Numerical Python and it's a fundamental package for scientific
+# computing in Python. NumPy provides Python with an extensive math library capable
+# of performing numerical computations effectively and efficiently. These lessons
+# are intended as a basic overview of NumPy and introduces some of its most
+# important features.
+
+# In the following lessons you will learn:
+
+# (1) How to import NumPy
+# (2) How to create multidimensional NumPy ndarrays using various methods
+# (3) How to access and change elements in ndarrays
+# (4) How to load and save ndarrays
+# (5) How to use slicing to select or change subsets of an ndarray
+# (6) Understand the difference between a view and a copy an of ndarray
+# (7) How to use Boolean indexing and set operations to select or change subsets
+# of an ndarray
+# (8) How to sort ndarrays
+# (9) How to perform element-wise operations on ndarrays
+# (10) Understand how NumPy uses broadcasting to perform operations on ndarrays
+# of different sizes.
+
+# Downloading NumPy
+
+# NumPy is included with Anaconda. If you don't already have Anaconda installed
+# on your computer, please refer to the Anaconda section to get clear instructions
+# on how to install Anaconda on your PC or Mac.
+
+# NumPy Versions
+
+# As with many Python packages, NumPy is updated from time to time. The following
+# lessons were created using NumPy version 1.13.0. You can check which version of
+# NumPy you have by typing !conda list numpy in your Jupyter Notebook or by
+# typing conda list numpy in the Anaconda prompt. If you have another version of
+# NumPy installed in your computer, you can update your version by typing conda
+# install numpy=1.13 in the Anaconda prompt. As newer versions of NumPy are released,
+# some functions may become obsolete or replaced, so make sure you have the correct
+# NumPy version before running the code. This will guarantee your code will run smoothly.
+
+# NumPy Documentation
+
+# NumPy is a remarkable math library and it has many functions and features. In
+# these introductory lessons we will only scratch the surface of what NumPy can
+# do. If you want to learn more about NumPy, make sure you check out the NumPy
+# Documentation:
+
+# NumPy Manual
+# https://docs.scipy.org/doc/numpy-1.13.0/contents.html
+
+# NumPy User Guide
+# https://docs.scipy.org/doc/numpy-1.13.0/user/index.html
+
+# NumPy Reference
+# https://docs.scipy.org/doc/numpy-1.13.0/reference/index.html#reference
+
+# Scipy Lectures
+# http://scipy-lectures.org/intro/numpy/index.html
+
+
+# Why Use NumPy
+
+# NumPy stands for Numerical Python and it is a library designed for effcient
+# scientific computation.  It is built on top of the programmming language C,
+
+# You may be wondering why people use NumPy - after all, Python can handle
+# lists, as you learned in the Intro to Python lessons.
+
+# Even though Python lists are great on their own, NumPy has a number of key
+# features that give it great advantages over Python lists. One such feature is
+# speed. When performing operations on large arrays NumPy can often perform
+# several orders of magnitude faster than Python lists. This speed comes from
+# the nature of NumPy arrays being memory-efficient and from optimized algorithms
+# used by NumPy for doing arithmetic, statistical, and linear algebra operations.
+
+# Another great feature of NumPy is that it has multidimensional array data
+# structures that can represent vectors and matrices. You will learn all about
+# vectors and matrices in the Linear Algebra section of this course later on,
+# and as you will soon see, a lot of machine learning algorithms rely on
+# matrix operations. For example, when training a Neural Network, you often
+# have to carry out many matrix multiplications. NumPy is optimized for matrix
+# operations and it allows us to do Linear Algebra operations effectively and
+# efficiently, making it very suitable for solving machine learning problems.
+
+# At the core of Numpy is its N-dimensional array object ( a multi-dimensinal array
+# that holds a group of elements that all have the same data type.)  It is like
+# a grid that can take on may shapes and enforces every element in that grid to have
+# the same type.  Making arrays ony able to hold one data type at a time helps NumPy
+# make very quick computations with vector operations to optimize and simplify operations
+# on data.
+
+# Another great advantage of NumPy over Python lists is that NumPy has a large
+# number of optimized built-in mathematical functions. These functions allow
+# you to do a variety of complex mathematical computations very fast and with
+# very little code (avoiding the use of complicated loops) making your programs
+# more readable and easier to understand.
+
+# These are just some of the key features that have made NumPy an essential
+# package for scientific computing in Python. In fact, NumPy has become so
+# popular that a lot of Python packages, such as Pandas, are built on top of NumPy.
+
+import time
+import numpy as np
+
+x = np.random.random(100000000)
+
+start = time.time()
+sum(x) / len(x)
+print(time.time() - start)
+
+Start = time.time
+np.mean(x)
+print(time.time() - start)
+
+
+# Creating and Saving NumPy ndarrays
+
+# At the core of NumPy is the ndarray, where nd stands for n-dimensional. An
+# ndarray is a multidimensional array of elements all of the same type. In other
+# words, an ndarray is a grid that can take on many shapes and can hold either
+# numbers or strings. In many Machine Learning problems you will often find
+# yourself using ndarrays in many different ways. For instance, you might use
+# an ndarray to hold the pixel values of an image that will be fed into a Neural
+# Network for image classification.
+
+# But before we can dive in and start using NumPy to create ndarrays we need to
+# import it into Python. We can import packages into Python using the import
+# command and it has become a convention to import NumPy as np. Therefore, you
+# can import NumPy by typing the following command in your Jupyter notebook:
+
+import numpy as np
+
+# There are several ways to create ndarrays in NumPy. In the following lessons
+# we will see two ways to create ndarrays:
+
+# Using regular Python lists
+
+# Using built-in NumPy functions
+
+# In this section, we will create ndarrays by providing Python lists to the
+#NumPy np.array() function. This can create some confusion for beginners, but
+# is important to remember that np.array() is NOT a class, it is just a function
+# that returns an ndarray. We should note that for the purposes of clarity, the
+# examples throughout these lessons will use small and simple ndarrays. Let's
+# start by creating 1-Dimensional (1D) ndarrays.
+
+# We import NumPy into Python
+import numpy as np
+
+# We create a 1D ndarray that contains only integers
+x = np.array([1, 2, 3, 4, 5])
+
+# Let's print the ndarray we just created using the print() command
+print('x = ', x)
+x = [1 2 3 4 5]
+
+# Let's pause for a second to introduce some useful terminology.
+# We refer to 1D arrays as rank 1 arrays. In general N-Dimensional arrays have rank N.
+#Therefore, we refer to a 2D array as a rank 2 array. Another important property
+# of arrays is their shape. The shape of an array is the size along each of its
+# dimensions. For example, the shape of a rank 2 array will correspond to the
+# number of rows and columns of the array. As you will see, NumPy ndarrays have
+# attributes that allows us to get information about them in a very intuitive way.
+# For example, the shape of an ndarray can be obtained using the .shape attribute.
+# The shape attribute returns a tuple of N positive integers that specify the sizes
+# of each dimension. In the example below we will create a rank 1 array and learn
+# how to obtain its shape, its type, and the data-type (dtype) of its elements.
+
+# We create a 1D ndarray that contains only integers
+x = np.array([1, 2, 3, 4, 5])
+
+# We print x
+print()
+print('x = ', x)
+print()
+
+# We print information about x
+print('x has dimensions:', x.shape)
+print('x is an object of type:', type(x))
+print('The elements in x are of type:', x.dtype)
+x = [1 2 3 4 5]
+
+# x has dimensions: (5,)
+# x is an object of type: class 'numpy.ndarray'
+# The elements in x are of type: int64
+
+# We can see that the shape attribute returns the tuple (5,) telling us that x
+# is of rank 1 (i.e. x only has 1 dimension ) and it has 5 elements. The type()
+#function tells us that x is indeed a NumPy ndarray. Finally, the .dtype attribute
+#tells us that the elements of x are stored in memory as signed 64-bit integers.
+# Another great advantage of NumPy is that it can handle more data-types than
+# Python lists. You can check out all the different data types NumPy supports in
+# the link below:
+
+# NumPy Data Types
+# https://docs.scipy.org/doc/numpy-1.13.0/user/basics.types.html
+
+# As mentioned earlier, ndarrays can also hold strings. Let's see how we can
+# create a rank 1 ndarray of strings in the same manner as before, by providing
+# the np.array() function a Python list of strings.
+
+# We create a rank 1 ndarray that only contains strings
+x = np.array(['Hello', 'World'])
+
+# We print x
+print()
+print('x = ', x)
+print()
+
+# We print information about x
+print('x has dimensions:', x.shape)
+print('x is an object of type:', type(x))
+print('The elements in x are of type:', x.dtype)
+x = ['Hello' 'World']
+
+# x has dimensions: (2,)
+# x is an object of type: class 'numpy.ndarray'
+# The elements in x are of type: U5
+
+# As we can see the shape attribute tells us that x now has only 2 elements,
+# and even though x now holds strings, the type() function tells us that x is
+# still an ndarray as before. In this case however, the .dtype attribute tells
+# us that the elements in x are stored in memory as Unicode strings of 5
+# characters.
+
+# It is important to remember that one big difference between Python lists and
+# ndarrays, is that unlike Python lists, all the elements of an ndarray must be
+# of the same type. So, while we can create Python lists with both integers and
+# strings, we can't mix types in ndarrays. If you provide the np.array() function
+# with a Python list that has both integers and strings, NumPy will interpret all
+# elements as strings. We can see this in the next example:
+
+# We create a rank 1 ndarray from a Python list that contains integers and strings
+x = np.array([1, 2, 'World'])
+
+# We print the ndarray
+print()
+print('x = ', x)
+print()
+
+# We print information about x
+print('x has dimensions:', x.shape)
+print('x is an object of type:', type(x))
+print('The elements in x are of type:', x.dtype)
+x = ['1' '2' 'World']
+
+# x has dimensions: (3,)
+# x is an object of type: class 'numpy.ndarray'
+# The elements in x are of type: U21
+
+# We can see that even though the Python list had mixed data types, the elements
+# in x are all of the same type, namely, Unicode strings of 21 characters. We
+# won't be using ndarrays with strings for the remaining of this introduction to
+# NumPy, but it's important to remember that ndarrays can hold strings as well.
+
+# Let us now look at how we can create a rank 2 ndarray from a nested Python list.
+
+# We create a rank 2 ndarray that only contains integers
+Y = np.array([[1,2,3],[4,5,6],[7,8,9], [10,11,12]])
+
+# We print Y
+print()
+print('Y = \n', Y)
+print()
+
+# We print information about Y
+print('Y has dimensions:', Y.shape)
+print('Y has a total of', Y.size, 'elements')
+print('Y is an object of type:', type(Y))
+print('The elements in Y are of type:', Y.dtype)
+Y =
+[[ 1 2 3]
+ [ 4 5 6]
+ [ 7 8 9]
+ [10 11 12]]
+
+# Y has dimensions: (4, 3)
+# Y has a total of 12 elements
+# Y is an object of type: class 'numpy.ndarray'
+# The elements in Y are of type: int64
+
+# We can see that now the shape attribute returns the tuple (4,3) telling us
+# that Y is of rank 2 and it has 4 rows and 3 columns. The .size attribute
+# tells us that Y has a total of 12 elements.
+
+#  Notice that when NumPy creates an ndarray it automatically assigns its dtype
+# based on the type of the elements you used to create the ndarray. Up to now,
+# we have only created ndarrays with integers and strings. We saw that when we
+# create an ndarray with only integers, NumPy will automatically assign the
+# dtype int64 to its elements. Let's see what happens when we create ndarrays
+# with floats and integers.
+
+# We create a rank 1 ndarray that contains integers
+x = np.array([1,2,3])
+
+# We create a rank 1 ndarray that contains floats
+y = np.array([1.0,2.0,3.0])
+
+# We create a rank 1 ndarray that contains integers and floats
+z = np.array([1, 2.5, 4])
+
+# We print the dtype of each ndarray
+print('The elements in x are of type:', x.dtype)
+print('The elements in y are of type:', y.dtype)
+print('The elements in z are of type:', z.dtype)
+
+# The elements in x are of type: int64
+# The elements in y are of type: float64
+# The elements in z are of type: float64
+
+# We can see that when we create an ndarray with only floats, NumPy stores the
+# elements in memory as 64-bit floating point numbers (float64). However, notice
+# that when we create an ndarray with both floats and integers, as we did with
+# the z ndarray above, NumPy assigns its elements a float64 dtype as well. This
+# is called upcasting. Since all the elements of an ndarray must be of the same
+# type, in this case NumPy upcasts the integers in z to floats in order to avoid
+# losing precision in numerical computations.
+
+# Even though NumPy automatically selects the dtype of the ndarray, NumPy also
+# allows you to specify the particular dtype you want to assign to the elements
+# of the ndarray. You can specify the dtype when you create the ndarray using
+# the keyword dtype in the np.array() function. Let's see an example:
+
+# We create a rank 1 ndarray of floats but set the dtype to int64
+x = np.array([1.5, 2.2, 3.7, 4.0, 5.9], dtype = np.int64)
+
+# We print x
+print()
+print('x = ', x)
+print()
+
+# We print the dtype x
+print('The elements in x are of type:', x.dtype)
+x = [1 2 3 4 5]
+
+# The elements in x are of type: int64
+
+# We can see that even though we created the ndarray with floats, by specifying
+# the dtype to be int64, NumPy converted the floating point numbers into integers
+# by removing their decimals. Specifying the data type of the ndarray can be
+# useful in cases when you don't want NumPy to accidentally choose the wrong
+# data type, or when you only need certain amount of precision in your calculations
+# and you want to save memory.
+
+# Once you create an ndarray, you may want to save it to a file to be read later
+# or to be used by another program. NumPy provides a way to save the arrays into
+# files for later use - let's see how this is done.
+
+# We create a rank 1 ndarray
+x = np.array([1, 2, 3, 4, 5])
+
+# We save x into the current directory as
+np.save('my_array', x)
+# The above saves the x ndarray into a file named my_array.npy. You can load
+# the saved ndarray into a variable by using the load() function.
+
+# We load the saved array from our current directory into variable y
+y = np.load('my_array.npy')
+
+# We print y
+print()
+print('y = ', y)
+print()
+
+# We print information about the ndarray we loaded
+print('y is an object of type:', type(y))
+print('The elements in y are of type:', y.dtype)
+y = [1 2 3 4 5]
+
+# y is an object of type: class 'numpy.ndarray'
+# The elements in y are of type: int64
+
+# When loading an array from a file, make sure you include the name of the
+# file together with the extension .npy, otherwise you will get an error.
+
+
+# Using Built-in Functions to Create ndarrays
+
+# One great time-saving feature of NumPy is its ability to create ndarrays using
+# built-in functions. These functions allow us to create certain kinds of ndarrays
+# with just one line of code. Below we will see a few of the most useful built-in
+# functions for creating ndarrays that you will come across when doing AI programming.
+
+# Let's start by creating an ndarray with a specified shape that is full of zeros.
+# We can do this by using the np.zeros() function. The function np.zeros(shape)
+# creates an ndarray full of zeros with the given shape. So, for example, if you
+# wanted to create a rank 2 array with 3 rows and 4 columns, you will pass the
+# shape to the function in the form of (rows, columns), as in the example below:
+
+# We create a 3 x 4 ndarray full of zeros.
+X = np.zeros((3,4))
+
+# We print X
+print()
+print('X = \n', X)
+print()
+
+# We print information about X
+print('X has dimensions:', X.shape)
+print('X is an object of type:', type(X))
+print('The elements in X are of type:', X.dtype)
+X =
+[[ 0. 0. 0. 0.]
+ [ 0. 0. 0. 0.]
+ [ 0. 0. 0. 0.]]
+
+# X has dimensions: (3, 4)
+# X is an object of type: class 'numpy.ndarray'
+# The elements in X are of type: float64
+
+# As we can see, the np.zeros() function creates by default an array with dtype
+# float64. If desired, the data type can be changed by using the keyword dtype.
+
+# Similarly, we can create an ndarray with a specified shape that is full of
+# ones. We can do this by using the np.ones() function. Just like the np.zeros()
+# function, the np.ones() function takes as an argument the shape of the ndarray
+# you want to make. Let's see an example:
+
+# We create a 3 x 2 ndarray full of ones.
+X = np.ones((3,2))
+
+# We print X
+print()
+print('X = \n', X)
+print()
+
+# We print information about X
+print('X has dimensions:', X.shape)
+print('X is an object of type:', type(X))
+print('The elements in X are of type:', X.dtype)
+X =
+[[ 1. 1.]
+ [ 1. 1.]
+ [ 1. 1.]]
+
+# X has dimensions: (3, 2)
+# X is an object of type: class 'numpy.ndarray'
+# The elements in X are of type: float64
+
+# As we can see, thenp.ones() function also creates by default an array with
+# dtype float64. If desired, the data type can be changed by using the keyword dtype.
+
+# We can also create an ndarray with a specified shape that is full of any
+# number we want. We can do this by using the np.full() function. The np.full(shape,
+# constant value) function takes two arguments. The first argument is the shape
+# of the ndarray you want to make and the second is the constant value you want
+# to populate the array with. Let's see an example:
+
+# We create a 2 x 3 ndarray full of fives.
+X = np.full((2,3), 5)
+
+# We print X
+print()
+print('X = \n', X)
+print()
+
+# We print information about X
+print('X has dimensions:', X.shape)
+print('X is an object of type:', type(X))
+print('The elements in X are of type:', X.dtype)
+X =
+[[5 5 5]
+ [5 5 5]]
+
+# X has dimensions: (2, 3)
+# X is an object of type: class 'numpy.ndarray'
+# The elements in X are of type: int64
+
+# The np.full() function creates by default an array with the same data type as
+# the constant value used to fill in the array. If desired, the data type can be
+# changed by using the keyword dtype.
+
+# As you will learn later, a fundamental array in Linear Algebra is the Identity
+# Matrix. An Identity matrix is a square matrix that has only 1s in its main
+# diagonal and zeros everywhere else. The function np.eye(N) creates a square
+# N x N ndarray corresponding to the Identity matrix. Since all Identity Matrices
+# are square, the np.eye() function only takes a single integer as an argument.
+# Let's see an example:
+
+# We create a 5 x 5 Identity matrix.
+X = np.eye(5)
+
+# We print X
+print()
+print('X = \n', X)
+print()
+
+# We print information about X
+print('X has dimensions:', X.shape)
+print('X is an object of type:', type(X))
+print('The elements in X are of type:', X.dtype)
+X =
+[[ 1. 0. 0. 0. 0.]
+ [ 0. 1. 0. 0. 0.]
+ [ 0. 0. 1. 0. 0.]
+ [ 0. 0. 0. 1. 0.]
+ [ 0. 0. 0. 0. 1.]]
+
+# X has dimensions: (5, 5)
+# X is an object of type: class 'numpy.ndarray'
+# The elements in X are of type: float64
+
+# As we can see, the np.eye() function also creates by default an array with
+# dtype float64. If desired, the data type can be changed by using the keyword
+# dtype. You will learn all about Identity Matrices and their use in the Linear
+# Algebra section of this course. We can also create diagonal matrices by using
+# the np.diag() function. A diagonal matrix is a square matrix that only has
+# values in its main diagonal. The np.diag() function creates an ndarray
+# corresponding to a diagonal matrix , as shown in the example below:
+
+# Create a 4 x 4 diagonal matrix that contains the numbers 10,20,30, and 50
+# on its main diagonal
+X = np.diag([10,20,30,50])
+
+# We print X
+print()
+print('X = \n', X)
+print()
+X =
+[[10 0 0 0]
+ [ 0 20 0 0]
+ [ 0 0 30 0]
+ [ 0 0 0 50]]
+
+# NumPy also allows you to create ndarrays that have evenly spaced values
+# within a given interval. NumPy's np.arange() function is very versatile and
+# can be used with either one, two, or three arguments. Below we will see examples
+# of each case and how they are used to create different kinds of ndarrays.
+
+# Let's start by using np.arange() with only one argument. When used with only
+# one argument, np.arange(N) will create a rank 1 ndarray with consecutive integers
+# between 0 and N - 1. Therefore, notice that if I want an array to have integers
+# between 0 and 9, I have to use N = 10, NOT N = 9, as in the example below:
+
+# We create a rank 1 ndarray that has sequential integers from 0 to 9
+x = np.arange(10)
+​
+# We print the ndarray
+print()
+print('x = ', x)
+print()
+
+# We print information about the ndarray
+print('x has dimensions:', x.shape)
+print('x is an object of type:', type(x))
+print('The elements in x are of type:', x.dtype)
+x = [0 1 2 3 4 5 6 7 8 9]
+
+# x has dimensions: (10,)
+# x is an object of type: class 'numpy.ndarray'
+# The elements in x are of type: int64
+
+# When used with two arguments, np.arange(start,stop) will create a rank 1
+# ndarray with evenly spaced values within the half-open interval [start, stop).
+# This means the evenly spaced numbers will include start but exclude stop. Let's
+# see an example
+
+# We create a rank 1 ndarray that has sequential integers from 4 to 9.
+x = np.arange(4,10)
+
+# We print the ndarray
+print()
+print('x = ', x)
+print()
+
+# We print information about the ndarray
+print('x has dimensions:', x.shape)
+print('x is an object of type:', type(x))
+print('The elements in x are of type:', x.dtype)
+x = [4 5 6 7 8 9]
+
+# x has dimensions: (6,)
+# x is an object of type: class 'numpy.ndarray'
+# The elements in x are of type: int64
+
+# As we can see, the function np.arange(4,10) generates a sequence of integers
+# with 4 inclusive and 10 exclusive.
+
+# Finally, when used with three arguments, np.arange(start,stop,step) will
+# create a rank 1 ndarray with evenly spaced values within the half-open interval
+# [start, stop) with step being the distance between two adjacent values. Let's see an example:
+
+# We create a rank 1 ndarray that has evenly spaced integers from 1 to 13 in steps of 3.
+x = np.arange(1,14,3)
+
+# We print the ndarray
+print()
+print('x = ', x)
+print()
+
+# We print information about the ndarray
+print('x has dimensions:', x.shape)
+print('x is an object of type:', type(x))
+print('The elements in x are of type:', x.dtype)
+x = [ 1 4 7 10 13]
+
+# x has dimensions: (5,)
+# x is an object of type: class 'numpy.ndarray'
+# The elements in x are of type: int64
+
+# We can see that x has sequential integers between 1 and 13 but the difference
+# between all adjacent values is 3.
+
+# Even though the np.arange() function allows for non-integer steps, such as 0.3,
+# the output is usually inconsistent, due to the finite floating point precision.
+# For this reason, in the cases where non-integer steps are required, it is usually
+# better to use the function np.linspace(). The np.linspace(start, stop, N) function
+# returns N evenly spaced numbers over the closed interval [start, stop]. This means
+# that both the start and thestop values are included. We should also note the
+# np.linspace() function needs to be called with at least two arguments in the
+# form np.linspace(start,stop). In this case, the default number of elements in
+# the specified interval will be N= 50. The reason np.linspace() works better than
+# the np.arange() function, is that np.linspace() uses the number of elements we
+# want in a particular interval, instead of the step between values. Let's see some examples:
+
+# We create a rank 1 ndarray that has 10 integers evenly spaced between 0 and 25.
+x = np.linspace(0,25,10)
+
+# We print the ndarray
+print()
+print('x = \n', x)
+print()
+
+# We print information about the ndarray
+print('x has dimensions:', x.shape)
+print('x is an object of type:', type(x))
+print('The elements in x are of type:', x.dtype)
+x = [ 0. 2.77777778 5.55555556 8.33333333 11.11111111 13.88888889 16.66666667 19.44444444 22.22222222 25. ]
+
+# x has dimensions: (10,)
+# x is an object of type: class 'numpy.ndarray'
+# The elements in x are of type: float64
+
+# As we can see from the above example, the function np.linspace(0,25,10) returns
+# an ndarray with 10 evenly spaced numbers in the closed interval [0, 25]. We can
+# also see that both the start and end points, 0 and 25 in this case, are included.
+# However, you can let the endpoint of the interval be excluded (just like in the
+# np.arange() function) by setting the keyword endpoint = False in the np.linspace()
+# function. Let's create the same x ndarray we created above but now with the endpoint
+# excluded:
+
+# We create a rank 1 ndarray that has 10 integers evenly spaced between 0 and 25,
+# with 25 excluded.
+x = np.linspace(0,25,10, endpoint = False)
+
+# We print the ndarray
+print()
+print('x = ', x)
+print()
+
+# We print information about the ndarray
+print('x has dimensions:', x.shape)
+print('x is an object of type:', type(x))
+print('The elements in x are of type:', x.dtype)
+x = [ 0. 2.5 5. 7.5 10. 12.5 15. 17.5 20. 22.5]
+
+# x has dimensions: (10,)
+# x is an object of type: class 'numpy.ndarray'
+# The elements in x are of type: float64
+
+# As we can see, because we have excluded the endpoint, the spacing between
+# values had to change in order to fit 10 evenly spaced numbers in the given interval.
+
+# So far, we have only used the built-in functions np.arange() and np.linspace()
+# to create rank 1 ndarrays. However, we can use these functions to create rank 2
+# ndarrays of any shape by combining them with the np.reshape() function. The
+# np.reshape(ndarray, new_shape) function converts the given ndarray into the
+# specified new_shape. It is important to note that the new_shape should be
+# compatible with the number of elements in the given ndarray. For example,
+# you can convert a rank 1 ndarray with 6 elements, into a 3 x 2 rank 2 ndarray,
+# or a 2 x 3 rank 2 ndarray, since both of these rank 2 arrays will have a total
+# of 6 elements. However, you can't reshape the rank 1 ndarray with 6 elements
+# into a 3 x 3 rank 2 ndarray, since this rank 2 array will have 9 elements, which
+# is greater than the number of elements in the original ndarray. Let's see some examples:
+
+# We create a rank 1 ndarray with sequential integers from 0 to 19
+x = np.arange(20)
+
+# We print x
+print()
+print('Original x = ', x)
+print()
+
+# We reshape x into a 4 x 5 ndarray
+x = np.reshape(x, (4,5))
+
+# We print the reshaped x
+print()
+print('Reshaped x = \n', x)
+print()
+
+# We print information about the reshaped x
+print('x has dimensions:', x.shape)
+print('x is an object of type:', type(x))
+print('The elements in x are of type:', x.dtype)
+Original x = [ 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19]
+
+Reshaped x =
+[[ 0 1 2 3 4]
+ [ 5 6 7 8 9]
+ [10 11 12 13 14]
+ [15 16 17 18 19]]
+
+# x has dimensions: (4, 5)
+# x is an object of type: class 'numpy.ndarray'
+# The elements in x are of type: int64
+
+# One great feature about NumPy, is that some functions can also be applied as
+# methods. This allows us to apply different functions in sequence in just one
+# line of code. ndarray methods are similar to ndarray attributes in that they
+# are both applied using dot notation (.). Let's see how we can accomplish the
+# same result as in the above example, but in just one line of code:
+
+# We create a a rank 1 ndarray with sequential integers from 0 to 19 and
+# reshape it to a 4 x 5 array
+Y = np.arange(20).reshape(4, 5)
+
+# We print Y
+print()
+print('Y = \n', Y)
+print()
+
+# We print information about Y
+print('Y has dimensions:', Y.shape)
+print('Y is an object of type:', type(Y))
+print('The elements in Y are of type:', Y.dtype)
+Y =
+[[ 0 1 2 3 4]
+ [ 5 6 7 8 9]
+ [10 11 12 13 14]
+ [15 16 17 18 19]]
+
+# Y has dimensions: (4, 5)
+# Y is an object of type: class 'numpy.ndarray'
+# The elements in Y are of type: int64
+
+# As we can see, we get the exact same result as before. Notice that when we
+# use reshape() as a method, it's applied as ndarray.reshape(new_shape). This
+# converts the ndarray into the specified shape new_shape. As before, it is
+# important to note that the new_shape should be compatible with the number of
+# elements in ndarray. In the example above, the function np.arange(20) creates
+# an ndarray and serves as the ndarray to be reshaped by the reshape() method.
+# Therefore, when using reshape() as a method, we don't need to pass the ndarray
+# as an argument to the reshape() function, instead we only need to pass the
+# new_shape argument.
+
+# In the same manner, we can also combine reshape() with np.linspace() to
+# create rank 2 arrays, as shown in the next example.
+
+# We create a rank 1 ndarray with 10 integers evenly spaced between 0 and 50,
+# with 50 excluded. We then reshape it to a 5 x 2 ndarray
+X = np.linspace(0,50,10, endpoint=False).reshape(5,2)
+
+# We print X
+print()
+print('X = \n', X)
+print()
+
+# We print information about X
+print('X has dimensions:', X.shape)
+print('X is an object of type:', type(X))
+print('The elements in X are of type:', X.dtype)
+X =
+ [[ 0. 5.]
+ [ 10. 15.]
+ [ 20. 25.]
+ [ 30. 35.]
+ [ 40. 45.]]
+
+# X has dimensions: (5, 2)
+# X is an object of type: class 'numpy.ndarray'
+# The elements in X are of type: float64
+
+# The last type of ndarrays we are going to create are random ndarrays. Random
+# ndarrays are arrays that contain random numbers. Often in Machine Learning,
+# you need to create random matrices, for example, when initializing the weights
+# of a Neural Network. NumPy offers a variety of random functions to help us
+# create random ndarrays of any shape.
+
+# Let's start by using the np.random.random(shape) function to create an ndarray
+# of the given shape with random floats in the half-open interval [0.0, 1.0).
+
+# We create a 3 x 3 ndarray with random floats in the half-open interval [0.0, 1.0).
+X = np.random.random((3,3))
+
+# We print X
+print()
+print('X = \n', X)
+print()
+
+# We print information about X
+print('X has dimensions:', X.shape)
+print('X is an object of type:', type(X))
+print('The elements in x are of type:', X.dtype)
+X =
+[[ 0.12379926 0.52943854 0.3443525 ]
+ [ 0.11169547 0.82123909 0.52864397]
+ [ 0.58244133 0.21980803 0.69026858]]
+
+# X has dimensions: (3, 3)
+# X is an object of type: class 'numpy.ndarray'
+# The elements in x are of type: float64
+
+# NumPy also allows us to create ndarrays with random integers within a particular
+# interval. The function np.random.randint(start, stop, size = shape) creates an
+# ndarray of the given shape with random integers in the half-open interval
+# [start, stop). Let's see an example:
+
+# We create a 3 x 2 ndarray with random integers in the half-open interval [4, 15).
+X = np.random.randint(4,15,size=(3,2))
+
+# We print X
+print()
+print('X = \n', X)
+print()
+
+# We print information about X
+print('X has dimensions:', X.shape)
+print('X is an object of type:', type(X))
+print('The elements in X are of type:', X.dtype)
+X =
+[[ 7 11]
+ [ 9 11]
+ [ 6 7]]
+
+# X has dimensions: (3, 2)
+# X is an object of type: class 'numpy.ndarray'
+# The elements in X are of type: int64
+
+# In some cases, you may need to create ndarrays with random numbers that
+# satisfy certain statistical properties. For example, you may want the random
+# numbers in the ndarray to have an average of 0. NumPy allows you create
+# random ndarrays with numbers drawn from various probability distributions.
+# The function np.random.normal(mean, standard deviation, size=shape), for
+# example, creates an ndarray with the given shape that contains random numbers
+# picked from a normal (Gaussian) distribution with the given mean and standard
+# deviation. Let's create a 1,000 x 1,000 ndarray of random floating point
+# numbers drawn from a normal distribution with a mean (average) of zero and a
+# standard deviation of 0.1.
+
+# We create a 1000 x 1000 ndarray of random floats drawn from normal (Gaussian) distribution
+# with a mean of zero and a standard deviation of 0.1.
+X = np.random.normal(0, 0.1, size=(1000,1000))
+
+# We print X
+print()
+print('X = \n', X)
+print()
+
+# We print information about X
+print('X has dimensions:', X.shape)
+print('X is an object of type:', type(X))
+print('The elements in X are of type:', X.dtype)
+print('The elements in X have a mean of:', X.mean())
+print('The maximum value in X is:', X.max())
+print('The minimum value in X is:', X.min())
+print('X has', (X < 0).sum(), 'negative numbers')
+print('X has', (X > 0).sum(), 'positive numbers')
+X =
+[[ 0.04218614 0.03247225 -0.02936003 ..., 0.01586796 -0.05599115 -0.03630946]
+ [ 0.13879995 -0.01583122 -0.16599967 ..., 0.01859617 -0.08241612 0.09684025]
+ [ 0.14422252 -0.11635985 -0.04550231 ..., -0.09748604 -0.09350044 0.02514799]
+ ...,
+ [-0.10472516 -0.04643974 0.08856722 ..., -0.02096011 -0.02946155 0.12930844]
+ [-0.26596955 0.0829783 0.11032549 ..., -0.14492074 -0.00113646 -0.03566034]
+ [-0.12044482 0.20355356 0.13637195 ..., 0.06047196 -0.04170031 -0.04957684]]
+
+# X has dimensions: (1000, 1000)
+# X is an object of type: class 'numpy.ndarray'
+# The elements in X are of type: float64
+# The elements in X have a mean of: -0.000121576684405
+# The maximum value in X is: 0.476673923106
+# The minimum value in X is: -0.499114224706
+# X has 500562 negative numbers
+# X has 499438 positive numbers
+
+# As we can see, the average of the random numbers in the ndarray is close to
+# zero, both the maximum and minimum values in X are symmetric about zero
+# (the average), and we have about the same amount of positive and negative numbers.
+
+
+# Quiz
+# Using the Built-in functions you learned about in the
+# previous lesson, create a 4 x 4 ndarray that only
+# contains consecutive even numbers from 2 to 32 (inclusive)
+
+import numpy as np
+
+X = np.arange(2,34,2).reshape(4,4)
+
+# We print X
+print()
+print('X = \n', X)
+print()
+
+# We print information about X
+print('X has dimensions:', X.shape)
+print('X is an object of type:', type(X))
+print('The elements in X are of type:', X.dtype)
+
+
+Y = np.linspace(2,32,16).reshape(4,4)
+
+# We print Y
+print()
+print('Y = \n', Y)
+print()
+
+# We print information about X
+print('Y has dimensions:', Y.shape)
+print('Y is an object of type:', type(Y))
+print('The elements in Y are of type:', Y.dtype)
+
+
+
+# Accessing, Deleting, and Inserting Elements Into ndarrays
+
+# Now that you know how to create a variety of ndarrays, we will now see how
+# NumPy allows us to effectively manipulate the data within the ndarrays. NumPy
+# ndarrays are mutable, meaning that the elements in ndarrays can be changed
+# after the ndarray has been created. NumPy ndarrays can also be sliced, which
+# means that ndarrays can be split in many different ways. This allows us, for
+# example, to retrieve any subset of the ndarray that we want. Often in Machine
+# Learning you will use slicing to separate data, as for example when dividing
+# a data set into training, cross validation, and testing sets.
+
+# We will start by looking at how the elements of an ndarray can be accessed or
+# modified by indexing. Elements can be accessed using indices inside square
+# brackets, [ ]. NumPy allows you to use both positive and negative indices to
+# access elements in the ndarray. Positive indices are used to access elements
+# from the beginning of the array, while negative indices are used to access
+# elements from the end of the array. Let's see how we can access elements in
+# rank 1 ndarrays:
+
+# We create a rank 1 ndarray that contains integers from 1 to 5
+x = np.array([1, 2, 3, 4, 5])
+
+# We print x
+print()
+print('x = ', x)
+print()
+
+# Let's access some elements with positive indices
+print('This is First Element in x:', x[0])
+print('This is Second Element in x:', x[1])
+print('This is Fifth (Last) Element in x:', x[4])
+print()
+
+# Let's access the same elements with negative indices
+print('This is First Element in x:', x[-5])
+print('This is Second Element in x:', x[-4])
+print('This is Fifth (Last) Element in x:', x[-1])
+x = [1 2 3 4 5]
+
+# This is First Element in x: 1
+# This is Second Element in x: 2
+# This is Fifth (Last) Element in x: 5
+
+# This is First Element in x: 1
+# This is Second Element in x: 2
+# This is Fifth (Last) Element in x: 5
+
+# Notice that to access the first element in the ndarray we have to use the
+# index 0 not 1. Also notice, that the same element can be accessed using both
+# positive and negative indices. As mentioned earlier, positive indices are
+# used to access elements from the beginning of the array, while negative
+# indices are used to access elements from the end of the array.
+
+# Now let's see how we can change the elements in rank 1 ndarrays. We do this
+# by accessing the element we want to change and then using the = sign to assign
+# the new value:
+
+# We create a rank 1 ndarray that contains integers from 1 to 5
+x = np.array([1, 2, 3, 4, 5])
+
+# We print the original x
+print()
+print('Original:\n x = ', x)
+print()
+
+# We change the fourth element in x from 4 to 20
+x[3] = 20
+
+# We print x after it was modified
+print('Modified:\n x = ', x)
+# Original:
+# x = [1 2 3 4 5]
+
+# Modified:
+# x = [ 1 2 3 20 5]
+
+# Similarly, we can also access and modify specific elements of rank 2 ndarrays.
+# To access elements in rank 2 ndarrays we need to provide 2 indices in the form
+# [row, column]. Let's see some examples
+
+# We create a 3 x 3 rank 2 ndarray that contains integers from 1 to 9
+X = np.array([[1,2,3],[4,5,6],[7,8,9]])
+
+# We print X
+print()
+print('X = \n', X)
+print()
+
+# Let's access some elements in X
+print('This is (0,0) Element in X:', X[0,0])
+print('This is (0,1) Element in X:', X[0,1])
+print('This is (2,2) Element in X:', X[2,2])
+
+# X =
+# [[1 2 3]
+# [4 5 6]
+# [7 8 9]]
+
+# This is (0,0) Element in X: 1
+# This is (0,1) Element in X: 2
+# This is (2,2) Element in X: 9
+
+# Remember that the index [0, 0] refers to the element in the first row, first column.
+
+# Elements in rank 2 ndarrays can be modified in the same way as with rank 1
+# ndarrays. Let's see an example:
+
+# We create a 3 x 3 rank 2 ndarray that contains integers from 1 to 9
+X = np.array([[1,2,3],[4,5,6],[7,8,9]])
+
+# We print the original x
+print()
+print('Original:\n X = \n', X)
+print()
+
+# We change the (0,0) element in X from 1 to 20
+X[0,0] = 20
+
+# We print X after it was modified
+print('Modified:\n X = \n', X)
+
+# Original:
+# X =
+# [[1 2 3]
+# [4 5 6]
+# [7 8 9]]
+
+# Modified:
+# X =
+# [[20 2 3]
+# [ 4 5 6]
+# [ 7 8 9]]
+
+# Now, let's take a look at how we can add and delete elements from ndarrays.
+# We can delete elements using the np.delete(ndarray, elements, axis) function.
+# This function deletes the given list of elements from the given ndarray along
+# the specified axis. For rank 1 ndarrays the axis keyword is not required. For
+# rank 2 ndarrays, axis = 0 is used to select rows, and axis = 1 is used to
+# select columns. Let's see some examples:
+
+# We create a rank 1 ndarray
+x = np.array([1, 2, 3, 4, 5])
+
+# We create a rank 2 ndarray
+Y = np.array([[1,2,3],[4,5,6],[7,8,9]])
+
+# We print x
+print()
+print('Original x = ', x)
+
+# We delete the first and last element of x
+x = np.delete(x, [0,4])
+
+# We print x with the first and last element deleted
+print()
+print('Modified x = ', x)
+
+# We print Y
+print()
+print('Original Y = \n', Y)
+
+# We delete the first row of y
+w = np.delete(Y, 0, axis=0)
+
+# We delete the first and last column of y
+v = np.delete(Y, [0,2], axis=1)
+
+# We print w
+print()
+print('w = \n', w)
+
+# We print v
+print()
+print('v = \n', v)
+
+# Original x = [1 2 3 4 5]
+
+# Modified x = [2 3 4]
+
+# Original Y =
+# [[1 2 3]
+# [4 5 6]
+# [7 8 9]]
+
+# w =
+# [[4 5 6]
+# [7 8 9]]
+
+# v =
+# [[2]
+# [5]
+# [8]]
+
+# Now, let's see how we can append values to ndarrays. We can append values to
+# ndarrays using the np.append(ndarray, elements, axis) function. This function
+# appends the given list of elements to ndarray along the specified axis. Let's
+# see some examples:
+
+# We create a rank 1 ndarray
+x = np.array([1, 2, 3, 4, 5])
+
+# We create a rank 2 ndarray
+Y = np.array([[1,2,3],[4,5,6]])
+
+# We print x
+print()
+print('Original x = ', x)
+
+# We append the integer 6 to x
+x = np.append(x, 6)
+
+# We print x
+print()
+print('x = ', x)
+
+# We append the integer 7 and 8 to x
+x = np.append(x, [7,8])
+
+# We print x
+print()
+print('x = ', x)
+
+# We print Y
+print()
+print('Original Y = \n', Y)
+
+# We append a new row containing 7,8,9 to y
+v = np.append(Y, [[7,8,9]], axis=0)
+
+# We append a new column containing 9 and 10 to y
+q = np.append(Y,[[9],[10]], axis=1)
+
+# We print v
+print()
+print('v = \n', v)
+
+# We print q
+print()
+print('q = \n', q)
+
+# Original x = [1 2 3 4 5]
+
+# x = [1 2 3 4 5 6]
+
+# x = [1 2 3 4 5 6 7 8]
+
+# Original Y =
+# [[1 2 3]
+# [4 5 6]]
+
+# v =
+#[[1 2 3]
+# [4 5 6]
+# [7 8 9]]
+
+# q =
+# [[ 1 2 3 9]
+# [ 4 5 6 10]]
+
+# Notice that when appending rows or columns to rank 2 ndarrays the rows or
+# columns must have the correct shape, so as to match the shape of the rank 2 ndarray.
+
+# Now let's see now how we can insert values to ndarrays. We can insert values
+# to ndarrays using the np.insert(ndarray, index, elements, axis) function.
+# This function inserts the given list of elements to ndarray right before the
+# given index along the specified axis. Let's see some examples:
+
+# We create a rank 1 ndarray
+x = np.array([1, 2, 5, 6, 7])
+
+# We create a rank 2 ndarray
+Y = np.array([[1,2,3],[7,8,9]])
+
+# We print x
+print()
+print('Original x = ', x)
+
+# We insert the integer 3 and 4 between 2 and 5 in x.
+x = np.insert(x,2,[3,4])
+
+# We print x with the inserted elements
+print()
+print('x = ', x)
+
+# We print Y
+print()
+print('Original Y = \n', Y)
+
+# We insert a row between the first and last row of y
+w = np.insert(Y,1,[4,5,6],axis=0)
+
+# We insert a column full of 5s between the first and second column of y
+v = np.insert(Y,1,5, axis=1)
+
+# We print w
+print()
+print('w = \n', w)
+
+# We print v
+print()
+print('v = \n', v)
+
+# Original x = [1 2 5 6 7]
+
+# x = [1 2 3 4 5 6 7]
+
+# Original Y =
+# [[1 2 3]
+#  [7 8 9]]
+
+# w =
+# [[1 2 3]
+#  [4 5 6]
+#  [7 8 9]]
+
+# v =
+# [[1 5 2 3]
+#  [7 5 8 9]]
+
+# NumPy also allows us to stack ndarrays on top of each other, or to stack
+# them side by side. The stacking is done using either the np.vstack() function
+# for vertical stacking, or the np.hstack() function for horizontal stacking.
+# It is important to note that in order to stack ndarrays, the shape of the
+# ndarrays must match. Let's see some examples:
+
+# We create a rank 1 ndarray
+x = np.array([1,2])
+
+# We create a rank 2 ndarray
+Y = np.array([[3,4],[5,6]])
+
+# We print x
+print()
+print('x = ', x)
+
+# We print Y
+print()
+print('Y = \n', Y)
+
+# We stack x on top of Y
+z = np.vstack((x,Y))
+
+# We stack x on the right of Y. We need to reshape x in order to stack it on
+# the right of Y.
+w = np.hstack((Y,x.reshape(2,1)))
+
+# We print z
+print()
+print('z = \n', z)
+
+# We print w
+print()
+print('w = \n', w)
+
+# x = [1 2]
+
+# Y =
+# [[3 4]
+# [5 6]]
+
+# z =
+# [[1 2]
+#  [3 4]
+#  [5 6]]
+
+# w =
+# [[3 4 1]
+# [5 6 2]]
+
+
+
+# Slicing ndarrays
+
+# As we mentioned earlier, in addition to being able to access individual elements
+# one at a time, NumPy provides a way to access subsets of ndarrays. This is known
+# as slicing. Slicing is performed by combining indices with the colon : symbol
+# inside the square brackets. In general you will come across three types of slicing:
+
+# 1. ndarray[start:end]
+# 2. ndarray[start:]
+# 3. ndarray[:end]
+
+# The first method is used to select elements between the start and end indices.
+# The second method is used to select all elements from the start index till the
+# last index. The third method is used to select all elements from the first index
+# till the end index. We should note that in methods one and three, the end index
+# is excluded. We should also note that since ndarrays can be multidimensional,
+# when doing slicing you usually have to specify a slice for each dimension of the array.
+
+# We will now see some examples of how to use the above methods to select different
+# subsets of a rank 2 ndarray.
+
+# We create a 4 x 5 ndarray that contains integers from 0 to 19
+X = np.arange(20).reshape(4, 5)
+
+# We print X
+print()
+print('X = \n', X)
+print()
+
+# We select all the elements that are in the 2nd through 4th rows and in the 3rd to 5th columns
+Z = X[1:4,2:5]
+
+# We print Z
+print('Z = \n', Z)
+
+# We can select the same elements as above using method 2
+W = X[1:,2:5]
+
+# We print W
+print()
+print('W = \n', W)
+
+# We select all the elements that are in the 1st through 3rd rows and in the 3rd to 4th columns
+Y = X[:3,2:5]
+
+# We print Y
+print()
+print('Y = \n', Y)
+
+# We select all the elements in the 3rd row
+v = X[2,:]
+
+# We print v
+print()
+print('v = ', v)
+
+# We select all the elements in the 3rd column
+q = X[:,2]
+
+# We print q
+print()
+print('q = ', q)
+
+# We select all the elements in the 3rd column but return a rank 2 ndarray
+R = X[:,2:3]
+
+# We print R
+print()
+print('R = \n', R)
+X =
+[[ 0 1 2 3 4]
+ [ 5 6 7 8 9]
+ [10 11 12 13 14]
+ [15 16 17 18 19]]
+
+Z =
+[[ 7 8 9]
+ [12 13 14]
+ [17 18 19]]
+
+W =
+[[ 7 8 9]
+ [12 13 14]
+ [17 18 19]]
+
+Y =
+[[ 2 3 4]
+ [ 7 8 9]
+ [12 13 14]]
+
+v = [10 11 12 13 14]
+
+q = [ 2 7 12 17]
+
+R =
+[[ 2]
+ [ 7]
+ [12]
+ [17]]
+
+# Notice that when we selected all the elements in the 3rd column, variable q
+# above, the slice returned a rank 1 ndarray instead of a rank 2 ndarray. However,
+# slicing X in a slightly different way, variable R above, we can actually get a
+# rank 2 ndarray instead.
+
+# It is important to note that when we perform slices on ndarrays and save them
+# into new variables, as we did above, the data is not copied into the new variable.
+# This is one feature that often causes confusion for beginners. Therefore, we
+# will look at this in a bit more detail.
+
+# In the above examples, when we make assignments, such as:
+
+Z = X[1:4,2:5]
+# the slice of the original array X is not copied in the variable Z. Rather, X
+# and Z are now just two different names for the same ndarray. We say that
+# slicing only creates a view of the original array. This means that if you
+# make changes in Z you will be in effect changing the elements in X as well.
+# Let's see this with an example:
+
+# We create a 4 x 5 ndarray that contains integers from 0 to 19
+X = np.arange(20).reshape(4, 5)
+
+# We print X
+print()
+print('X = \n', X)
+print()
+
+# We select all the elements that are in the 2nd through 4th rows and in the
+# 3rd to 4th columns
+Z = X[1:4,2:5]
+
+# We print Z
+print()
+print('Z = \n', Z)
+print()
+
+# We change the last element in Z to 555
+Z[2,2] = 555
+
+# We print X
+print()
+print('X = \n', X)
+print()
+X =
+[[ 0 1 2 3 4]
+ [ 5 6 7 8 9]
+ [10 11 12 13 14]
+ [15 16 17 18 19]]
+
+Z =
+[[ 7 8 9]
+ [12 13 14]
+ [17 18 19]]
+
+X =
+[[ 0 1 2 3 4]
+ [ 5 6 7 8 9]
+ [ 10 11 12 13 14]
+ [ 15 16 17 18 555]]
+
+# We can clearly see in the above example that if we make changes to Z, X changes as well.
+
+# However, if we want to create a new ndarray that contains a copy of the values
+# in the slice we need to use the np.copy() function. The np.copy(ndarray) function
+# creates a copy of the given ndarray. This function can also be used as a method,
+# in the same way as we did before with the reshape function. Let's do the same example
+# we did before but now with copies of the arrays. We'll use copy both as a function and as a method.
+
+# We create a 4 x 5 ndarray that contains integers from 0 to 19
+X = np.arange(20).reshape(4, 5)
+
+# We print X
+print()
+print('X = \n', X)
+print()
+
+# create a copy of the slice using the np.copy() function
+Z = np.copy(X[1:4,2:5])
+
+#  create a copy of the slice using the copy as a method
+W = X[1:4,2:5].copy()
+
+# We change the last element in Z to 555
+Z[2,2] = 555
+
+# We change the last element in W to 444
+W[2,2] = 444
+
+# We print X
+print()
+print('X = \n', X)
+
+# We print Z
+print()
+print('Z = \n', Z)
+
+# We print W
+print()
+print('W = \n', W)
+# X =
+# [[ 0 1 2 3 4]
+# [ 5 6 7 8 9]
+# [10 11 12 13 14]
+# [15 16 17 18 19]]
+
+# X =
+# [[ 0 1 2 3 4]
+# [ 5 6 7 8 9]
+# [10 11 12 13 14]
+# [15 16 17 18 19]]
+
+# Z =
+# [[ 7 8 9]
+# [ 12 13 14]
+# [ 17 18 555]]
+
+# W =
+# [[ 7 8 9]
+# [ 12 13 14]
+# [ 17 18 444]]
+
+# We can clearly see that by using the copy command, we are creating new ndarrays
+# that are completely independent of each other.
+
+# It is often useful to use one ndarray to make slices, select, or change elements
+# in another ndarray. Let's see some examples:
+
+# We create a 4 x 5 ndarray that contains integers from 0 to 19
+X = np.arange(20).reshape(4, 5)
+
+# We create a rank 1 ndarray that will serve as indices to select elements from X
+indices = np.array([1,3])
+
+# We print X
+print()
+print('X = \n', X)
+print()
+
+# We print indices
+print('indices = ', indices)
+print()
+
+# We use the indices ndarray to select the 2nd and 4th row of X
+Y = X[indices,:]
+
+# We use the indices ndarray to select the 2nd and 4th column of X
+Z = X[:, indices]
+
+# We print Y
+print()
+print('Y = \n', Y)
+
+# We print Z
+print()
+print('Z = \n', Z)
+
+# X =
+# [[ 0 1 2 3 4]
+# [ 5 6 7 8 9]
+# [10 11 12 13 14]
+# [15 16 17 18 19]]
+
+# indices = [1 3]
+
+# Y =
+# [[ 5 6 7 8 9]
+# [15 16 17 18 19]]
+
+# Z =
+# [[ 1 3]
+# [ 6 8]
+# [11 13]
+# [16 18]]
+
+# NumPy also offers built-in functions to select specific elements within
+# ndarrays. For example, the np.diag(ndarray, k=N) function extracts the
+# elements along the diagonal defined by N. As default is k=0, which refers
+# to the main diagonal. Values of k > 0 are used to select elements in diagonals
+# above the main diagonal, and values of k < 0 are used to select elements in d
+# iagonals below the main diagonal. Let's see an example:
+
+# We create a 4 x 5 ndarray that contains integers from 0 to 19
+X = np.arange(25).reshape(5, 5)
+
+# We print X
+print()
+print('X = \n', X)
+print()
+
+# We print the elements in the main diagonal of X
+print('z =', np.diag(X))
+print()
+
+# We print the elements above the main diagonal of X
+print('y =', np.diag(X, k=1))
+print()
+
+# We print the elements below the main diagonal of X
+print('w = ', np.diag(X, k=-1))
+
+# X =
+# [[ 0 1 2 3 4]
+# [ 5 6 7 8 9]
+# [10 11 12 13 14]
+# [15 16 17 18 19]
+# [20 21 22 23 24]]
+
+# z = [ 0 6 12 18 24]
+
+# y = [ 1 7 13 19]
+
+# w = [ 5 11 17 23]
+
+# It is often useful to extract only the unique elements in an ndarray. We can
+# find the unique elements in an ndarray by using the np.unique() function.
+# The np.unique(ndarray) function returns the unique elements in the given ndarray,
+# as in the example below:
+
+# Create 3 x 3 ndarray with repeated values
+X = np.array([[1,2,3],[5,2,8],[1,2,3]])
+
+# We print X
+print()
+print('X = \n', X)
+print()
+
+# We print the unique elements of X
+print('The unique elements in X are:',np.unique(X))
+
+# X =
+# [[1 2 3]
+# [5 2 8]
+# [1 2 3]]
+
+# The unique elements in X are: [1 2 3 5 8]
+
+
+# Boolean Indexing, Set Operations, and Sorting
+
+# Up to now we have seen how to make slices and select elements of an ndarray
+# using indices. This is useful when we know the exact indices of the elements
+# we want to select. However, there are many situations in which we don't know
+# the indices of the elements we want to select. For example, suppose we have a
+# 10,000 x 10,000 ndarray of random integers ranging from 1 to 15,000 and we
+# only want to select those integers that are less than 20. Boolean indexing can
+# help us in these cases, by allowing us select elements using logical arguments
+# instead of explicit indices. Let's see some examples:
+
+# We create a 5 x 5 ndarray that contains integers from 0 to 24
+X = np.arange(25).reshape(5, 5)
+
+# We print X
+print()
+print('Original X = \n', X)
+print()
+
+# We use Boolean indexing to select elements in X:
+print('The elements in X that are greater than 10:', X[X > 10])
+print('The elements in X that less than or equal to 7:', X[X <= 7])
+print('The elements in X that are between 10 and 17:', X[(X > 10) & (X < 17)])
+
+# We use Boolean indexing to assign the elements that are between 10 and 17
+# the value of -1
+X[(X > 10) & (X < 17)] = -1
+
+# We print X
+print()
+print('X = \n', X)
+print()
+
+# Original X =
+# [[ 0 1 2 3 4]
+# [ 5 6 7 8 9]
+# [10 11 12 13 14]
+# [15 16 17 18 19]
+# [20 21 22 23 24]]
+
+# The elements in X that are greater than 10: [11 12 13 14 15 16 17 18 19 20 21 22 23 24]
+# The elements in X that less than or equal to 7: [0 1 2 3 4 5 6 7]
+# The elements in X that are between 10 and 17: [11 12 13 14 15 16]
+
+# X =
+# [[ 0 1 2 3 4]
+# [ 5 6 7 8 9]
+# [10 -1 -1 -1 -1]
+# [-1 -1 17 18 19]
+# [20 21 22 23 24]]
+
+# In addition to Boolean Indexing NumPy also allows for set operations. This
+# useful when comparing ndarrays, for example, to find common elements between
+# two ndarrays. Let's see some examples:
+
+# We create a rank 1 ndarray
+x = np.array([1,2,3,4,5])
+
+# We create a rank 1 ndarray
+y = np.array([6,7,2,8,4])
+
+# We print x
+print()
+print('x = ', x)
+
+# We print y
+print()
+print('y = ', y)
+
+# We use set operations to compare x and y:
+print()
+print('The elements that are both in x and y:', np.intersect1d(x,y))
+print('The elements that are in x that are not in y:', np.setdiff1d(x,y))
+print('All the elements of x and y:',np.union1d(x,y))
+x = [1 2 3 4 5]
+
+y = [6 7 2 8 4]
+
+# The elements that are both in x and y: [2 4]
+# The elements that are in x that are not in y: [1 3 5]
+# All the elements of x and y: [1 2 3 4 5 6 7 8]
+
+# We can also sort ndarrays in NumPy. We will learn how to use the np.sort()
+# function to sort rank 1 and rank 2 ndarrays in different ways. Like with other
+# functions we saw before, the sort function can also be used as a method.
+# However, there is a big difference on how the data is stored in memory in
+# this case. When np.sort() is used as a function, it sorts the ndrrays out of
+# place, meaning, that it doesn't change the original ndarray being sorted.
+# However, when you use sort as a method, ndarray.sort() sorts the ndarray in
+# place, meaning, that the original array will be changed to the sorted one.
+# Let's see some examples:
+
+# We create an unsorted rank 1 ndarray
+x = np.random.randint(1,11,size=(10,))
+
+# We print x
+print()
+print('Original x = ', x)
+
+# We sort x and print the sorted array using sort as a function.
+print()
+print('Sorted x (out of place):', np.sort(x))
+
+# When we sort out of place the original array remains intact. To see this we print x again
+print()
+print('x after sorting:', x)
+# riginal x = [9 6 4 4 9 4 8 4 4 7]
+
+Sorted x (out of place): [4 4 4 4 4 6 7 8 9 9]
+
+# x after sorting: [9 6 4 4 9 4 8 4 4 7]
+
+# Notice that np.sort() sorts the array but, if the ndarray being sorted has
+# repeated values, np.sort() leaves those values in the sorted array. However,
+# if desired, we can sort only the unique elements in x by combining the sort
+# function with the unique function. Let's see how we can sort the unique elements
+# of x above:
+
+# We sort x but only keep the unique elements in x
+print(np.sort(np.unique(x)))
+[4 6 7 8 9]
+
+# Finally, let's see how we can sort ndarrays in place, by using sort as a method:
+
+# We create an unsorted rank 1 ndarray
+x = np.random.randint(1,11,size=(10,))
+
+# We print x
+print()
+print('Original x = ', x)
+
+# We sort x and print the sorted array using sort as a method.
+x.sort()
+
+# When we sort in place the original array is changed to the sorted array. To see this we print x again
+print()
+print('x after sorting:', x)
+# Original x = [9 9 8 1 1 4 3 7 2 8]
+
+# x after sorting: [1 1 2 3 4 7 8 8 9 9]
+
+# When sorting rank 2 ndarrays, we need to specify to the np.sort() function
+# whether we are sorting by rows or columns. This is done by using the axis
+# keyword. Let's see some examples:
+
+# We create an unsorted rank 2 ndarray
+X = np.random.randint(1,11,size=(5,5))
+
+# We print X
+print()
+print('Original X = \n', X)
+print()
+
+# We sort the columns of X and print the sorted array
+print()
+print('X with sorted columns :\n', np.sort(X, axis = 0))
+
+# We sort the rows of X and print the sorted array
+print()
+print('X with sorted rows :\n', np.sort(X, axis = 1))
+
+# Original X =
+# [6 1 7 6 3]
+# [3 9 8 3 5]
+# [6 5 8 9 3]
+# [2 1 5 7 7]
+# [9 8 1 9 8]]
+
+# X with sorted columns :
+# [[2 1 1 3 3]
+# [3 1 5 6 3]
+# [6 5 7 7 5]
+# [6 8 8 9 7]
+# [9 9 8 9 8]]
+
+# X with sorted rows :
+# [[1 3 6 6 7]
+# [3 3 5 8 9]
+# [3 5 6 8 9]
+# [1 2 5 7 7]
+# [1 8 8 9 9]]
+
+
+# Create a 5 x 5 ndarray with consecutive integers from 1 to 25 (inclusive).
+# Afterwards use Boolean indexing to pick out only the odd numbers in the array
+
+import numpy as np
+
+# Create a 5 x 5 ndarray with consecutive integers from 1 to 25 (inclusive).
+X = np.arange(1, 26).reshape(5, 5)
+
+print()
+print('Original X = \n', X)
+print()
+print('The elements in X that are odd:', X[X % 2 != 0])
+print()
+
+# Use Boolean indexing to pick out only the odd numbers in the array
+Y = X[X % 2 != 0]
+
+print()
+print('Original Y = \n', Y)
+print()
+
+
+# Arithmetic operations and Broadcasting
+
+# We have reached the last lesson in this Introduction to NumPy. In this last
+# lesson we will see how NumPy does arithmetic operations on ndarrays. NumPy
+# allows element-wise operations on ndarrays as well as matrix operations.
+# In this lesson we will only be looking at element-wise operations on ndarrays.
+# In order to do element-wise operations, NumPy sometimes uses something called
+# Broadcasting. Broadcasting is the term used to describe how NumPy handles
+# element-wise arithmetic operations with ndarrays of different shapes. For
+# example, broadcasting is used implicitly when doing arithmetic operations
+# between scalars and ndarrays.
+
+# Let's start by doing element-wise addition, subtraction, multiplication, and
+# division, between ndarrays. To do this, NumPy provides a functional approach,
+# where we use functions such as np.add(), or by using arithmetic symbols, such
+# as +, that resembles more how we write mathematical equations. Both forms will
+# do the same operation, the only difference is that if you use the function
+# approach, the functions usually have options that you can tweak using keywords.
+# It is important to note that when performing element-wise operations, the shapes
+# of the ndarrays being operated on, must have the same shape or be broadcastable.
+# We'll explain more about this later in this lesson. Let's start by performing
+# element-wise arithmetic operations on rank 1 ndarrays:
+
+# We create two rank 1 ndarrays
+x = np.array([1,2,3,4])
+y = np.array([5.5,6.5,7.5,8.5])
+
+# We print x
+print()
+print('x = ', x)
+
+# We print y
+print()
+print('y = ', y)
+print()
+
+# We perfrom basic element-wise operations using arithmetic symbols and functions
+print('x + y = ', x + y)
+print('add(x,y) = ', np.add(x,y))
+print()
+print('x - y = ', x - y)
+print('subtract(x,y) = ', np.subtract(x,y))
+print()
+print('x * y = ', x * y)
+print('multiply(x,y) = ', np.multiply(x,y))
+print()
+print('x / y = ', x / y)
+print('divide(x,y) = ', np.divide(x,y))
+x = [1 2 3 4]
+
+y = [ 5.5 6.5 7.5 8.5]
+
+x + y = [ 6.5 8.5 10.5 12.5]
+add(x,y) = [ 6.5 8.5 10.5 12.5]
+
+x - y = [-4.5 -4.5 -4.5 -4.5]
+subtract(x,y) = [-4.5 -4.5 -4.5 -4.5]
+
+x * y = [ 5.5 13. 22.5 34. ]
+multiply(x,y) = [ 5.5 13. 22.5 34. ]
+
+x / y = [ 0.18181818 0.30769231 0.4 0.47058824]
+divide(x,y) = [ 0.18181818 0.30769231 0.4 0.47058824]
+
+# We can also perform the same element-wise arithmetic operations on rank 2
+# ndarrays. Again, remember that in order to do these operations the shapes of
+# the ndarrays being operated on, must have the same shape or be broadcastable.
+
+# We create two rank 2 ndarrays
+X = np.array([1,2,3,4]).reshape(2,2)
+Y = np.array([5.5,6.5,7.5,8.5]).reshape(2,2)
+
+# We print X
+print()
+print('X = \n', X)
+
+# We print Y
+print()
+print('Y = \n', Y)
+print()
+
+# We perform basic element-wise operations using arithmetic symbols and functions
+print('X + Y = \n', X + Y)
+print()
+print('add(X,Y) = \n', np.add(X,Y))
+print()
+print('X - Y = \n', X - Y)
+print()
+print('subtract(X,Y) = \n', np.subtract(X,Y))
+print()
+print('X * Y = \n', X * Y)
+print()
+print('multiply(X,Y) = \n', np.multiply(X,Y))
+print()
+print('X / Y = \n', X / Y)
+print()
+print('divide(X,Y) = \n', np.divide(X,Y))
+
+# X =
+# [[1 2]
+# [3 4]]
+
+# Y =
+# [[ 5.5 6.5]
+#  [ 7.5 8.5]]
+
+# X + Y =
+# [[ 6.5 8.5]
+#  [ 10.5 12.5]]
+
+# add(X,Y) =
+# [[ 6.5 8.5]
+#  [ 10.5 12.5]]
+
+# X - Y =
+# [[-4.5 -4.5]
+#  [-4.5 -4.5]]
+
+# subtract(X,Y) =
+# [[-4.5 -4.5]
+#  [-4.5 -4.5]]
+
+# X * Y =
+# [[ 5.5 13. ]
+#  [ 22.5 34. ]]
+
+# multiply(X,Y) =
+# [[ 5.5 13. ]
+#  [ 22.5 34. ]]
+
+# X / Y =
+# [[ 0.18181818 0.30769231]
+#  [ 0.4 0.47058824]]
+
+#  divide(X,Y) =
+# [[ 0.18181818 0.30769231]
+#  [ 0.4 0.47058824]]
+
+# We can also apply mathematical functions, such as sqrt(x), to all elements of
+# an ndarray at once.
+
+# We create a rank 1 ndarray
+x = np.array([1,2,3,4])
+
+# We print x
+print()
+print('x = ', x)
+
+# We apply different mathematical functions to all elements of x
+print()
+print('EXP(x) =', np.exp(x))
+print()
+print('SQRT(x) =',np.sqrt(x))
+print()
+print('POW(x,2) =',np.power(x,2)) # We raise all elements to the power of 2
+x = [1 2 3 4]
+
+EXP(x) = [ 2.71828183 7.3890561 20.08553692 54.59815003]
+
+SQRT(x) = [ 1. 1.41421356 1.73205081 2. ]
+
+POW(x,2) = [ 1 4 9 16]
+
+# Another great feature of NumPy is that it has a wide variety of statistical
+# functions. Statistical functions provide us with statistical information about
+# the elements in an ndarray. Let's see some examples:
+
+# We create a 2 x 2 ndarray
+X = np.array([[1,2], [3,4]])
+
+# We print x
+print()
+print('X = \n', X)
+print()
+
+print('Average of all elements in X:', X.mean())
+print('Average of all elements in the columns of X:', X.mean(axis=0))
+print('Average of all elements in the rows of X:', X.mean(axis=1))
+print()
+print('Sum of all elements in X:', X.sum())
+print('Sum of all elements in the columns of X:', X.sum(axis=0))
+print('Sum of all elements in the rows of X:', X.sum(axis=1))
+print()
+print('Standard Deviation of all elements in X:', X.std())
+print('Standard Deviation of all elements in the columns of X:', X.std(axis=0))
+print('Standard Deviation of all elements in the rows of X:', X.std(axis=1))
+print()
+print('Median of all elements in X:', np.median(X))
+print('Median of all elements in the columns of X:', np.median(X,axis=0))
+print('Median of all elements in the rows of X:', np.median(X,axis=1))
+print()
+print('Maximum value of all elements in X:', X.max())
+print('Maximum value of all elements in the columns of X:', X.max(axis=0))
+print('Maximum value of all elements in the rows of X:', X.max(axis=1))
+print()
+print('Minimum value of all elements in X:', X.min())
+print('Minimum value of all elements in the columns of X:', X.min(axis=0))
+print('Minimum value of all elements in the rows of X:', X.min(axis=1))
+
+# X =
+#  [[1 2]
+#  [3 4]]
+
+# Average of all elements in X: 2.5
+# Average of all elements in the columns of X: [ 2. 3.]
+# Average of all elements in the rows of X: [ 1.5 3.5]
+
+# Sum of all elements in X: 10
+# Sum of all elements in the columns of X: [4 6]
+# Sum of all elements in the rows of X: [3 7]
+
+# Standard Deviation of all elements in X: 1.11803398875
+# Standard Deviation of all elements in the columns of X: [ 1. 1.]
+# Standard Deviation of all elements in the rows of X: [ 0.5 0.5]
+
+# Median of all elements in X: 2.5
+# Median of all elements in the columns of X: [ 2. 3.]
+# Median of all elements in the rows of X: [ 1.5 3.5]
+
+# Maximum value of all elements in X: 4
+# Maximum value of all elements in the columns of X: [3 4]
+# Maximum value of all elements in the rows of X: [2 4]
+
+# Minimum value of all elements in X: 1
+# Minimum value of all elements in the columns of X: [1 2]
+# Minimum value of all elements in the rows of X: [1 3]
+
+# Finally, let's see how NumPy can add single numbers to all the elements of an
+# ndarray without the use of complicated loops.
+
+# We create a 2 x 2 ndarray
+X = np.array([[1,2], [3,4]])
+
+# We print x
+print()
+print('X = \n', X)
+print()
+
+print('3 * X = \n', 3 * X)
+print()
+print('3 + X = \n', 3 + X)
+print()
+print('X - 3 = \n', X - 3)
+print()
+print('X / 3 = \n', X / 3)
+
+# X =
+# [[1 2]
+# [3 4]]
+
+# 3 * X =
+# [[ 3 6]
+#  [ 9 12]]
+
+# 3 + X =
+# [[4 5]
+#  [6 7]]
+
+# X - 3 =
+# [[-2 -1]
+#  [ 0 1]]
+
+# X / 3 =
+# [[ 0.33333333 0.66666667]
+#  [ 1. 1.33333333]]
+
+# In the examples above, NumPy is working behind the scenes to broadcast 3 along
+# the ndarray so that they have the same shape. This allows us to add 3 to each
+# element of X with just one line of code.
+
+# Subject to certain constraints, Numpy can do the same for two ndarrays of
+# different shapes, as we can see below.
+
+# We create a rank 1 ndarray
+x = np.array([1,2,3])
+
+# We create a 3 x 3 ndarray
+Y = np.array([[1,2,3],[4,5,6],[7,8,9]])
+
+# We create a 3 x 1 ndarray
+Z = np.array([1,2,3]).reshape(3,1)
+
+# We print x
+print()
+print('x = ', x)
+print()
+
+# We print Y
+print()
+print('Y = \n', Y)
+print()
+
+# We print Z
+print()
+print('Z = \n', Z)
+print()
+
+print('x + Y = \n', x + Y)
+print()
+print('Z + Y = \n',Z + Y)
+x = [1 2 3]
+
+# Y =
+# [[1 2 3]
+# [4 5 6]
+# [7 8 9]]
+
+# Z =
+# [[1]
+# [2]
+# [3]]
+
+# x + Y =
+# [[ 2 4 6]
+# [ 5 7 9]
+# [ 8 10 12]]
+
+# Z + Y =
+# [[ 2 3 4]
+#  [ 6 7 8]
+#  [10 11 12]]
+
+# As before, NumPy is able to add 1 x 3 and 3 x 1 ndarrays to 3 x 3 ndarrays by
+# broadcasting the smaller ndarrays along the big ndarray so that they have
+# compatible shapes. In general, NumPy can do this provided that the smaller
+# ndarray, such as the 1 x 3 ndarray in our example, can be expanded to the shape
+# of the larger ndarray in such a way that the resulting broadcast is unambiguous.
+
+# Make sure you check out the NumPy Documentation for more information on
+# Broadcasting and its rules:
+
+# Broadcasting
+# https://docs.scipy.org/doc/numpy-1.13.0/user/basics.broadcasting.html
+
+
+
+
+# Use Broadcasting to create a 4 x 4 ndarray that has its first
+# column full of 1s, its second column full of 2s, its third
+# column full of 3s, etc..
+
+import numpy as np
+
+# We create a 4 x 4 ndarray full of ones.
+# X = np.full((4,4), 1)
+
+
+X = np.ones((4,4))
+
+# We print X
+print()
+print('X = \n', X)
+print()
+
+# We print information about Z
+print('X has dimensions:', X.shape)
+print('X is an object of type:', type(X))
+print('The elements in X are of type:', X.dtype)
+
+Y =  np.arange(1,5)
+
+# We print Y
+print()
+print('Y = \n', Y)
+print()
+
+# We print information about Y
+print('Y has dimensions:', Y.shape)
+print('Y is an object of type:', type(Y))
+print('The elements in Y are of type:', Y.dtype)
+
+
+
+Z = np.ones((4,4)) * np.arange(1,5)
+
+# We print Z
+print()
+print('Z = \n', Z)
+print()
+
+# We print information about Z
+print('Z has dimensions:', Z.shape)
+print('Z is an object of type:', type(Z))
+print('The elements in Z are of type:', Z.dtype)
+
+
+# Introduction to Pandas
+
+# Pandas is a package for data manipulation and analysis in Python. The name
+# Pandas is derived from the econometrics term Panel Data. Pandas incorporates
+# two additional data structures into Python, namely Pandas Series and Pandas
+# DataFrame. These data structures allow us to work with labeled and relational
+# data in an easy and intuitive manner. These lessons are intended as a basic
+# overview of Pandas and introduces some of its most important features.
+
+# In the following lessons you will learn:
+
+# How to import Pandas
+# How to create Pandas Series and DataFrames using various methods
+# How to access and change elements in Series and DataFrames
+# How to perform arithmetic operations on Series
+# How to load data into a DataFrame
+# How to deal with Not a Number (NaN) values
+
+# The following lessons assume that you are already familiar with NumPy and have
+# gone over the previous NumPy lessons. Therefore, to avoid being repetitive we
+# will omit a lot of details already given in the NumPy lessons. Consequently, if
+# you haven't seen the NumPy lessons we suggest you go over them first.
+
+# Downloading Pandas
+
+# Pandas is included with Anaconda. If you don't already have Anaconda installed
+# on your computer, please refer to the Anaconda section to get clear instructions
+# on how to install Anaconda on your PC or Mac.
+
+# Pandas Versions
+
+# As with many Python packages, Pandas is updated from time to time. The following
+# lessons were created using Pandas version 0.22. You can check which version of
+# Pandas you have by typing !conda list pandas in your Jupyter notebook or by
+# typing conda list pandas in the Anaconda prompt. If you have another version
+# of Pandas installed in your computer, you can update your version by typing conda
+# install pandas=0.22 in the Anaconda prompt. As newer versions of Pandas are
+# released, some functions may become obsolete or replaced, so make sure you
+# have the correct Pandas version before running the code. This will guarantee
+# your code will run smoothly.
+
+# Pandas Documentation
+# Pandas is remarkable data analysis library and it has many functions and features.
+# In these introductory lessons we will only scratch the surface of what Pandas can do.
+# If you want to learn more about Pandas, make sure you check out the Pandas Documentation:
+# https://pandas.pydata.org/pandas-docs/stable/
+
+
+
+# Why Use Pandas?
+
+# The recent success of machine learning algorithms is partly due to the huge
+# amounts of data that we have available to train our algorithms on. However,
+# when it comes to data, quantity is not the only thing that matters, the quality
+# of your data is just as important. It often happens that large datasets don’t
+# come ready to be fed into your learning algorithms. More often than not, large
+# datasets will often have missing values, outliers, incorrect values, etc… Having
+# data with a lot of missing or bad values, for example, is not going to allow
+# your machine learning algorithms to perform well. Therefore, one very important
+# step in machine learning is to look at your data first and make sure it is well
+# suited for your training algorithm by doing some basic data analysis. This is
+# where Pandas come in. Pandas Series and DataFrames are designed for fast data
+# analysis and manipulation, as well as being flexible and easy to use. Below are
+# just a few features that makes Pandas an excellent package for data analysis:
+
+# (1) Allows the use of labels for rows and columns
+# (2) Can calculate rolling statistics on time series data
+# (3) Easy handling of NaN values
+# (4) Is able to load data of different formats into DataFrames
+# (5) Can join and merge different datasets together
+# (6) It integrates with NumPy and Matplotlib
+
+# For these and other reasons, Pandas DataFrames have become one of the most
+# commonly used Pandas object for data analysis in Python.
+
+
+# Creating Pandas Series
+
+# A Pandas series is a one-dimensional array-like object that can hold many data
+# types, such as numbers or strings. One of the main differences between Pandas
+# Series and NumPy ndarrays is that you can assign an index label to each element
+# in the Pandas Series. In other words, you can name the indices of your Pandas
+# Series anything you want. Another big difference between Pandas Series and NumPy
+# ndarrays is that Pandas Series can hold data of different data types.
+
+# Let's start by importing Pandas into Python. It has become a convention to
+# import Pandas as pd, therefore, you can import Pandas by typing the following
+# command in your Jupyter notebook:
+
+import pandas as pd
+
+# Let's begin by creating a Pandas Series. You can create Pandas Series by using
+# the command pd.Series(data, index), where index is a list of index labels. Let's
+# use a Pandas Series to store a grocery list. We will use the food items as index
+# labels and the quantity we need to buy of each item as our data.
+
+# We import Pandas as pd into Python
+import pandas as pd
+
+# We create a Pandas Series that stores a grocery list
+groceries = pd.Series(data = [30, 6, 'Yes', 'No'], index = ['eggs', 'apples', 'milk', 'bread'])
+
+# We display the Groceries Pandas Series
+# groceries
+# eggs           30
+# apples         6
+# milk         Yes
+# bread       No
+# dtype: object
+
+# We see that Pandas Series are displayed with the indices in the first column
+# and the data in the second column. Notice that the data is not indexed 0 to 3
+# but rather it is indexed with the names of the food we put in, namely eggs,
+# apples, etc... Also notice that the data in our Pandas Series has both integers
+# and strings.
+
+# Just like NumPy ndarrays, Pandas Series have attributes that allows us to get
+# information from the series in an easy way. Let's see some of them:
+
+# We print some information about Groceries
+print('Groceries has shape:', groceries.shape)
+print('Groceries has dimension:', groceries.ndim)
+print('Groceries has a total of', groceries.size, 'elements')
+# Groceries has shape: (4,)
+# Groceries has dimension: 1
+# Groceries has a total of 4 elements
+
+# We can also print the index labels and the data of the Pandas Series separately.
+# This is useful if you don't happen to know what the index labels of the Pandas Series are.
+
+# We print the index and data of Groceries
+print('The data in Groceries is:', groceries.values)
+print('The index of Groceries is:', groceries.index)
+# The data in Groceries is: [30 6 'Yes' 'No']
+# The index of Groceries is: Index(['eggs', 'apples', 'milk', 'bread'], dtype='object')
+
+# If you are dealing with a very large Pandas Series and if you are not sure
+# whether an index label exists, you can check by using the in command
+
+# We check whether bananas is a food item (an index) in Groceries
+x = 'bananas' in groceries
+
+# We check whether bread is a food item (an index) in Groceries
+y = 'bread' in groceries
+
+# We print the results
+print('Is bananas an index label in Groceries:', x)
+print('Is bread an index label in Groceries:', y)
+# Is bananas an index label in Groceries: False
+# Is bread an index label in Groceries: True
+
+
+
+# Accessing and Deleting Elements in Pandas Series
+
+# Now let's look at how we can access or modify elements in a Pandas Series.
+# One great advantage of Pandas Series is that it allows us to access data in
+# many different ways. Elements can be accessed using index labels or numerical
+# indices inside square brackets, [ ], similar to how we access elements in NumPy
+# ndarrays. Since we can use numerical indices, we can use both positive and
+# negative integers to access data from the beginning or from the end of the
+# Series, respectively. Since we can access elements in various ways, in order
+# to remove any ambiguity to whether we are referring to an index label or
+# numerical index, Pandas Series have two attributes, .loc and .iloc to
+# explicitly state what we mean. The attribute .loc stands for location and it
+# is used to explicitly state that we are using a labeled index. Similarly, the
+# attribute .iloc stands for integer location and it is used to explicitly state
+# that we are using a numerical index. Let's see some examples:
+
+# We access elements in Groceries using index labels:
+
+# We use a single index label
+print('How many eggs do we need to buy:', groceries['eggs'])
+print()
+
+# we can access multiple index labels
+print('Do we need milk and bread:\n', groceries[['milk', 'bread']])
+print()
+
+# we use loc to access multiple index labels
+print('How many eggs and apples do we need to buy:\n', groceries.loc[['eggs', 'apples']])
+print()
+
+# We access elements in Groceries using numerical indices:
+
+# we use multiple numerical indices
+print('How many eggs and apples do we need to buy:\n',  groceries[[0, 1]])
+print()
+
+# We use a negative numerical index
+print('Do we need bread:\n', groceries[[-1]])
+print()
+
+# We use a single numerical index
+print('How many eggs do we need to buy:', groceries[0])
+print()
+# we use iloc to access multiple numerical indices
+print('Do we need milk and bread:\n', groceries.iloc[[2, 3]])
+# How many eggs do we need to buy: 30
+
+# Do we need milk and bread:
+# milk       Yes
+# bread     No
+# dtype: object
+
+# How many eggs and apples do we need to buy:
+# eggs       30
+# apples     6
+# dtype: object
+
+# How many eggs and apples do we need to buy:
+# eggs       30
+# apples     6
+# dtype: object
+
+# Do we need bread:
+# bread     No
+# dtype: object
+
+# How many eggs do we need to buy: 30
+
+# Do we need milk and bread:
+# milk       Yes
+# bread     No
+# dtype: object
+
+# Pandas Series are also mutable like NumPy ndarrays, which means we can change
+# the elements of a Pandas Series after it has been created. For example, let's
+# change the number of eggs we need to buy from our grocery list
+
+# We display the original grocery list
+print('Original Grocery List:\n', groceries)
+
+# We change the number of eggs to 2
+groceries['eggs'] = 2
+
+# We display the changed grocery list
+print()
+print('Modified Grocery List:\n', groceries)
+# Original Grocery List:
+# eggs           30
+# apples         6
+# milk         Yes
+# bread       No
+# dtype: object
+
+# Modified Grocery List:
+# eggs             2
+# apples         6
+# milk         Yes
+# bread       No
+# dtype: object
+
+# We can also delete items from a Pandas Series by using the .drop() method.
+# The Series.drop(label) method removes the given label from the given Series.
+# We should note that the Series.drop(label) method drops elements from the
+# Series out of place, meaning that it doesn't change the original Series being
+# modified. Let's see how this works:
+
+# We display the original grocery list
+print('Original Grocery List:\n', groceries)
+
+# We remove apples from our grocery list. The drop function removes elements out of place
+print()
+print('We remove apples (out of place):\n', groceries.drop('apples'))
+
+# When we remove elements out of place the original Series remains intact. To see this
+# we display our grocery list again
+print()
+print('Grocery List after removing apples out of place:\n', groceries)
+# Original Grocery List:
+# eggs           30
+# apples         6
+# milk         Yes
+# bread       No
+# dtype: object
+
+# We remove apples (out of place):
+# eggs           30
+# milk         Yes
+# bread       No
+# dtype: object
+
+# Grocery List after removing apples out of place:
+# eggs           30
+# apples         6
+# milk         Yes
+# bread       No
+# dtype: object
+
+# We can delete items from a Pandas Series in place by setting the keyword
+# inplace to True in the .drop() method. Let's see an example:
+
+# We display the original grocery list
+print('Original Grocery List:\n', groceries)
+
+# We remove apples from our grocery list in place by setting the inplace keyword to True
+groceries.drop('apples', inplace = True)
+
+# When we remove elements in place the original Series its modified. To see this
+# we display our grocery list again
+print()
+print('Grocery List after removing apples in place:\n', groceries)
+# Original Grocery List:
+# eggs           30
+# apples         6
+# milk         Yes
+# bread       No
+# dtype: object
+
+# Grocery List after removing apples in place:
+# eggs           30
+# milk         Yes
+# bread       No
+# dtype: object
+
+
+
+
+# Arithmetic Operations on Pandas Series
+
+# Just like with NumPy ndarrays, we can perform element-wise arithmetic
+# operations on Pandas Series. In this lesson we will look at arithmetic
+# operations between Pandas Series and single numbers. Let's create a new
+# Pandas Series that will hold a grocery list of just fruits.
+
+# We create a Pandas Series that stores a grocery list of just fruits
+fruits= pd.Series(data = [10, 6, 3,], index = ['apples', 'oranges', 'bananas'])
+
+# We display the fruits Pandas Series
+# fruits
+# apples         10
+# oranges        6
+# bananas       3
+# dtype: int64
+
+# We can now modify the data in fruits by performing basic arithmetic operations.
+# Let's see some examples
+
+# We print fruits for reference
+print('Original grocery list of fruits:\n ', fruits)
+
+# We perform basic element-wise operations using arithmetic symbols
+print()
+print('fruits + 2:\n', fruits + 2) # We add 2 to each item in fruits
+print()
+print('fruits - 2:\n', fruits - 2) # We subtract 2 to each item in fruits
+print()
+print('fruits * 2:\n', fruits * 2) # We multiply each item in fruits by 2
+print()
+print('fruits / 2:\n', fruits / 2) # We divide each item in fruits by 2
+print()
+# Original grocery list of fruits:
+# apples         10
+# oranges        6
+# bananas       3
+# dtype: int64
+
+# fruits + 2:
+# apples         12
+# oranges        8
+# bananas       5
+# dtype: int64
+
+# fruits - 2:
+# apples           8
+# oranges        4
+# bananas       1
+# dtype: int64
+
+# fruits * 2:
+# apples         20
+# oranges      12
+# bananas       6
+# dtype: int64
+
+# fruits / 2:
+# apples           5.0
+# oranges        3.0
+# bananas       1.5
+# dtype: float64
+
+# You can also apply mathematical functions from NumPy, such assqrt(x), to all
+# elements of a Pandas Series.
+
+# We import NumPy as np to be able to use the mathematical functions
+import numpy as np
+
+# We print fruits for reference
+print('Original grocery list of fruits:\n', fruits)
+
+# We apply different mathematical functions to all elements of fruits
+print()
+print('EXP(X) = \n', np.exp(fruits))
+print()
+print('SQRT(X) =\n', np.sqrt(fruits))
+print()
+print('POW(X,2) =\n',np.power(fruits,2)) # We raise all elements of fruits to the power of 2
+
+# Original grocery list of fruits:
+# apples         10
+# oranges        6
+# bananas       3
+# dtype: int64
+
+# EXP(X) =
+# apples        22026.465795
+# oranges         403.428793
+# bananas          20.085537
+# dtype: float64
+
+# SQRT(X) =
+# apples            3.162278
+# oranges         2.449490
+# bananas        1.732051
+# dtype: float64
+
+# POW(X,2) =
+# apples         100
+# oranges        36
+# bananas         9
+# dtype: int64
+
+# Pandas also allows us to only apply arithmetic operations on selected items
+# in our fruits grocery list. Let's see some examples
+
+# We print fruits for reference
+print('Original grocery list of fruits:\n ', fruits)
+print()
+
+# We add 2 only to the bananas
+print('Amount of bananas + 2 = ', fruits['bananas'] + 2)
+print()
+
+# We subtract 2 from apples
+print('Amount of apples - 2 = ', fruits.iloc[0] - 2)
+print()
+
+# We multiply apples and oranges by 2
+print('We double the amount of apples and oranges:\n', fruits[['apples', 'oranges']] * 2)
+print()
+
+# We divide apples and oranges by 2
+print('We half the amount of apples and oranges:\n', fruits.loc[['apples', 'oranges']] / 2)
+
+# Original grocery list of fruits:
+# apples         10
+# oranges        6
+# bananas       3
+# dtype: int64
+
+# Amount of bananas + 2 = 5
+
+# Amount of apples - 2 = 8
+
+# We double the amount of apples and oranges:
+# apples         20
+# oranges      12
+# dtype: int64
+
+# We half the amount of apples and oranges:
+# apples         5.0
+# oranges      3.0
+# dtype: float64
+
+# You can also apply arithmetic operations on Pandas Series of mixed data type
+# provided that the arithmetic operation is defined for all data types in the
+# Series, otherwise you will get an error. Let's see what happens when we multiply
+# our grocery list by 2
+
+# We multiply our grocery list by 2
+groceries * 2
+
+# eggs                 60
+# apples             12
+# milk         YesYes
+# bread        NoNo
+# dtype: object
+
+# As we can see, in this case, since we multiplied by 2, Pandas doubles the
+# data of each item including the strings. Pandas can do this because the
+# multiplication operation * is defined both for numbers and strings. If you
+# were to apply an operation that was valid for numbers but not strings, say
+# for instance, / you will get an error. So when you have mixed data types in
+# your Pandas Series make sure the arithmetic operations are valid on all the
+# data types of your elements.
+
+
+
+
+# Create a Pandas Series that contains the distance of some planets from the Sun.
+# Use the name of the planets as the index to your Pandas Series, and the distance
+# from the Sun as your data. The distance from the Sun is in units of 10^6 km
+
+import pandas as pd
+import numpy as np
+
+distance_from_sun = [149.6, 1433.5, 227.9, 108.2, 778.6]
+
+planets = ['Earth','Saturn', 'Mars','Venus', 'Jupiter']
+
+# Create a Pandas Series using the above data, with the name of the planets as
+# the index and the distance from the Sun as your data.
+dist_planets = pd.Series(data = distance_from_sun, index = planets)
+
+print("Planet Distance from Sun")
+print(dist_planets)
+print()
+
+# Calculate the number of minutes it takes sunlight to reach each planet. You can
+# do this by dividing the distance from the Sun for each planet by the speed of light.
+# Since in the data above the distance from the Sun is in units of 10^6 km, you can
+# use a value for the speed of light of c = 18, since light travels 18 x 10^6 km/minute.
+
+speed_of_light = 18
+time_light = dist_planets / speed_of_light
+print("Number of Minutes of Sunlight to Planet")
+print(time_light)
+print()
+
+# Use Boolean indexing to select only those planets for which sunlight takes less
+# than 40 minutes to reach them.
+close_planets = time_light[time_light < 40]
+print("Planets Close to the Sun")
+print(close_planets)
+
+
+
+# Creating Pandas DataFrames
+
+# Pandas DataFrames are two-dimensional data structures with labeled rows and
+# columns, that can hold many data types. If you are familiar with Excel, you
+# can think of Pandas DataFrames as being similar to a spreadsheet. We can create
+# Pandas DataFrames manually or by loading data from a file. In these lessons we
+# will start by learning how to create Pandas DataFrames manually from dictionaries
+# and later we will see how we can load data into a DataFrame from a data file.
+
+# We will start by creating a DataFrame manually from a dictionary of Pandas Series.
+# In this case the first step is to create the dictionary of Pandas Series. After
+# the dictionary is created we can then pass the dictionary to the pd.DataFrame()
+# function.
+
+# We will create a dictionary that contains items purchased by two people, Alice
+# and Bob, on an online store. The Pandas Series will use the price of the items
+# purchased as data, and the purchased items will be used as the index labels to
+# the Pandas Series. Let's see how this done in code:
+
+# We import Pandas as pd into Python
+import pandas as pd
+
+# We create a dictionary of Pandas Series
+items = {'Bob' : pd.Series(data = [245, 25, 55], index = ['bike', 'pants', 'watch']),
+         'Alice' : pd.Series(data = [40, 110, 500, 45], index = ['book', 'glasses', 'bike', 'pants'])}
+
+# We print the type of items to see that it is a dictionary
+print(type(items))
+class 'dict'
+
+# Now that we have a dictionary, we are ready to create a DataFrame by passing
+# it to the pd.DataFrame() function. We will create a DataFrame that could
+# represent the shopping carts of various users, in this case we have only two
+# users, Alice and Bob.
+
+# We create a Pandas DataFrame by passing it a dictionary of Pandas Series
+shopping_carts = pd.DataFrame(items)
+
+# We display the DataFrame
+shopping_carts
+
+#           |    Alice   |    Bob
+# ----------|------------|-----------
+# bike	    |    500.0	 |    245.0
+# book	    |    40.0	 |    NaN
+# glasses   |	 110.0	 |    NaN
+# pants	    |    45.0	 |    25.0
+# watch	    |    NaN	 |    55.0
+
+# There are several things to notice here that are worth pointing out. We see
+# that DataFrames are displayed in tabular form, much like an Excel spreadsheet,
+# with the labels of rows and columns in bold. Also notice that the row labels of
+# the DataFrame are built from the union of the index labels of the two Pandas
+# Series we used to construct the dictionary. And the column labels of the
+# DataFrame are taken from the keys of the dictionary. Another thing to notice
+# is that the columns are arranged alphabetically and not in the order given in
+# the dictionary. We will see later that this won't happen when we load data into
+# a DataFrame from a data file. The last thing we want to point out is that we see
+# some NaN values appear in the DataFrame. NaN stands for Not a Number, and is
+# Pandas way of indicating that it doesn't have a value for that particular row
+# and column index. For example, if we look at the column of Alice, we see that
+# it has NaN in the watch index. You can see why this is the case by looking at
+# the dictionary we created at the beginning. We clearly see that the dictionary
+# has no item for Alice labeled watches. So whenever a DataFrame is created, if
+# a particular column doesn't have values for a particular row index, Pandas will
+# put a NaN value there. If we were to feed this data into a machine learning
+# algorithm we will have to remove these NaN values first. In a later lesson we
+# will learn how to deal with NaN values and clean our data. For now, we will
+# leave these values in our DataFrame.
+
+# In the above example we created a Pandas DataFrame from a dictionary of Pandas
+# Series that had clearly defined indexes. If we don't provide index labels to the
+# Pandas Series, Pandas will use numerical row indexes when it creates the DataFrame.
+# Let's see an example:
+
+# We create a dictionary of Pandas Series without indexes
+data = {'Bob' : pd.Series([245, 25, 55]),
+        'Alice' : pd.Series([40, 110, 500, 45])}
+
+# We create a DataFrame
+df = pd.DataFrame(data)
+
+# We display the DataFrame
+df
+
+#           |    Alice   |    Bob
+# ----------|------------|-----------
+#  0	    |    40.0	 |    245.0
+#  1        |	 110.0	 |    25.0
+#  2  	    |    500.0	 |    55.0
+#  3        |    45.0	 |    NaN
+
+# We can see that Pandas indexes the rows of the DataFrame starting from 0, just
+# like NumPy indexes ndarrays.
+
+
+# Now, just like with Pandas Series we can also extract information from DataFrames
+# using attributes. Let's print some information from our shopping_carts DataFrame
+
+# We print some information about shopping_carts
+print('shopping_carts has shape:', shopping_carts.shape)
+print('shopping_carts has dimension:', shopping_carts.ndim)
+print('shopping_carts has a total of:', shopping_carts.size, 'elements')
+print()
+print('The data in shopping_carts is:\n', shopping_carts.values)
+print()
+print('The row index in shopping_carts is:', shopping_carts.index)
+print()
+print('The column index in shopping_carts is:', shopping_carts.columns)
+
+# shopping_carts has shape: (5, 2)
+# shopping_carts has dimension: 2
+# shopping_carts has a total of: 10 elements
+
+# The data in shopping_carts is:
+# [[    500.    245.]
+# [       40.     nan]
+# [     110.     nan]
+# [       45.      25.]
+# [     nan       55.]]
+
+# The row index in shopping_carts is: Index(['bike', 'book', 'glasses', 'pants', 'watch'], dtype='object')
+
+# The column index in shopping_carts is: Index(['Alice', 'Bob'], dtype='object')
+
+# When creating the shopping_carts DataFrame we passed the entire dictionary to
+# the pd.DataFrame() function. However, there might be cases when you are only
+# interested in a subset of the data. Pandas allows us to select which data we
+# want to put into our DataFrame by means of the keywords columns and index.
+# Let's see some examples:
+
+# We Create a DataFrame that only has Bob's data
+bob_shopping_cart = pd.DataFrame(items, columns=['Bob'])
+
+# We display bob_shopping_cart
+bob_shopping_cart
+
+#        |  Bob
+# -------|------
+# bike	 |  245
+# pants	 |  25
+# watch	 |  55
+
+# We Create a DataFrame that only has selected items for both Alice and Bob
+sel_shopping_cart = pd.DataFrame(items, index = ['pants', 'book'])
+
+# We display sel_shopping_cart
+sel_shopping_cart
+
+
+#       | Alice	|   Bob
+# ------|-------|-------
+# pants	| 45    |	25.0
+# book	| 40	|   NaN
+
+# We Create a DataFrame that only has selected items for Alice
+alice_sel_shopping_cart = pd.DataFrame(items, index = ['glasses', 'bike'], columns = ['Alice'])
+
+# We display alice_sel_shopping_cart
+alice_sel_shopping_cart
+
+#         | Alice
+# --------|-------
+# glasses |	110
+# bike	  | 500
+
+# You can also manually create DataFrames from a dictionary of lists (arrays). The
+# procedure is the same as before, we start by creating the dictionary and then
+# passing the dictionary to the pd.DataFrame() function. In this case, however,
+# all the lists (arrays) in the dictionary must be of the same length. Let' see an example:
+
+# We create a dictionary of lists (arrays)
+data = {'Integers' : [1,2,3],
+        'Floats' : [4.5, 8.2, 9.6]}
+
+# We create a DataFrame
+df = pd.DataFrame(data)
+
+# We display the DataFrame
+df
+
+#           |    Floats  |  Integers
+# ----------|------------|-------------
+#  0        |    4.5	 |   1
+#  1        |    8.2	 |   2
+#  2        |    9.6	 |   3
+
+
+# Notice that since the data dictionary we created doesn't have label indices,
+# Pandas automatically uses numerical row indexes when it creates the DataFrame.
+# We can however, put labels to the row index by using the index keyword in the
+# pd.DataFrame() function. Let's see an example
+
+# We create a dictionary of lists (arrays)
+data = {'Integers' : [1,2,3],
+        'Floats' : [4.5, 8.2, 9.6]}
+
+# We create a DataFrame and provide the row index
+df = pd.DataFrame(data, index = ['label 1', 'label 2', 'label 3'])
+
+# We display the DataFrame
+df
+
+#           |    Floats  |  Integers
+# ----------|------------|-------------
+#  label 1  |    4.5	 |   1
+#  label 2  |    8.2	 |   2
+#  label 3  |    9.6	 |   3
+
+# The last method for manually creating Pandas DataFrames that we want to look at,
+# is by using a list of Python dictionaries. The procedure is the same as before,
+# we start by creating the dictionary and then passing the dictionary to the
+# pd.DataFrame() function.
+
+# We create a list of Python dictionaries
+items2 = [{'bikes': 20, 'pants': 30, 'watches': 35},
+          {'watches': 10, 'glasses': 50, 'bikes': 15, 'pants':5}]
+
+# We create a DataFrame
+store_items = pd.DataFrame(items2)
+
+# We display the DataFrame
+store_items
+
+
+#       | bikes	| glasses | pants  | watches |
+# ------|-------|---------|--------|---------|
+#  0    | 20    |	NaN   |   30   |  35     |
+#  1    | 15	|   50.0  |   5    |  10     |
+
+# Again, notice that since the items2 dictionary we created doesn't have label
+# indices, Pandas automatically uses numerical row indexes when it creates the
+# DataFrame. As before, we can put labels to the row index by using the index
+# keyword in the pd.DataFrame() function. Let's assume we are going to use this
+# DataFrame to hold the number of items a particular store has in stock. So, we
+# will label the row indices as store 1 and store 2.
+
+# We create a list of Python dictionaries
+items2 = [{'bikes': 20, 'pants': 30, 'watches': 35},
+          {'watches': 10, 'glasses': 50, 'bikes': 15, 'pants':5}]
+
+# We create a DataFrame  and provide the row index
+store_items = pd.DataFrame(items2, index = ['store 1', 'store 2'])
+
+# We display the DataFrame
+store_items
+
+#         | bikes | glasses | pants  | watches |
+# --------|-------|---------|--------|---------|
+# store 1 | 20    |	NaN     |   30   |  35     |
+# store 2 | 15	  | 50.0    |   5    |  10     |
+
+
+
+# Accessing Elements in Pandas DataFrames
+
+# We can access elements in Pandas DataFrames in many different ways. In general,
+# we can access rows, columns, or individual elements of the DataFrame by using
+# the row and column labels. We will use the same store_items DataFrame created
+# in the previous lesson. Let's see some examples:
+
+# We print the store_items DataFrame
+print(store_items)
+
+# We access rows, columns and elements using labels
+print()
+print('How many bikes are in each store:\n', store_items[['bikes']])
+print()
+print('How many bikes and pants are in each store:\n', store_items[['bikes', 'pants']])
+print()
+print('What items are in Store 1:\n', store_items.loc[['store 1']])
+print()
+print('How many bikes are in Store 2:', store_items['bikes']['store 2'])
+
+#         | bikes | glasses | pants  | watches |
+# --------|-------|---------|--------|---------|
+# store 1 | 20    |	NaN     |   30   |  35     |
+# store 2 | 15	  | 50.0    |   5    |  10     |
+
+# How many bikes are in each store:
+
+#         | bikes |
+# --------|-------|
+# store 1 | 20    |
+# store 2 | 15	  |
+
+# How many bikes and pants are in each store:
+
+#         | bikes | pants  |
+# --------|-------|--------|
+# store 1 | 20    |   30   |
+# store 2 | 15	  |   5    |
+
+# What items are in Store 1:
+
+#         | bikes | glasses | pants  | watches |
+# --------|-------|---------|--------|---------|
+# store 1 | 20    |	NaN     |   30   |  35     |
+
+# How many bikes are in Store 2: 15
+
+# It is important to know that when accessing individual elements in a DataFrame,
+# as we did in the last example above, the labels should always be provided with
+# the column label first, i.e. in the form dataframe[column][row]. For example,
+# when retrieving the number bikes in store 2, we first used the column label
+# bikes and then the row label store 2. If you provide the row label first you
+# will get an error.
+
+# We can also modify our DataFrames by adding rows or columns. Let's start by
+# learning how to add new columns to our DataFrames. Let's suppose we decided to
+# add shirts to the items we have in stock at each store. To do this, we will
+# need to add a new column to our store_items DataFrame indicating how many
+# shirts are in each store. Let's do that:
+
+# We add a new column named shirts to our store_items DataFrame indicating the number of
+# shirts in stock at each store. We will put 15 shirts in store 1 and 2 shirts in store 2
+store_items['shirts'] = [15,2]
+
+# We display the modified DataFrame
+store_items
+
+#         | bikes | glasses | pants  | watches | shirts |
+# --------|-------|---------|--------|---------|--------|
+# store 1 | 20    |	NaN     |   30   |  35     |  15    |
+# store 2 | 15	  | 50.0    |   5    |  10     |  2     |
+
+# We can see that when we add a new column, the new column is added at the end
+# of our DataFrame.
+
+# We can also add new columns to our DataFrame by using arithmetic operations
+# between other columns in our DataFrame. Let's see an example:
+
+# We make a new column called suits by adding the number of shirts and pants
+store_items['suits'] = store_items['pants'] + store_items['shirts']
+
+# We display the modified DataFrame
+store_items
+
+#         | bikes | glasses | pants  | watches | shirts | suits |
+# --------|-------|---------|--------|---------|--------|-------|
+# store 1 | 20    |	NaN     |   30   |  35     |  15    |  45   |
+# store 2 | 15	  | 50.0    |   5    |  10     |  2     |  7    |
+
+# Suppose now, that you opened a new store and you need to add the number of
+# items in stock of that new store into your DataFrame. We can do this by adding
+# a new row to the store_items Dataframe. To add rows to our DataFrame we
+# first have to create a new Dataframe and then append it to the original
+# DataFrame. Let's see how this works
+
+# We create a dictionary from a list of Python dictionaries that will number of
+# items at the new store
+new_items = [{'bikes': 20, 'pants': 30, 'watches': 35, 'glasses': 4}]
+
+# We create new DataFrame with the new_items and provide and index labeled store 3
+new_store = pd.DataFrame(new_items, index = ['store 3'])
+
+# We display the items at the new store
+new_store
+
+
+#         | bikes | glasses | pants  | watches |
+# --------|-------|---------|--------|---------|
+# store 3 | 20    |	NaN     |   30   |  35     |
+
+
+# We now add this row to our store_items DataFrame by using the .append() method.
+
+# We append store 3 to our store_items DataFrame
+store_items = store_items.append(new_store)
+
+# We display the modified DataFrame
+store_items
+
+#         | bikes | glasses | pants  | watches | shirts | suits |
+# --------|-------|---------|--------|---------|--------|-------|
+# store 1 | 20    |	NaN     |   30   |  35     |  15    |  45   |
+# store 2 | 15	  | 50.0    |   5    |  10     |  2     |  7    |
+# store 3 | 20	  | 4.0     |   30   |  NaN    |  NaN   |  35   |
+
+# Notice that by appending a new row to the DataFrame, the columns have been
+# put in alphabetical order.
+
+# We can also add new columns of our DataFrame by using only data from particular
+# rows in particular columns. For example, suppose that you want to stock stores
+# 2 and 3 with new watches and you want the quantity of the new watches to be
+# the same as the watches already in stock for those stores. Let's see how we
+# can do this
+
+# We add a new column using data from particular rows in the watches column
+store_items['new watches'] = store_items['watches'][1:]
+
+# We display the modified DataFrame
+store_items
+
+#         | bikes | glasses | pants  | shirts  | suits  | watches | new watches |
+# --------|-------|---------|--------|---------|--------|---------|-------------|
+# store 1 | 20    |	NaN     |   30   |  15.0   |  45    |  35     |   NaN       |
+# store 2 | 15	  | 50.0    |   5    |  2.0    |  7.0   |  10     |   10.0      |
+# store 3 | 20	  | 4.0     |   30   |  NaN    |  NaN   |  35     |   35.0      |
+
+
+# It is also possible, to insert new columns into the DataFrames anywhere we want.
+# The dataframe.insert(loc,label,data) method allows us to insert a new column
+# in the dataframe at location loc, with the given column label, and given data.
+# Let's add new column named shoes right before the suits column. Since suits has
+# numerical index value 4 then we will use this value as loc. Let's see how this works:
+
+# We insert a new column with label shoes right before the column with numerical index 4
+store_items.insert(4, 'shoes', [8,5,0])
+
+# we display the modified DataFrame
+
+#         | bikes | glasses | pants  | shirts  | shoes  | suits   | watches  | new watches |
+# --------|-------|---------|--------|---------|--------|---------|----------|-------------|
+# store 1 | 20    |	NaN     |   30   |  15.0   |  8     |  45.0   |   35     |   NaN       |
+# store 2 | 15	  | 50.0    |   5    |  2.0    |  5     |  7.0    |   10     |   10.0      |
+# store 3 | 20	  | 4.0     |   30   |  NaN    |  0     |  NaN    |   35     |   35.0      |
+
+
+# Just as we can add rows and columns we can also delete them. To delete rows
+# and columns from our DataFrame we will use the .pop() and .drop() methods.
+# The .pop() method only allows us to delete columns, while the .drop() method
+# can be used to delete both rows and columns by use of the axis keyword. Let's
+# see some examples
+
+# We remove the new watches column
+store_items.pop('new watches')
+
+# we display the modified DataFrame
+store_items
+
+#         | bikes | glasses | pants  | shirts  | shoes  | suits   | watches  |
+# --------|-------|---------|--------|---------|--------|---------|----------|
+# store 1 | 20    |	NaN     |   30   |  15.0   |  8     |  45.0   |   35     |
+# store 2 | 15	  | 50.0    |   5    |  2.0    |  5     |  7.0    |   10     |
+# store 3 | 20	  | 4.0     |   30   |  NaN    |  0     |  NaN    |   35     |
+
+
+
+# We remove the watches and shoes columns
+store_items = store_items.drop(['watches', 'shoes'], axis = 1)
+
+# we display the modified DataFrame
+store_items
+
+#         | bikes | glasses | pants  | shirts  | suits   |
+# --------|-------|---------|--------|---------|---------|
+# store 1 | 20    |	NaN     |   30   |  15.0   |  45.0   |
+# store 2 | 15	  | 50.0    |   5    |  2.0    |  7.0    |
+# store 3 | 20	  | 4.0     |   30   |  NaN    |  NaN    |
+
+# We remove the store 2 and store 1 rows
+store_items = store_items.drop(['store 2', 'store 1'], axis = 0)
+
+# we display the modified DataFrame
+store_items
+
+#         | bikes | glasses | pants  | shirts  | suits   |
+# --------|-------|---------|--------|---------|---------|
+# store 3 | 20	  | 4.0     |   30   |  NaN    |  NaN    |
+
+# Sometimes we might need to change the row and column labels. Let's change
+# the bikes column label to hats using the .rename() method
+
+# We change the column label bikes to hats
+store_items = store_items.rename(columns = {'bikes': 'hats'})
+
+# we display the modified DataFrame
+store_items
+
+#         | hats  | glasses | pants  | shirts  | suits   |
+# --------|-------|---------|--------|---------|---------|
+# store 3 | 20	  | 4.0     |   30   |  NaN    |  NaN    |
+
+Now let's change the row label using the .rename() method again.
+
+# We change the row label from store 3 to last store
+store_items = store_items.rename(index = {'store 3': 'last store'})
+
+# we display the modified DataFrame
+store_items
+
+#            | hats  | glasses | pants  | shirts  | suits   |
+# -----------|-------|---------|--------|---------|---------|
+# last store | 20	 | 4.0     |   30   |  NaN    |  NaN    |
+
+You can also change the index to be one of the columns in the DataFrame.
+
+# We change the row index to be the data in the pants column
+store_items = store_items.set_index('pants')
+
+# we display the modified DataFrame
+store_items
+
+#   | pants | hats    | glasses  | shirts  | suits   |
+#   |-------|---------|----------|---------|---------|
+#   | 30    | 20      |   4.0    |  NaN    |  NaN    |
+
+
+
+
+# Dealing with NaN
+
+# As mentioned earlier, before we can begin training our learning algorithms
+# with large datasets, we usually need to clean the data first. This means we
+# need to have a method for detecting and correcting errors in our data. While
+# any given dataset can have many types of bad data, such as outliers or
+# incorrect values, the type of bad data we encounter almost always is missing
+# values. As we saw earlier, Pandas assigns NaN values to missing data. In this
+# lesson we will learn how to detect and deal with NaN values.
+
+# We will begin by creating a DataFrame with some NaN values in it.
+
+# We create a list of Python dictionaries
+items2 = [{'bikes': 20, 'pants': 30, 'watches': 35, 'shirts': 15, 'shoes':8, 'suits':45},
+{'watches': 10, 'glasses': 50, 'bikes': 15, 'pants':5, 'shirts': 2, 'shoes':5, 'suits':7},
+{'bikes': 20, 'pants': 30, 'watches': 35, 'glasses': 4, 'shoes':10}]
+
+# We create a DataFrame  and provide the row index
+store_items = pd.DataFrame(items2, index = ['store 1', 'store 2', 'store 3'])
+
+# We display the DataFrame
+store_items
+
+#         | bikes | glasses | pants  | shirts  | shoes  | suits   | watches  |
+# --------|-------|---------|--------|---------|--------|---------|----------|
+# store 1 | 20    |	NaN     |   30   |  15.0   |  8     |  45.0   |   35     |
+# store 2 | 15	  | 50.0    |   5    |  2.0    |  5     |  7.0    |   10     |
+# store 3 | 20	  | 4.0     |   30   |  NaN    |  0     |  NaN    |   35     |
+
+
+# We can clearly see that the DataFrame we created has 3 NaN values: one in
+# store 1 and two in store 3. However, in cases where we load very large
+# datasets into a DataFrame, possibly with millions of items, the number of
+# NaN values is not easily visualized. For these cases, we can use a combination
+# of methods to count the number of NaN values in our data. The following
+# example combines the .isnull() and the sum() methods to count the number of
+# NaN values in our DataFrame
+
+# We count the number of NaN values in store_items
+x =  store_items.isnull().sum().sum()
+
+# We print x
+print('Number of NaN values in our DataFrame:', x)
+# Number of NaN values in our DataFrame: 3
+
+# In the above example, the .isnull() method returns a Boolean DataFrame of the
+# same size as store_items and indicates with True the elements that have NaN
+# values and with False the elements that are not. Let's see an example:
+
+store_items.isnull()
+
+#             bikes	| glasses |	pants |	shirts	| shoes | suits	| watches
+# ------------------|---------|-------|---------|-------|-------|---------
+# store 1	  False	| True	  | False |	False	| False	| False	| False
+# store 2	  False	| False	  | False |	False	| False	| False	| False
+# store 3	  False	| False	  | False |	True	| False	| True	| False
+
+# In Pandas, logical True values have numerical value 1 and logical False
+# values have numerical value 0. Therefore, we can count the number of NaN
+# values by counting the number of logical True values. In order to count the
+# total number of logical True values we use the .sum() method twice. We have
+# to use it twice because the first sum returns a Pandas Series with the sums
+# of logical True values along columns, as we see below:
+
+store_items.isnull().sum()
+
+# bikes        0
+# glasses      1
+# pants        0
+# shirts       1
+# shoes        0
+# suits        1
+# watches      0
+# dtype: int64
+
+# The second sum will then add up the 1s in the above Pandas Series.
+
+# Instead of counting the number of NaN values we can also do the opposite, we
+# can count the number of non-NaN values. We can do this by using the .count()
+# method as shown below:
+
+# We print the number of non-NaN values in our DataFrame
+print()
+print('Number of non-NaN values in the columns of our DataFrame:\n', store_items.count())
+
+# Number of non-NaN values in the columns of our DataFrame:
+# bikes          3
+# glasses        2
+# pants          3
+# shirts         2
+# shoes          3
+# suits          2
+# watches        3
+# dtype: int64
+
+# Now that we learned how to know if our dataset has any NaN values in it, the
+# next step is to decide what to do with them. In general we have two options,
+# we can either delete or replace the NaN values. In the following examples we
+# will show you how to do both.
+
+# We will start by learning how to eliminate rows or columns from our DataFrame
+# that contain any NaN values. The .dropna(axis) method eliminates any rows with
+# NaN values when axis = 0 is used and will eliminate any columns with NaN values
+# when axis = 1 is used. Let's see some examples
+
+# We drop any rows with NaN values
+store_items.dropna(axis = 0)
+
+#         | bikes | glasses | pants  | shirts  | shoes  | suits   | watches  |
+# --------|-------|---------|--------|---------|--------|---------|----------|
+# store 2 | 15	  | 50.0    |   5    |  2.0    |  5     |  7.0    |   10     |
+
+
+# We drop any columns with NaN values
+store_items.dropna(axis = 1)
+
+#         | bikes | pants  | shoes  | watches  |
+# --------|-------|--------|--------|----------|
+# store 1 | 20    |	  30   |  8     |   35     |
+# store 2 | 15	  |   5    |  5     |   10     |
+# store 3 | 20	  |   30   |  0     |   35     |
+
+# Notice that the .dropna() method eliminates (drops) the rows or columns with
+# NaN values out of place. This means that the original DataFrame is not modified.
+# You can always remove the desired rows or columns in place by setting the keyword
+# inplace = True inside the dropna() function.
+
+# Now, instead of eliminating NaN values, we can replace them with suitable values.
+# We could choose for example to replace all NaN values with the value 0. We can do
+# this by using the .fillna() method as shown below.
+
+# We replace all NaN values with 0
+store_items.fillna(0)
+
+#         | bikes | glasses | pants  | shirts  | shoes  | suits   | watches  |
+# --------|-------|---------|--------|---------|--------|---------|----------|
+# store 1 | 20    |	0.0     |   30   |  15.0   |  8     |  45.0   |   35     |
+# store 2 | 15	  | 50.0    |   5    |  2.0    |  5     |  7.0    |   10     |
+# store 3 | 20	  | 4.0     |   30   |  0.0    |  10    |  0.0    |   35     |
+
+# We can also use the .fillna() method to replace NaN values with previous values
+# in the DataFrame, this is known as forward filling. When replacing NaN values
+# with forward filling, we can use previous values taken from columns or rows.
+# The .fillna(method = 'ffill', axis) will use the forward filling (ffill) method
+# to replace NaN values using the previous known value along the given axis. Let's
+# see some examples:
+
+# We replace NaN values with the previous value in the column
+store_items.fillna(method = 'ffill', axis = 0)
+
+#         | bikes | glasses | pants  | shirts  | shoes  | suits   | watches  |
+# --------|-------|---------|--------|---------|--------|---------|----------|
+# store 1 | 20    |	0.0     |   30   |  15.0   |  8     |  45.0   |   35     |
+# store 2 | 15	  | 50.0    |   5    |  2.0    |  5     |  7.0    |   10     |
+# store 3 | 20	  | 4.0     |   30   |  NaN    |  10    |  NaN    |   35     |
+
+# Notice that the two NaN values in store 3 have been replaced with previous
+# values in their columns. However, notice that the NaN value in store 1 didn't
+# get replaced. That's because there are no previous values in this column, since
+# the NaN value is the first value in that column. However, if we do forward fill
+# using the previous row values, this won't happen. Let's take a look:
+
+# We replace NaN values with the previous value in the row
+store_items.fillna(method = 'ffill', axis = 1)
+
+#         | bikes | glasses | pants    | shirts  | shoes    | suits   | watches  |
+# --------|-------|---------|----------|---------|----------|---------|----------|
+# store 1 | 20.0  |	20.0    |   30.0   |  15.0   |  8.0     |  45.0   |   35.0   |
+# store 2 | 15.0  | 50.0    |   5.0    |  2.0    |  5.0     |  7.0    |   10.0   |
+# store 3 | 20.0  | 4.0     |   30.0   |  30.0   |  10.0    |  7.0    |   35.0   |
+
+# We see that in this case all the NaN values have been replaced with the previous row values.
+
+# Similarly, you can choose to replace the NaN values with the values that go
+# after them in the DataFrame, this is known as backward filling. The
+# .fillna(method = 'backfill', axis) will use the backward filling (backfill)
+# method to replace NaN values using the next known value along the given axis.
+# Just like with forward filling we can choose to use row or column values. Let's
+# see some examples:
+
+# We replace NaN values with the next value in the column
+store_items.fillna(method = 'backfill', axis = 0)
+
+
+#         | bikes | glasses | pants  | shirts  | shoes  | suits   | watches  |
+# --------|-------|---------|--------|---------|--------|---------|----------|
+# store 1 | 20    |	50.0    |   30   |  15.0   |  8     |  45.0   |   35     |
+# store 2 | 15	  | 50.0    |   5    |  2.0    |  5     |  7.0    |   10     |
+# store 3 | 20	  | 4.0     |   30   |  NaN    |  10    |  NaN    |   35     |
+
+
+# Notice that the NaN value in store 1 has been replaced with the next value in
+# its column. However, notice that the two NaN values in store 3 didn't get replaced.
+# That's because there are no next values in these columns, since these NaN values are
+# the last values in those columns. However, if we do backward fill using the next
+# row values, this won't happen. Let's take a look:
+
+# We replace NaN values with the next value in the row
+store_items.fillna(method = 'backfill', axis = 1)
+
+#         | bikes | glasses | pants  | shirts  | shoes  | suits   | watches  |
+# --------|-------|---------|--------|---------|--------|---------|----------|
+# store 1 | 20.0  |	50.0    |   30.0 |  15.0   |  8.0   |  45.0   |   35.0   |
+# store 2 | 15.0  | 50.0    |   5.0  |  2.0    |  5.0   |  7.0    |   10.0   |
+# store 3 | 20.0  | 4.0     |   30.0 |  10.0   |  10.0  |  35.0   |   35.0   |
+
+# Notice that the .fillna() method replaces (fills) the NaN values out of place.
+# This means that the original DataFrame is not modified. You can always replace
+# the NaN values in place by setting the keyword inplace = True inside the fillna() function.
+
+# We can also choose to replace NaN values by using different interpolation methods.
+# For example, the .interpolate(method = 'linear', axis) method will use linear
+# interpolation to replace NaN values using the values along the given axis. Let's
+# see some examples:
+
+# We replace NaN values by using linear interpolation using column values
+store_items.interpolate(method = 'linear', axis = 0)
+
+#         | bikes | glasses | pants  | shirts  | shoes  | suits   | watches  |
+# --------|-------|---------|--------|---------|--------|---------|----------|
+# store 1 | 20    |	NaN     |   30   |  15.0   |  8     |  45.0   |   35     |
+# store 2 | 15	  | 50.0    |   5    |  2.0    |  5     |  7.0    |   10     |
+# store 3 | 20	  | 4.0     |   30   |  2.0    |  10    |  7.0    |   35     |
+
+
+# Notice that the two NaN values in store 3 have been replaced with linear
+# interpolated values. However, notice that the NaN value in store 1 didn't get
+# replaced. That's because the NaN value is the first value in that column, and
+# since there is no data before it, the interpolation function can't calculate
+# a value. Now, let's interpolate using row values instead:
+
+# We replace NaN values by using linear interpolation using row values
+
+store_items.interpolate(method = 'linear', axis = 1)
+
+#         | bikes | glasses | pants  | shirts  | shoes  | suits   | watches  |
+# --------|-------|---------|--------|---------|--------|---------|----------|
+# store 1 | 20.0  |	25.0    |   30.0 |  15.0   |  8.0   |  45.0   |   35.0   |
+# store 2 | 15.0  | 50.0    |   5.0  |  2.0    |  5.0   |  7.0    |   10.0   |
+# store 3 | 20.0  | 4.0     |   30.0 |  20.0   |  10.0  |  22.5   |   35.0   |
+
+
+# Just as with the other methods we saw, the .interpolate() method replaces NaN
+# values out of place.
+
+import pandas as pd
+import numpy as np
+
+# Since we will be working with ratings, we will set the precision of our
+# dataframes to one decimal place.
+pd.set_option('precision', 1)
+
+# Create a Pandas DataFrame that contains the ratings some users have given to a
+# series of books. The ratings given are in the range from 1 to 5, with 5 being
+# the best score. The names of the books, the authors, and the ratings of each user
+# are given below:
+
+books = pd.Series(data = ['Great Expectations', 'Of Mice and Men', 'Romeo and Juliet', 'The Time Machine', 'Alice in Wonderland' ])
+authors = pd.Series(data = ['Charles Dickens', 'John Steinbeck', 'William Shakespeare', ' H. G. Wells', 'Lewis Carroll' ])
+
+user_1 = pd.Series(data = [3.2, np.nan ,2.5])
+user_2 = pd.Series(data = [5., 1.3, 4.0, 3.8])
+user_3 = pd.Series(data = [2.0, 2.3, np.nan, 4])
+user_4 = pd.Series(data = [4, 3.5, 4, 5, 4.2])
+
+# Users that have np.nan values means that the user has not yet rated that book.
+# Use the data above to create a Pandas DataFrame that has the following column
+# labels: 'Author', 'Book Title', 'User 1', 'User 2', 'User 3', 'User 4'. Let Pandas
+# automatically assign numerical row indices to the DataFrame.
+
+# Create a dictionary with the data given above
+dat = {'Book Title' : books,
+       'Author' : authors,
+       'User 1' : user_1,
+       'User 2' : user_2,
+       'User 3' : user_3,
+       'User 4' : user_4}
+
+# Use the dictionary to create a Pandas DataFrame
+book_ratings = pd.DataFrame(dat)
+
+# If you created the dictionary correctly you should have a Pandas DataFrame
+# that has column labels: 'Author', 'Book Title', 'User 1', 'User 2', 'User 3',
+# 'User 4' and row indices 0 through 4.
+
+print(book_ratings)
+print()
+
+# Now replace all the NaN values in your DataFrame with the average rating in
+# each column. Replace the NaN values in place. HINT: you can use the fillna()
+# function with the keyword inplace = True, to do this. Write your code below:
+
+book_ratings.fillna(book_ratings.mean(), inplace = True)
+print(book_ratings)
+print()
+
+# From the DataFrame above you can now pick all the books that had a rating of 5.
+# You can do this in just one line of code. Try to do it yourself first, you'll
+# find the answer below:
+
+best_rated = book_ratings[(book_ratings == 5).any(axis = 1)]['Book Title'].values
+
+# The code above returns a NumPy ndarray that only contains the names of the books
+# that had a rating of 5.
+
+print(best_rated)
+
+
+
+# Loading Data into a Pandas DataFrame
+
+# In machine learning you will most likely use databases from many sources to
+# train your learning algorithms. Pandas allows us to load databases of different
+# formats into DataFrames. One of the most popular data formats used to store
+# databases is csv. CSV stands for Comma Separated Values and offers a simple
+# format to store data. We can load CSV files into Pandas DataFrames using the
+# pd.read_csv() function. Let's load Google stock data into a Pandas DataFrame.
+# The GOOG.csv file contains Google stock data from 8/19/2004 till 10/13/2017
+# taken from Yahoo Finance.
+
+# We load Google stock data in a DataFrame
+Google_stock = pd.read_csv('./GOOG.csv')
+
+# We print some information about Google_stock
+print('Google_stock is of type:', type(Google_stock))
+print('Google_stock has shape:', Google_stock.shape)
+
+# Google_stock is of type: class 'pandas.core.frame.DataFrame'
+# Google_stock has shape: (3313, 7)
+
+# We see that we have loaded the GOOG.csv file into a Pandas DataFrame and it
+# consists of 3,313 rows and 7 columns. Now let's look at the stock data
+
+Google_stock
+
+#      | Dat        | Open	    |   High	 |    Low	  |    Close   |	Adj Close |	Volume
+# -----|------------|-----------|------------|------------|------------|--------------|----------
+#  0   | 2004-08-19	| 49.676899	| 51.693783	 | 47.669952  |	49.845802  | 49.845802    |	44994500
+#  1   | 2004-08-20	| 50.178635	| 54.187561	 | 49.925285  |	53.805050  | 53.805050    |	23005800
+#  2   | 2004-08-23	| 55.017166	| 56.373344	 | 54.172661  |	54.346527  | 54.346527    |	18393200
+# ... ...
+# 3311 | 2017-10-12	|987.450012 | 994.119995 | 985.000000 | 987.830017 | 987.830017	  | 1262400
+# 3312 | 2017-10-13	|992.000000	| 997.210022 | 989.000000 |	989.679993 | 989.679993	  | 1157700
+#
+# 3313 rows × 7 columns
+
+# We see that it is quite a large dataset and that Pandas has automatically assigned
+# numerical row indices to the DataFrame. Pandas also used the labels that appear in
+# the data in the CSV file to assign the column labels.
+
+# When dealing with large datasets like this one, it is often useful just to take
+# a look at the first few rows of data instead of the whole dataset. We can take a
+# look at the first 5 rows of data using the .head() method, as shown below
+
+Google_stock.head()
+
+#   |     Date  | Open     |   	High	|    Low    | Close     | Adj Close	| Volume
+# --|-----------|----------|------------|-----------|-----------|-----------|--------
+# 0	|2004-08-19	|49.676899 |51.693783	|47.669952	|49.845802	|49.845802	|44994500
+# 1	|2004-08-20	|50.178635 |54.187561	|49.925285	|53.805050	|53.805050	|23005800
+# 2	|2004-08-23	|55.017166 |56.373344	|54.172661	|54.346527	|54.346527	|18393200
+# 3	|2004-08-24	|55.260582 |55.439419	|51.450363	|52.096165	|52.096165	|15361800
+# 4	|2004-08-25	|52.140873 |53.651051	|51.604362	|52.657513	|52.657513	|9257400
+
+# We can also take a look at the last 5 rows of data by using the .tail() method:
+
+Google_stock.tail()
+
+#       | Date	    | Open      |	High	| Low       |	Close	|Adj Close	|Volume
+#  3308	|2017-10-09	|980.000000	|985.424988	|976.109985	|977.000000	|977.000000	|891400
+#  3309	|2017-10-10	|980.000000	|981.570007	|966.080017	|972.599976	|972.599976	|968400
+#  3310	|2017-10-11	|973.719971	|990.710022	|972.250000	|989.250000	|989.250000	|1693300
+#  3311	|2017-10-12	|987.450012	|994.119995	|985.000000	|987.830017	|987.830017	|1262400
+#  3312	|2017-10-13	|992.000000	|997.210022	|989.000000	|989.679993	|989.679993	|1157700
+
+# We can also optionally use .head(N) or .tail(N) to display the first and last N rows of
+# data, respectively.
+
+# Let's do a quick check to see whether we have any NaN values in our dataset. To do
+# this, we will use the .isnull() method followed by the .any() method to check whether
+# any of the columns contain NaN values.
+
+Google_stock.isnull().any()
+
+# Date           False
+# Open           False
+# High           False
+# Low            False
+# Close          False
+# Adj Close      False
+# Volume         False
+# dtype: bool
+
+# We see that we have no NaN values.
+
+# When dealing with large datasets, it is often useful to get statistical information
+# from them. Pandas provides the .describe() method to get descriptive statistics on
+# each column of the DataFrame. Let's see how this works:
+
+# We get descriptive statistics on our stock data
+Google_stock.describe()
+
+#         | Open        | High	        | Low	    | Close        |Adj Close	\  Volume
+#  -------|-------------|---------------|-----------|--------------|------------|------------
+#  count  |3313.000000	|3313.000000	3313.000000	|3313.000000   |3313.000000	|3.313000e+03
+#  mean	  |380.186092	|383.493740	    376.519309	|380.072458	   |380.072458	|8.038476e+06
+#  std	  |223.818650	|224.974534	    222.473232	|223.853780	   |223.853780	|8.399521e+06
+#  min	  |49.274517	|50.541279	    47.669952	|49.681866	   |49.681866	|7.900000e+03
+#  25%	  |226.556473	|228.394516	    224.003082	|226.407440	   |226.407440	|2.584900e+06
+#  50%	  |293.312286	|295.433502	    289.929291	|293.029114	   |293.029114	|5.281300e+06
+#  75%	  |536.650024	|540.000000	    532.409973	|536.690002	   |536.690002	|1.065370e+07
+#  max	  |992.000000	|997.210022	    989.000000	|989.679993	   |989.679993	|8.276810e+07
+
+# If desired, we can apply the .describe() method on a single column as shown below:
+
+# We get descriptive statistics on a single column of our DataFrame
+Google_stock['Adj Close'].describe()
+
+# count         3313.000000
+# mean          380.072458
+# std           223.853780
+# min           49.681866
+# 25%           226.407440
+# 50%           293.029114
+# 75%           536.690002
+# max           989.679993
+# Name: Adj Close, dtype: float64
+
+# Similarly, you can also look at one statistic by using one of the many
+# statistical functions Pandas provides. Let's look at some examples:
+
+# We print information about our DataFrame
+print()
+print('Maximum values of each column:\n', Google_stock.max())
+print()
+print('Minimum Close value:', Google_stock['Close'].min())
+print()
+print('Average value of each column:\n', Google_stock.mean())
+
+# Maximum values of each column:
+# Date          2017-10-13
+# Open          992
+# High          997.21
+# Low           989
+# Close         989.68
+# Adj Close     989.68
+# Volume        82768100
+# dtype: object
+
+# Minimum Close value: 49.681866
+
+# Average value of each column:
+# Open          3.801861e+02
+# High          3.834937e+02
+# Low           3.765193e+02
+# Close         3.800725e+02
+# Adj Close     3.800725e+02
+# Volume        8.038476e+06
+# dtype: float64
+
+# Another important statistical measure is data correlation. Data correlation
+# can tell us, for example, if the data in different columns are correlated. We
+# can use the .corr() method to get the correlation between different columns, as shown below:
+
+# We display the correlation between columns
+Google_stock.corr()
+
+#            | Open	    | High	    |   Low	     |   Close	  | Adj Close | Volume
+# -----------|----------|-----------|------------|------------|-----------|-----------
+#  Open	     | 1.000000	| 0.999904	|  0.999845	 |  0.999745  |	0.999745  |	-0.564258
+#  High	     | 0.999904	| 1.000000	|  0.999834	 |  0.999868  |	0.999868  |	-0.562749
+#  Low       | 0.999845	| 0.999834	|  1.000000	 |  0.999899  |	0.999899  |	-0.567007
+#  Close     | 0.999745	| 0.999868	|  0.999899	 |  1.000000  |	1.000000  |	-0.564967
+#  Adj Close | 0.999745	| 0.999868	|  0.999899	 |  1.000000  |	1.000000  |	-0.564967
+#  Volume    |-0.564258 |-0.562749  | -0.567007  | -0.564967  |-0.564967  |	 1.000000
+
+# A correlation value of 1 tells us there is a high correlation and a correlation
+# of 0 tells us that the data is not correlated at all.
+
+# We will end this Introduction to Pandas by taking a look at the .groupby() method.
+# The .groupby() method allows us to group data in different ways. Let's see how we
+# can group data to get different types of information. For the next examples we
+# are going to load fake data about a fictitious company.
+
+# We load fake Company data in a DataFrame
+data = pd.read_csv('./fake_company.csv')
+data
+
+#       |Year	|Name	 |Department   |Age	  |Salary
+#  -----|-------|--------|-------------|------|-------
+#  0	|1990	|Alice	 |  HR	       |  25  |	50000
+#  1	|1990	|Bob	 |  RD	       |  30  |	48000
+#  2	|1990	|Charlie |	Admin	   |  45  |	55000
+#  3	|1991	|Alice	 |  HR	       |  26  |	52000
+#  4	|1991	|Bob	 |  RD	       |  31  |	50000
+#  5	|1991	|Charlie |	Admin	   |  46  |	60000
+#  6	|1992	|Alice	 |  Admin	   |  27  |	60000
+#  7	|1992	|Bob	 |  RD	       |  32  |	52000
+#  8	|1992	|Charlie |	Admin	   |  28  |	62000
+
+# We see that the data contains information for the year 1990 through 1992.
+# For each year we see name of the employees, the department they work for,
+# their age, and their annual salary. Now, let's use the .groupby() method to get
+# information.
+
+# Let's calculate how much money the company spent in salaries each year. To do
+# this, we will group the data by Year using the .groupby() method and then we
+# will add up the salaries of all the employees by using the .sum() method.
+
+# We display the total amount of money spent in salaries each year
+data.groupby(['Year'])['Salary'].sum()
+
+# Year
+# 1990     153000
+# 1991     162000
+# 1992     174000
+# Name: Salary, dtype: int64
+
+# We see that the company spent a total of 153,000 dollars in 1990, 162,000
+# in 1991, and 174,000 in 1992.
+
+# Now, let's suppose I want to know what was the average salary for each year.
+# In this case, we will group the data by Year using the .groupby() method, just
+# as we did before, and then we use the .mean() method to get the average salary.
+# Let's see how this works
+
+# We display the average salary per year
+data.groupby(['Year'])['Salary'].mean()
+
+# Year
+# 1990     51000
+# 1991     54000
+# 1992     58000
+# Name: Salary, dtype: int64
+
+# We see that the average salary in 1990 was 51,000 dollars, 54,000 in 1991,
+# and 58,000 in 1992.
+
+# Now let's see how much did each employee get paid in those three years. In this
+# case, we will group the data by Name using the .groupby() method and then we will
+# add up the salaries for each year. Let's see the result
+
+# We display the total salary each employee received in all the years they worked for the company
+
+data.groupby(['Name'])['Salary'].sum()
+
+#  Name
+#  Alice       162000
+#  Bob         150000
+#  Charlie     177000
+#  Name: Salary, dtype: int64
+
+# We see that Alice received a total of 162,000 dollars in the three years she
+# worked for the company, Bob received 150,000, and Charlie received 177,000.
+
+# Now let's see what was the salary distribution per department per year. In this
+# case we will group the data by Year and by Department using the .groupby()
+# method and then we will add up the salaries for each department. Let's see the result
+
+# We display the salary distribution per department per year.
+data.groupby(['Year', 'Department'])['Salary'].sum()
+
+# Year     Department
+# 1990     Admin         55000
+#          HR            50000
+#          RD            48000
+# 1991     Admin         60000
+#          HR            52000
+#          RD            50000
+# 1992     Admin        122000
+#          RD            52000
+# Name: Salary, dtype: int64
+
+# We see that in 1990 the Admin department paid 55,000 dollars in salaries,the
+# HR department paid 50,000, and the RD department 48,0000. While in 1992 the Admin
+# department paid 122,000 dollars in salaries and the RD department paid 52,000.
+
+# Supporting Materials
+#  GOOG.csv
+#  https://s3.amazonaws.com/video.udacity-data.com/topher/2018/May/5b08e099_goog-1/goog-1.csv
